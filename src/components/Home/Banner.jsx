@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 
+import GetCategories from "./Services/GetCatergoris";
+
 export default function Banner({ className }) {
   return (
     <>
+      {GetCategories}
+      {/*<GetCatergoris/>*/}
       <div className={`w-full ${className || ""}`}>
         <div className="container-x mx-auto">
           <div className="main-wrapper w-full">
