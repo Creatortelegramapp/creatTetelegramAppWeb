@@ -5,7 +5,6 @@ import SimpleSlider from "../Helpers/SliderCom";
 
 export default function Banner({ className }) {
 
-
   const sliderRef = useRef(null);
   const settings = {
     infinite: true,
@@ -22,8 +21,6 @@ export default function Banner({ className }) {
       },
     ],
   };
-
-
   return (
     <>
       <div
