@@ -1,13 +1,8 @@
 import { Link } from "react-router-dom";
-import { getCategoryById, getProductById } from "../../Services/HttpServices/CategoriesHttpService";
-import { useEffect } from "react";
 
+// eslint-disable-next-line react/prop-types
 export default function Banner({ className }) {
 
-  useEffect(()=>{
-    getCategoryById()
-    getProductById()
-  }, [])
 
   return (
     <>
