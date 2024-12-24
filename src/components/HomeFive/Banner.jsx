@@ -2,7 +2,9 @@ import { Link } from "react-router-dom";
 import { useRef } from "react";
 import SimpleSlider from "../Helpers/SliderCom";
 
+
 export default function Banner({ className }) {
+
   const sliderRef = useRef(null);
   const settings = {
     infinite: true,
