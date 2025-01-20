@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Arrow from "../../../Helpers/icons/Arrow";
 
+// eslint-disable-next-line react/prop-types
 export default function Navbar({ className, type }) {
   const [categoryToggle, setToggle] = useState(false);
   const [elementsSize, setSize] = useState("0px");
@@ -55,7 +56,7 @@ export default function Navbar({ className, type }) {
                       </svg>
                     </span>
                     <span className="text-sm font-600 text-qblacktext">
-                      All Categories
+                      Տեսականի
                     </span>
                   </div>
                   <div>
