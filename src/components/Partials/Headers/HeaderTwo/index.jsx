@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import ThinBag from "../../../Helpers/icons/ThinBag";
 import Middlebar from "./Middlebar";
 import Navbar from "./Navbar";
-import TopBar from "./TopBar";
+
 
 export default function HeaderTwo({ className, drawerAction }) {
   return (
