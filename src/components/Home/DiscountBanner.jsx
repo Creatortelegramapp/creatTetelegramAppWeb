@@ -215,11 +215,11 @@ export default function DiscountBanner({ className, type }) {
         <div>
           <div data-aos="fade-up">
             <h1 className="sm:text-3xl text-xl font-700 text-qblack mb-2 text-center">
-              Get <span className="mx-1 text-qyellow">20%</span> Off Discount
-              Coupon
+              Ստացեք <span className="mx-1 text-qyellow">20%</span> Զեղչի
+              Կտրոն
             </h1>
             <p className="text-center sm:text-[18px] text-sm font-400">
-              by Subscribe our Newsletter
+                Բաժանորդագրվելով մեր տեղեկագրին
             </p>
           </div>
           <div
@@ -255,14 +255,14 @@ export default function DiscountBanner({ className, type }) {
                 type="email"
                 name="email"
                 className="w-full h-full focus:outline-none text-sm placeholder:text-xs placeholder:text-qblack text-qblack font-400 tracking-wider"
-                placeholder="EMAIL ADDRESS"
+                placeholder="Էլ․ Հասցե"
               />
             </div>
             <button
               type="button"
               className="sm:w-[158px] w-[80px]  h-full bg-qyellow text-sm font-600"
             >
-              Get the Coupon
+              Ստացեք Կտրոն
             </button>
           </div>
         </div>

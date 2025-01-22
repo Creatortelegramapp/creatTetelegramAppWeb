@@ -34,7 +34,7 @@ export default function CampaignCountDown({
                         </span>
                       </div>
                       <p className="sm:text-[18px] text-[12px] font-500 text-center leading-8">
-                        Days
+                        Օր
                       </p>
                     </div>
                     <div className="countdown-item">
@@ -44,7 +44,7 @@ export default function CampaignCountDown({
                         </span>
                       </div>
                       <p className="sm:text-[18px] text-[12px] font-500 text-center leading-8">
-                        Hours
+                        Ժամ
                       </p>
                     </div>
                     <div className="countdown-item">
@@ -54,7 +54,7 @@ export default function CampaignCountDown({
                         </span>
                       </div>
                       <p className="sm:text-[18px] text-[12px] font-500 text-center leading-8">
-                        Minutes
+                        Րոպե
                       </p>
                     </div>
                     <div className="countdown-item">
@@ -64,18 +64,18 @@ export default function CampaignCountDown({
                         </span>
                       </div>
                       <p className="sm:text-[18px] text-[12px] font-500 text-center leading-8">
-                        Seconds
+                        Վայրկյան
                       </p>
                     </div>
                   </div>
                   <div className="countdown-title mb-4">
                     <h1 className="text-[44px] text-qblack font-600">
-                      WOO! Flash Sale
+                      ՎԱՈՒ! Ֆլեշ Վաճառք
                     </h1>
                   </div>
                   <div className="inline-flex space-x-2 items-center border-b border-qyellow">
                     <span className="text-sm font-600 tracking-wide leading-7">
-                      Shop Now
+                      Գնիր հիմա
                     </span>
                     <span>
                       <svg
@@ -123,14 +123,14 @@ export default function CampaignCountDown({
               <div className="flex flex-col h-full justify-between">
                 <div className="get-app">
                   <p className="text-[13px] font-600 text-qblack mb-3">
-                    MOBILE APP VERSION
+                    TELEGRAM հավելվածի տարբերակ
                   </p>
                   <h1 className="text-[30px] font-600 text-qblack leading-10 mb-8">
-                    Get Our
+                    Ստացեք մեր
                     <span className="text-qred border-b-2 border-qred mx-2">
-                      Mobile App
+                        Telegram հավելվածը
                     </span>
-                    <br /> It’s Make easy for you life !
+                    <br /> Դա կհեշտացնում է ձեզ կյանքը:
                   </h1>
                   <div className="flex space-x-5 items-center">
                     <div>

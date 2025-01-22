@@ -102,10 +102,10 @@ export default function Banner({className}) {
                   </div>
                   <div>
                     <p className="text-black text-[15px] font-700 tracking-wide mb-1">
-                      Free Shipping
+                      Անվճար առաքում
                     </p>
                     <p className="text-sm text-qgray">
-                      When ordering over $100
+                      $100-ից ավել պատվիրելիս
                     </p>
                   </div>
                 </div>
@@ -139,10 +139,10 @@ export default function Banner({className}) {
                   </div>
                   <div>
                     <p className="text-black text-[15px] font-700 tracking-wide mb-1">
-                      Free Return
+                      Անվճար վերադարձ
                     </p>
                     <p className="text-sm text-qgray">
-                      Get Return within 30 days
+                      Ստացեք վերադարձ 30 օրվա ընթացքում
                     </p>
                   </div>
                 </div>
@@ -184,10 +184,10 @@ export default function Banner({className}) {
                   </div>
                   <div>
                     <p className="text-black text-[15px] font-700 tracking-wide mb-1">
-                      Secure Payment
+                      Ապահով վճարում
                     </p>
                     <p className="text-sm text-qgray">
-                      100% Secure Online Payment
+                      100% անվտանգ առցանց վճարում
                     </p>
                   </div>
                 </div>
@@ -240,10 +240,10 @@ export default function Banner({className}) {
                   </div>
                   <div>
                     <p className="text-black text-[15px] font-700 tracking-wide mb-1">
-                      Best Quality
+                      Լավագույն որակ
                     </p>
                     <p className="text-sm text-qgray">
-                      Original Product Guarenteed
+                      Օրիգինալ ապրանքի երաշխիք
                     </p>
                   </div>
                 </div>

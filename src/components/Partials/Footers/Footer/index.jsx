@@ -38,37 +38,37 @@ export default function Footer({ type }) {
         </div>
         <div className="lg:flex justify-between mb-[50px]">
           <div className="lg:w-[424px]  ml-0 w-full mb-10 lg:mb-0">
-            <h1 className="text-[18] font-500 text-[#2F2F2F] mb-5">About Us</h1>
+            <h1 className="text-[18] font-500 text-[#2F2F2F] mb-5">Մեր մասին</h1>
             <p className="text-[#9A9A9A] text-[15px] w-[247px] leading-[28px]">
-              We know there are a lot of threa developers our but we pride into
-              a firm in the industry.
+              Մենք գիտենք, որ կան բազմաթիվ ծրագրավորողներ, բայց մենք հպարտանում ենք
+              ոլորտում գործող ընկերությամբ:
             </p>
           </div>
           <div className="flex-1 lg:flex">
             <div className="lg:w-1/3 w-full mb-10 lg:mb-0">
               <div className="mb-5">
-                <h6 className="text-[18] font-500 text-[#2F2F2F]">Feature</h6>
+                <h6 className="text-[18] font-500 text-[#2F2F2F]">Առանձնահատկություն</h6>
               </div>
               <div>
                 <ul className="flex flex-col space-y-4 ">
                   <li>
                     <Link to="/about">
                       <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                        About Us
+                        Մեր մասին
                       </span>
                     </Link>
                   </li>
                   <li>
                     <Link to="/terms-condition">
                       <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                        Terms Condition
+                        Պայմաններ
                       </span>
                     </Link>
                   </li>
                   <li>
                     <Link to="/all-products">
                       <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                        Best Products
+                        Լավագույն Ապրանքներ
                       </span>
                     </Link>
                   </li>
@@ -79,7 +79,7 @@ export default function Footer({ type }) {
               <div>
                 <div className="mb-5">
                   <h6 className="text-[18] font-500 text-[#2F2F2F]">
-                    General Links
+                    Ընդհանուր հղումներ
                   </h6>
                 </div>
                 <div>
@@ -87,21 +87,21 @@ export default function Footer({ type }) {
                     <li>
                       <Link to="/blogs">
                         <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                          Blog
+                          Բլոգ
                         </span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/tracking-order">
                         <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                          Tracking Order
+                          Հետևել պատվերը
                         </span>
                       </Link>
                     </li>
                     <li>
                       <Link to="/become-saller">
                         <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                          Become Seller
+                          Դարձիր վաճառող
                         </span>
                       </Link>
                     </li>
@@ -112,14 +112,14 @@ export default function Footer({ type }) {
             <div className="lg:w-1/3 lg:flex lg:flex-col items-center w-full mb-10 lg:mb-0">
               <div>
                 <div className="mb-5">
-                  <h6 className="text-[18] font-500 text-[#2F2F2F]">Helpful</h6>
+                  <h6 className="text-[18] font-500 text-[#2F2F2F]">Օգտակար</h6>
                 </div>
                 <div>
                   <ul className="flex flex-col space-y-4 ">
                     <li>
                       <Link to="/flash-sale">
                         <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                          Flash Sale
+                          Ֆլեշ Վաճառք
                         </span>
                       </Link>
                     </li>
@@ -133,7 +133,7 @@ export default function Footer({ type }) {
                     <li>
                       <Link to="/about">
                         <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                          Support
+                          Աջակցություն
                         </span>
                       </Link>
                     </li>
@@ -166,7 +166,7 @@ export default function Footer({ type }) {
               >
                 Quomodosoft
               </a>
-              All rights reserved
+              Բոլոր իրավունքները պաշտպանված են
             </span>
           </div>
           <div className="">

@@ -36,13 +36,13 @@ export default function Home() {
         <SectionStyleOne
           products={products}
           brands={brands}
-          categoryTitle="Mobile & Tablet"
-          sectionTitle="Gamer World"
+          categoryTitle="Բջջային և պլանշետ"
+          sectionTitle="Խաղացողի աշխարհ"
           seeMoreUrl="/all-products"
           className="category-products mb-[60px]"
         />
         <BrandSection
-          sectionTitle="Shop by Brand"
+          sectionTitle="Գնումներ կատարել ըստ ապրանքանիշի"
           className="brand-section-wrapper mb-[60px]"
         />
         <CampaignCountDown
@@ -52,14 +52,14 @@ export default function Home() {
         <ViewMoreTitle
           className="top-selling-product mb-[60px]"
           seeMoreUrl="/all-products"
-          categoryTitle="Top Selling Products"
+          categoryTitle="Ամենավաճառվող ապրանքներ"
         >
           <SectionStyleTwo products={products.slice(3, products.length)} />
         </ViewMoreTitle>
         <ViewMoreTitle
           className="best-sallers-section mb-[60px]"
           seeMoreUrl="/sallers"
-          categoryTitle="Best Saller"
+          categoryTitle="Լավագույն վաճառողներ"
         >
           <BestSellers />
         </ViewMoreTitle>
@@ -77,8 +77,8 @@ export default function Home() {
           }/assets/images/section-category-2.jpg`}
           products={products.slice(4, products.length)}
           brands={brands}
-          categoryTitle="Electronics"
-          sectionTitle="Popular Sales"
+          categoryTitle="Էլեկտրոնիկա"
+          sectionTitle="Հայտնի վաճառքներ"
           seeMoreUrl="/all-products"
           className="category-products mb-[60px]"
         />
@@ -88,7 +88,7 @@ export default function Home() {
         />
         <SectionStyleThree
           products={products}
-          sectionTitle="New Arrivals"
+          sectionTitle="Նոր ժամանումներ"
           seeMoreUrl="/all-products"
           className="new-products mb-[60px]"
         />
@@ -99,7 +99,7 @@ export default function Home() {
         />
         <SectionStyleFour
           products={products}
-          sectionTitle="Popular Sales"
+          sectionTitle="Հայտնի վաճառքներ"
           seeMoreUrl="/all-products"
           className="category-products mb-[60px]"
         />
