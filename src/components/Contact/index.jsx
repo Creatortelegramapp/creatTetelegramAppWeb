@@ -1,8 +1,21 @@
 import InputCom from "../Helpers/InputCom";
 import PageTitle from "../Helpers/PageTitle";
 import Layout from "../Partials/Layout";
+import {getContacts} from "../../Services/HttpServices/ContactsHttpServices.js";
+import {useEffect, useState} from "react";
+import {environment} from "../../environment.dev.js";
+
 
 export default function Contact() {
+  const [contactsData,setContactsData] = useState([]);
+
+  useEffect(() => {
+    async function  getContactsData() {
+      const  response =   await getContacts(environment.appId);
+      setContactsData(response.data.data)
+    }
+    getContactsData();
+  }, []);
   return (
     <Layout childrenClasses="pt-0 pb-0">
       <div className="page-title mb-10">
@@ -58,10 +71,7 @@ export default function Contact() {
                     Phone
                   </p>
                   <p className="text-[15px] text-black leading-[30px] text-center">
-                    +(323) 9847 3847 383
-                  </p>
-                  <p className="text-[15px] text-black leading-[30px] text-center">
-                    +(434) 5466 5467 443
+                    {contactsData.phone}
                   </p>
                 </div>
                 <div className="xl:w-1/2 w-full h-[196px] flex flex-col item justify-center bg-[#D3EFFF] p-5">
@@ -105,49 +115,8 @@ export default function Contact() {
                     Email
                   </p>
                   <p className="text-[15px] text-black leading-[30px] text-center">
-                    Demoemail@gmail.com
+                    {contactsData.email}
                   </p>
-                  <p className="text-[15px] text-black leading-[30px] text-center">
-                    rafiqulislamsuvobd@gmail.com
-                  </p>
-                </div>
-              </div>
-              <div className="p-5 flex flex-col justify-between w-full bg-[#E7F2EC]">
-                <div className="flex space-x-5">
-                  <span>
-                    <svg
-                      width="44"
-                      height="44"
-                      viewBox="0 0 44 44"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13.836 18.3183L13.836 18.3193C13.8307 18.9893 14.1161 20.2514 14.7605 21.4272C16.8558 25.2502 18.9688 29.0636 21.0823 32.8778C21.3445 33.3511 21.6068 33.8244 21.869 34.2977L21.869 34.2978C21.9201 34.39 21.9645 34.4453 21.9956 34.4762C22.0272 34.4449 22.0724 34.3887 22.1244 34.2948L22.1245 34.2946C22.6706 33.3089 23.2174 32.3239 23.7641 31.339C25.5963 28.0383 27.4274 24.7399 29.2268 21.4241L13.836 18.3183ZM13.836 18.3183C13.8642 13.6208 16.7919 10.206 20.6315 9.6048C24.7202 8.96493 28.5519 11.3061 29.7792 15.2223L29.7792 15.2224M13.836 18.3183L29.7792 15.2224M29.7792 15.2224C30.451 17.3646 30.2918 19.4599 29.2268 21.4239L29.7792 15.2224ZM26.8314 17.6289L26.8314 17.629C26.8518 20.2773 24.6735 22.4741 22.0205 22.4843C19.3627 22.4945 17.185 20.3434 17.1611 17.6823L26.8314 17.6289ZM26.8314 17.6289C26.8098 14.9632 24.6389 12.824 21.9718 12.8353C19.3106 12.8466 17.1362 15.0295 17.1611 17.6821L26.8314 17.6289Z"
-                        fill="#FFBB38"
-                        stroke="#FFBB38"
-                      />
-                      <circle cx="22" cy="22" r="21.5" stroke="#FFBB38" />
-                    </svg>
-                  </span>
-                  <div>
-                    <h1 className="text-[22px] font-semibold text-qblack leading-[30px] mb-2">
-                      Address
-                    </h1>
-                    <p className="text-[15px] text-qblack leading-[30px]">
-                      4517 Washington Ave. Manchester, Road 2342, <br />
-                      Kentucky 39495
-                    </p>
-                  </div>
-                </div>
-                <div className="w-full h-[206px] mt-5">
-                  <iframe
-                    title="newWork"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.94539481518!2d-74.26675559025064!3d40.69739290398433!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1656755618576!5m2!1sen!2sbd"
-                    style={{ border: "0", width: "100%", height: "100%" }}
-                    allowFullScreen=""
-                    loading="lazy"
-                  ></iframe>
                 </div>
               </div>
             </div>
@@ -177,7 +146,7 @@ export default function Contact() {
                 <div className="mb-4">
                   <InputCom
                     label="Frist Name*"
-                    placeholder="Demo Name"
+                    placeholder={contactsData.name}
                     name="first_name"
                     inputClasses="h-[50px]"
                   />
@@ -185,28 +154,12 @@ export default function Contact() {
                 <div className="mb-4">
                   <InputCom
                     label="Email Address*"
-                    placeholder="info@quomodosoft.com"
+                    placeholder={contactsData.address}
                     name="email"
                     inputClasses="h-[50px]"
                   />
                 </div>
-                <div className="mb-4">
-                  <InputCom
-                    label="Subject*"
-                    placeholder="Your Subject here"
-                    name="subject"
-                    inputClasses="h-[50px]"
-                  />
-                </div>
-                <div className="mb-5">
-                  <h6 className="input-label text-qgray capitalize text-[13px] font-normal block mb-2 ">
-                    Message*
-                  </h6>
-                  <textarea
-                    placeholder="Type your message here"
-                    className="w-full h-[105px] focus:ring-0 focus:outline-none p-3 border border-qgray-border placeholder:text-sm"
-                  ></textarea>
-                </div>
+
                 <div>
                   <a href="#">
                     <div className="black-btn text-sm font-semibold w-full h-[50px] flex justify-center items-center">

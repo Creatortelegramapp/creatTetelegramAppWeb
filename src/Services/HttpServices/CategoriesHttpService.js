@@ -1,15 +1,15 @@
 import {httpClient} from "../HttpClientService.js";
 
-export const getCategoryById = (categoryId) => {
+export const getCategoryById = async (categoryId) => {
     try {
-        return httpClient.get(`/category/${categoryId}`);
+        return await httpClient.get(`/category/${categoryId}`);
     } catch (error) {
         console.error('Error fetching category:', error);
     }
 }
-export const getProductByCategoryId  = (categoryId) => {
+export const getProductByCategoryId  = async (categoryId) => {
     try {
-        return  httpClient.get(`/category/product/${categoryId}`)
+        return await httpClient.get(`/category/product/${categoryId}`)
     } catch (error) {
         console.error('Error fetching category:', error);
     }
