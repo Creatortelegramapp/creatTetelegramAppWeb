@@ -65,8 +65,6 @@ export default function Profile() {
                       </Link>
                     </div>
                     <div className="item group">
-                    </div>
-                    <div className="item group">
                       <Link to="/profile#support">
                         <div className="flex space-x-3 items-center text-qgray hover:text-qblack">
                           <span>
