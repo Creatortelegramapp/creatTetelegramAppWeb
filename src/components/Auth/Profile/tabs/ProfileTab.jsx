@@ -59,8 +59,8 @@ export default function ProfileTab() {
           <div className="input-item mb-8">
             <div className="w-full">
               <InputCom
-                label="Username*"
-                placeholder="username"
+                label="Օգտանուն*"
+                placeholder="Օգտանուն"
                 type="text"
                 inputClasses="h-[50px]"
               />
@@ -146,7 +146,7 @@ export default function ProfileTab() {
           type="button"
           className="w-[164px] h-[50px] bg-qblack text-white text-sm"
         >
-          Թարմացնել անձնական էջը
+          Թարմացնել
         </button>
       </div>
     </>
