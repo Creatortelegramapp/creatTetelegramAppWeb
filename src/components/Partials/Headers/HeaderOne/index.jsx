@@ -3,7 +3,6 @@ import ThinBag from "../../../Helpers/icons/ThinBag";
 import Middlebar from "./Middlebar";
 import Navbar from "./Navbar";
 
-// eslint-disable-next-line react/prop-types
 export default function HeaderOne({ className, drawerAction, type = 1 }) {
   return (
     <header className={` ${className || ""} header-section-wrapper relative`}>
