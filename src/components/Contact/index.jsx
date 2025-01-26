@@ -119,55 +119,55 @@ export default function Contact() {
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="flex-1 bg-white sm:p-10 p-3">
-              <div className="title flex flex-col items-center">
-                <h1 className="text-[34px] font-bold text-qblack">
-                  Get In Touch
-                </h1>
-                <span className="-mt-5 block">
-                  <svg
-                    width="354"
-                    height="30"
-                    viewBox="0 0 354 30"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M1 28.8027C17.6508 20.3626 63.9476 8.17089 113.509 17.8802C166.729 28.3062 341.329 42.704 353 1"
-                      stroke="#FFBB38"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </span>
-              </div>
-              <div className="inputs mt-5">
-                <div className="mb-4">
-                  <InputCom
-                    label="Frist Name*"
-                    placeholder={contactsData.name}
-                    name="first_name"
-                    inputClasses="h-[50px]"
-                  />
-                </div>
-                <div className="mb-4">
-                  <InputCom
-                    label="Email Address*"
-                    placeholder={contactsData.address}
-                    name="email"
-                    inputClasses="h-[50px]"
-                  />
-                </div>
+            {/*</div>*/}
+            {/*<div className="flex-1 bg-white sm:p-10 p-3">*/}
+            {/*  <div className="title flex flex-col items-center">*/}
+            {/*    <h1 className="text-[34px] font-bold text-qblack">*/}
+            {/*      Get In Touch*/}
+            {/*    </h1>*/}
+            {/*    <span className="-mt-5 block">*/}
+            {/*      <svg*/}
+            {/*        width="354"*/}
+            {/*        height="30"*/}
+            {/*        viewBox="0 0 354 30"*/}
+            {/*        fill="none"*/}
+            {/*        xmlns="http://www.w3.org/2000/svg"*/}
+            {/*      >*/}
+            {/*        <path*/}
+            {/*          d="M1 28.8027C17.6508 20.3626 63.9476 8.17089 113.509 17.8802C166.729 28.3062 341.329 42.704 353 1"*/}
+            {/*          stroke="#FFBB38"*/}
+            {/*          strokeWidth="2"*/}
+            {/*          strokeLinecap="round"*/}
+            {/*        />*/}
+            {/*      </svg>*/}
+            {/*    </span>*/}
+            {/*  </div>*/}
+            {/*  /!*<div className="inputs mt-5">*!/*/}
+              {/*  <div className="mb-4">*/}
+              {/*    <InputCom*/}
+              {/*      label="Frist Name*"*/}
+              {/*      placeholder={contactsData.name}*/}
+              {/*      name="first_name"*/}
+              {/*      inputClasses="h-[50px]"*/}
+              {/*    />*/}
+              {/*  </div>*/}
+              {/*  <div className="mb-4">*/}
+              {/*    <InputCom*/}
+              {/*      label="Email Address*"*/}
+              {/*      placeholder={contactsData.address}*/}
+              {/*      name="email"*/}
+              {/*      inputClasses="h-[50px]"*/}
+              {/*    />*/}
+              {/*  </div>*/}
 
-                <div>
-                  <a href="#">
-                    <div className="black-btn text-sm font-semibold w-full h-[50px] flex justify-center items-center">
-                      <span>Send Now</span>
-                    </div>
-                  </a>
-                </div>
-              </div>
+              {/*  <div>*/}
+              {/*    <a href="#">*/}
+              {/*      <div className="black-btn text-sm font-semibold w-full h-[50px] flex justify-center items-center">*/}
+              {/*        <span>Send Now</span>*/}
+              {/*      </div>*/}
+              {/*    </a>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
             </div>
           </div>
         </div>
