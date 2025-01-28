@@ -1,6 +1,3 @@
-import blog from "../../data/blogs.json";
-import BlogCard from "../Helpers/Cards/BlogCard";
-import DataIteration from "../Helpers/DataIteration";
 import PageTitle from "../Helpers/PageTitle";
 import Layout from "../Partials/Layout";
 
