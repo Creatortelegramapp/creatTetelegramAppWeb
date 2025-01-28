@@ -1,6 +1,6 @@
-// import blog from "../../data/blogs.json";
-// import BlogCard from "../Helpers/Cards/BlogCard";
-// import DataIteration from "../Helpers/DataIteration";
+import blog from "../../data/blogs.json";
+import BlogCard from "../Helpers/Cards/BlogCard";
+import DataIteration from "../Helpers/DataIteration";
 import PageTitle from "../Helpers/PageTitle";
 import Layout from "../Partials/Layout";
 
@@ -15,8 +15,6 @@ export default function Blogs() {
         async function blogsResponse() {
             const response = await getBlogs(environment.appId);
             setBlogsData(response.data.data)
-            // console.log(blogsData)
-            // console.log(response.data)
         }
 
         blogsResponse();
@@ -35,15 +33,15 @@ export default function Blogs() {
                 </div>
             </div>
 
-            <div className="w-full py-[60px]">
+            <div className="w-full py-[60px] h-auto">
                 <div className="container-x mx-auto">
                     <div className="w-full">
-                        <div className="grid md:grid-cols-2 grid-cols-1 lg:gap-[30px] gap-5">
+                        <div className="grid md:grid-cols-2 grid-cols-1 lg:gap-[30px] ">
                             {blogsData.map((item, index) => (
-                                    <div className="img w-full h-[340px]"
+                                    <div className="w-full grid gap-5"
                                          key={index}>
-                                        <div>{item.title}</div>
-                                        <div className='w-full h-full bg-cover bg-no-repeat bg-center rounded-xl' style={{backgroundImage: `url(${item.image_url})`
+                                        <div className="w-full h-[50px}">{item.title}</div>
+                                        <div className='w-full h-[500px] bg-cover bg-no-repeat bg-center rounded-xl' style={{backgroundImage: `url(${item.image_url})`
                                         }} >
                                         </div>
                                         <div>{item.description}</div>

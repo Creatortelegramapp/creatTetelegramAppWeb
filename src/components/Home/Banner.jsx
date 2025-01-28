@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
 import {getTopProductById} from "../../Services/HttpServices/TopProductsHttpService.js";
 import {useEffect, useState} from "react";
+import Slider from "react-slick";
 
 export default function Banner({className}) {
 
