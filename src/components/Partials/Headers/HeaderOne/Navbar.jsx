@@ -89,7 +89,7 @@ export default function Navbar({ className, type }) {
                   className="category-dropdown w-full absolute left-0 top-[53px] overflow-hidden"
                   style={{ height: `${elementsSize} ` }}
                 >
-                  {categoryData.length && categoryToggle - (
+                  {categoryData.length && categoryToggle && (
                       <ul className='categories-list'>
                           {categoryData.map((item,index) => (
                               <li className="category-item"
