@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import { Link } from "react-router-dom";
-// import BlogCard from "../Helpers/Cards/BlogCard";
+import BlogCard from "../Helpers/Cards/BlogCard";
 import PageTitle from "../Helpers/PageTitle";
 import Layout from "../Partials/Layout";
 
