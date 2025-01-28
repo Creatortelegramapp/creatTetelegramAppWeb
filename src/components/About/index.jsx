@@ -15,7 +15,6 @@ import {environment} from "../../environment.dev.js";
 export default function About() {
 
   const [aboutData,setAboutData] = useState([]);
-
   useEffect(() => {
      async function  getAboutData() {
         const  response =   await getAboutPages(environment.appId);
@@ -25,44 +24,6 @@ export default function About() {
   }, []);
 
 
-  const settings = {
-    slidesToShow: 3,
-    // slidesToScroll: 3,
-    autoplay: true,
-    centerMode: true,
-    infinite: true,
-    centerPadding: "60px",
-    dots: false,
-    responsive: [
-      {
-        breakpoint: 1026,
-        settings: {
-          slidesToShow: 2,
-          // slidesToScroll: 2,
-          centerMode: false,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          // slidesToScroll: 1,
-          centerMode: false,
-        },
-      },
-
-      // You can unslick at a given breakpoint now by adding:
-      // settings: "unslick"
-      // instead of a settings object
-    ],
-  };
-  const slider = useRef(null);
-  const prev = () => {
-    slider.current.slickPrev();
-  };
-  const next = () => {
-    slider.current.slickNext();
-  };
   return (
     <Layout childrenClasses="pt-0 pb-0">
       <div className="about-page-wrapper w-full">
@@ -87,7 +48,6 @@ export default function About() {
               <div className="content flex-1">
                 <h1 className="text-[18px] font-medium text-qblack mb-2.5">
                   {aboutData.title}
-                  {/*{console.log(data.title)}*/}
                 </h1>
                 <p className="text-[15px] text-qgraytwo leading-7 mb-2.5">
                   {aboutData.description}
