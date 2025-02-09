@@ -1,0 +1,83 @@
+name: Front Workflow
+run-name: "Author: ${{ github.actor }}, Branch: ${{ inputs.branch }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        type: choice
+        description: "branch"
+        options:
+          - "main"
+        required: true
+  workflow_call:
+    secrets:
+      GIT_CRYPT_KEY_BASE64:
+        description: 'git-crypt base64 secret'
+        required: true
+      GH_PROJECT_TOKEN:
+        description: 'github project token'
+        required: true
+
+jobs:
+  prepare:
+    name: "Preparing Runtime"
+    timeout-minutes: 15
+    runs-on: [
+      'self-hosted',
+      'frontend'
+    ]
+    env:
+      # Passed to overwrite namespace
+      BRANCH: ${{ inputs.branch }}
+      GIT_CRYPT_KEY_BASE64: ${{ secrets.GIT_CRYPT_KEY_BASE64 }}
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: "${{ inputs.branch }}"
+          fetch-depth: 0
+          clean: false
+
+      - name: Install dependecies
+        run: |
+          sudo apt update -y
+          sudo apt install -y git-crypt make
+
+      - name: Unlock Git-Crypt Secrets
+        run: |
+          echo "$GIT_CRYPT_KEY_BASE64" | base64 -d > .gitcrypt
+          git-crypt unlock .gitcrypt
+
+      - name: Test Secrets
+        run: |
+          ls -la
+          git-crypt status -e
+          cat .env
+
+  frontend:
+    name: "frontend"
+    timeout-minutes: 15
+    runs-on: [
+      'self-hosted',
+      'frontend'
+    ]
+    needs: ["prepare"]
+    env:
+      # passed to overwrite namespace
+      BRANCH: ${{ inputs.branch }}
+      GIT_CRYPT_KEY_BASE64: ${{ secrets.GIT_CRYPT_KEY_BASE64 }}
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - name: frontend Build
+        run: |
+          CI=true make production-build
+
+      - name: frontend up
+        run: |
+          CI=true make production-up
