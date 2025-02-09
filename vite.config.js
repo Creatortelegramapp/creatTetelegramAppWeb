@@ -18,6 +18,7 @@ const pwaConfig = {
         handler: "StaleWhileRevalidate", // Caching strategy
       },
     ],
+    maximumFileSizeToCacheInBytes: 5000000
   },
   manifest: {
     name: "Shopo",

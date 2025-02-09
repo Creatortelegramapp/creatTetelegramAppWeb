@@ -38,9 +38,10 @@ export default function Navbar({ className, type }) {
 
   return (
     <div
-      className={`nav-widget-wrapper w-full  h-[60px] relative z-30 ${
-        type === 3 ? "bg-qh3-blue" : "bg-qyellow"
-      }  ${className || ""}`}
+      className={`nav-widget-wrapper w-full  h-[60px] relative z-30`}
+      style={{
+        backgroundColor:"#f10086"
+      }}
     >
       <div className="container-x mx-auto h-full">
         <div className="w-full h-full relative">
@@ -123,7 +124,7 @@ export default function Navbar({ className, type }) {
                               type === 3 ? "text-white" : "text-qblacktext"
                           }`}
                       >
-                      <span>Homepage</span>
+                      <span>Գլխաոր էջ</span>
                     </span>
                     </Link>
                   </li>
@@ -134,7 +135,7 @@ export default function Navbar({ className, type }) {
                           type === 3 ? "text-white" : "text-qblacktext"
                         }`}
                       >
-                        <span>About</span>
+                        <span>Մեր մասին</span>
                       </span>
                     </Link>
                   </li>
@@ -145,7 +146,7 @@ export default function Navbar({ className, type }) {
                           type === 3 ? "text-white" : "text-qblacktext"
                         }`}
                       >
-                        <span>Blog</span>
+                        <span>Բլոգ</span>
                       </span>
                     </Link>
                   </li>
@@ -156,7 +157,7 @@ export default function Navbar({ className, type }) {
                           type === 3 ? "text-white" : "text-qblacktext"
                         }`}
                       >
-                        <span>Contact</span>
+                        <span>Կոնտակտներ</span>
                       </span>
                     </Link>
                   </li>

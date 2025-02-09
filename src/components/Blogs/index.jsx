@@ -13,8 +13,8 @@ export default function Blogs() {
             const response = await getBlogs(environment.appId);
             setBlogsData(response.data.data)
         }
-
         blogsResponse();
+
     }, []);
     return (
         <Layout childrenClasses="pt-0 pb-0">
@@ -38,8 +38,10 @@ export default function Blogs() {
                                     <div className="w-full grid gap-5"
                                          key={index}>
                                         <div className="w-full h-[50px}">{item.title}</div>
-                                        <div className='w-full h-[500px] bg-cover bg-no-repeat bg-center rounded-xl' style={{backgroundImage: `url(${item.image_url})`
-                                        }} >
+                                        <div className='w-full h-[500px] bg-cover bg-no-repeat bg-center rounded-xl'
+                                             style={{
+                                                 backgroundImage: `url(${item.image_url})`
+                                             }}>
                                         </div>
                                         <div>{item.description}</div>
                                     </div>

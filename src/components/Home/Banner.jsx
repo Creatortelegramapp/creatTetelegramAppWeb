@@ -3,9 +3,11 @@ import {getTopProductById} from "../../Services/HttpServices/TopProductsHttpServ
 import {useEffect, useState} from "react";
 import Slider from "react-slick";
 
+
 export default function Banner({className}) {
 
   const [topProducts, setTopProducts] = useState([]);
+
 
   useEffect(() => {
     getTopProductById()
@@ -14,7 +16,7 @@ export default function Banner({className}) {
           setTopProducts(response.data.data);
         }
       })
-  });
+  },[]);
 
   return (
     <>
@@ -24,23 +26,22 @@ export default function Banner({className}) {
             {(!!topProducts.length) && (
               <div className="banner-card xl:flex xl:space-x-[30px] xl:h-[600px] mb-[30px]">
                 <div data-aos="fade-right" className="xl:w-[740px] w-full h-full">
-                  <Link to="/single-product">
+                  <Link to={`/single-product/${topProducts[0].productId}`}>
                     <picture>
                       <source media="(min-width:1025px)" srcSet={topProducts[0].image_url}/>
                       <img
                         src={topProducts[0].image_url}
                         alt=""
-                        className="w-full max-w-full h-auto object-cover"
+                        className="w-full max-w-full h-full object-cover"
                       />
                     </picture>
                   </Link>
                 </div>
                 <div data-aos="fade-left" className="flex-1 flex flex-col xl:space-y-[30px] h-full">
-                  {topProducts.slice(1, 3).map((product) => (
-                    <div key={product.product_id} className="w-full xl:h-1/2">
-                      <Link to="/single-product">
-                        <img src={product.image_url} alt=""
-                             className="w-full h-full object-cover"/>
+                  {topProducts.slice(1, 3).map((product,productId) => (
+                    <div key={productId} className="w-full xl:h-1/2">
+                      <Link to={`/single-product/${productId}`}>
+                        <img src={product.image_url} alt="" className="w-full h-full object-cover"/>
                       </Link>
                     </div>
                   ))}
@@ -49,8 +50,18 @@ export default function Banner({className}) {
             }
 
             <div
-              data-aos="fade-up"
-              className="best-services w-full bg-white flex flex-col space-y-10 lg:space-y-0 lg:flex-row lg:justify-between lg:items-center lg:h-[110px] px-10 lg:py-0 py-10"
+                // data-aos="fade-up"
+                className="w-full h-[250px] bg-fixed bg-cover bg-no-repeat best-services  bg-white flex flex-col space-y-10 lg:space-y-0 lg:flex-row lg:justify-between lg:items-center lg:h-[110px] px-10 lg:py-0 py-10"
+                style={
+                  {
+                    backgroundImage: `url("/assets/images/bgImg.png")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
+                    width: '100%',
+                    height: '250px',
+
+                  }
+                }
             >
               <div className="item">
                 <div className="flex space-x-5 items-center">

@@ -25,7 +25,7 @@ jobs:
     timeout-minutes: 15
     runs-on: [
       'self-hosted',
-      'backend'
+      'frontend'
     ]
     env:
       # Passed to overwrite namespace
@@ -58,12 +58,12 @@ jobs:
           git-crypt status -e
           cat .env
 
-  laravel:
-    name: "Laravel"
+  frontend:
+    name: "frontend"
     timeout-minutes: 15
     runs-on: [
       'self-hosted',
-      'backend'
+      'frontend'
     ]
     needs: ["prepare"]
     env:
@@ -74,14 +74,10 @@ jobs:
       run:
         working-directory: .
     steps:
-      - name: Laravel Build
+      - name: frontend Build
         run: |
           CI=true make production-build
 
-      - name: Laravel up
+      - name: frontend up
         run: |
           CI=true make production-up
-
-      - name: Laravel Migrations
-        run: |
-          CI=true make migration
