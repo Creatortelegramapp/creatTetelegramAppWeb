@@ -39,7 +39,7 @@ jobs:
           sudo apt install -y make
 
   frontend:
-    name: "frontend"
+    name: "Frontend"
     timeout-minutes: 15
     runs-on: [
       'self-hosted',
