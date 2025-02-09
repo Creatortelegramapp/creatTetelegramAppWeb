@@ -55,8 +55,8 @@ jobs:
     steps:
       - name: frontend Build
         run: |
-          CI=true make production-build
+          CI=true make build
 
       - name: frontend up
         run: |
-          CI=true make production-up
+          CI=true make up
