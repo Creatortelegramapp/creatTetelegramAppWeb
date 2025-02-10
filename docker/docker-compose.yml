@@ -1,21 +1,18 @@
 version: "3.8"
 
 services:
-    frontend:
-        container_name: frontend
+    frontend_vite:
+        container_name: frontend_vite
+        hostname: frontend_vite
         restart: unless-stopped
         build:
             context: ..
-            dockerfile: docker/Dockerfile.nginx
+            dockerfile: docker/Dockerfile.frontend
         ports:
-            - "8080:80"
             - "443:443"
-        volumes:
-            - ../:/var/www/html
-            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
         networks:
-            - internal_frontend
+            - internal
 
 networks:
-    internal_frontend:
+    internal:
         driver: bridge
