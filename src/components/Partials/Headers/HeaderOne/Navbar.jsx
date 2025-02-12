@@ -40,7 +40,7 @@ export default function Navbar({ className, type }) {
     <div
       className={`nav-widget-wrapper w-full  h-[60px] relative z-30`}
       style={{
-        backgroundColor:"#f10086"
+        backgroundColor:"#f1c6d6"
       }}
     >
       <div className="container-x mx-auto h-full">
@@ -92,17 +92,17 @@ export default function Navbar({ className, type }) {
                 >
                   {categoryData.length && categoryToggle && (
                       <ul className='categories-list'>
-                          {categoryData.map((item,index) => (
+                          {categoryData.map((category,index) => (
                               <li className="category-item"
-                                  key={item.id || index}>
-                                  <Link to='/all-products'>
+                                  key={category.id || index}>
+                                  <Link to={`/all-products/${category.id}`}>
                                       <div
                                           className={`flex justify-between items-center px-5 h-10 bg-white 
                                        transition-all duration-300 ease-in-out cursor-pointer text-qblack ${type === 3 ? "hover:bg-qh3-blue hover:text-white w-full" : "hover:bg-qyellow"}`}
                                       >
                                           <div className="flex items-center space-x-6 w-full">
                                           <span className='text-xs font-400'>
-                                          {item.name}
+                                          {category.name}
                                           </span>
                                           </div>
                                       </div>
@@ -124,7 +124,7 @@ export default function Navbar({ className, type }) {
                               type === 3 ? "text-white" : "text-qblacktext"
                           }`}
                       >
-                      <span>Գլխաոր էջ</span>
+                      <span>Գլխավոր էջ</span>
                     </span>
                     </Link>
                   </li>
