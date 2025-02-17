@@ -40,7 +40,7 @@ export default function Navbar({ className, type }) {
     <div
       className={`nav-widget-wrapper w-full  h-[60px] relative z-30`}
       style={{
-        backgroundColor:"#f1c6d6"
+        backgroundColor: "#1ad0d1"
       }}
     >
       <div className="container-x mx-auto h-full">

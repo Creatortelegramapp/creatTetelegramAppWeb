@@ -5,9 +5,7 @@ export default function DiscountBanner({ className, type }) {
         className || ""
       }`}
       style={{
-        background: `url(${
-          import.meta.env.VITE_PUBLIC_URL
-        }/assets/images/discount-banner-1.jpg) no-repeat`,
+        background: `url(/assets/images/2.webp) no-repeat`,
         backgroundSize: "cover",
       }}
     >
@@ -99,7 +97,7 @@ export default function DiscountBanner({ className, type }) {
                   </span>
                 </div>
                 <div>
-                  <p className="text-black text-[15px] font-700 tracking-wide mb-1">
+                  <p className="text-white text-[15px] font-700 tracking-wide mb-1">
                     Free Return
                   </p>
                   <p className="text-sm text-qgray">
@@ -200,7 +198,7 @@ export default function DiscountBanner({ className, type }) {
                   </span>
                 </div>
                 <div>
-                  <p className="text-black text-[15px] font-700 tracking-wide mb-1">
+                  <p className="text-white text-[15px] font-700 tracking-wide mb-1">
                     Best Quality
                   </p>
                   <p className="text-sm text-qgray">
@@ -214,11 +212,11 @@ export default function DiscountBanner({ className, type }) {
       ) : (
         <div>
           <div data-aos="fade-up">
-            <h1 className="sm:text-3xl text-xl font-700 text-qblack mb-2 text-center">
+            <h1 className="sm:text-3xl text-xl font-700 text-white mb-2 text-center">
               Ստացեք <span className="mx-1 text-qyellow">20%</span> Զեղչի
               Կտրոն
             </h1>
-            <p className="text-center sm:text-[18px] text-sm font-400">
+            <p className="text-center sm:text-[18px] text-sm font-400 text-white">
                 Բաժանորդագրվելով մեր տեղեկագրին
             </p>
           </div>
