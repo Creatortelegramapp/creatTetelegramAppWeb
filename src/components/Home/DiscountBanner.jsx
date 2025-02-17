@@ -5,9 +5,7 @@ export default function DiscountBanner({ className, type }) {
         className || ""
       }`}
       style={{
-        background: `url(${
-          import.meta.env.VITE_PUBLIC_URL
-        }/assets/images/discount-banner-1.jpg) no-repeat`,
+        background: `url(/assets/images/discount-banner-1.jpg) no-repeat`,
         backgroundSize: "cover",
       }}
     >
