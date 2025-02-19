@@ -1,7 +1,9 @@
-import React from "react";
+
 import InputQuantityCom from "../../../Helpers/InputQuantityCom";
 
+
 export default function WishlistTab({ className }) {
+
   return (
     <>
       <div className={`w-full ${className || ""}`}>

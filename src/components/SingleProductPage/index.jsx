@@ -8,8 +8,15 @@ import Layout from "../Partials/Layout";
 import ProductView from "./ProductView";
 import Reviews from "./Reviews";
 import SallerInfo from "./SallerInfo";
+import {useParams} from "react-router-dom";
+// import topProducts from;
+import {getTopProductById} from "../../Services/HttpServices/TopProductsHttpService.js";
 
 export default function SingleProductPage() {
+  const { productId } = useParams();
+  const product = getTopProductById.find((p) => p.id === parseInt(productId));
+  console.log(product);
+
   const [tab, setTab] = useState("des");
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);

@@ -43,7 +43,8 @@ export default function CampaignCountDown({
                     }/assets/images/telegram.png`
                 }) no-repeat`,
                 backgroundSize: "cover",
-              }}>
+              }}
+              >
 
                 <div className="get-app">
                   <p className="text-[13px] font-600 text-qblack mb-3">
