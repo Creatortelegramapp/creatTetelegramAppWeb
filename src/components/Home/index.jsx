@@ -1,4 +1,4 @@
-import datas from "../../data/products.json";
+
 import SectionStyleOne from "../Helpers/SectionStyleOne";
 import ViewMoreTitle from "../Helpers/ViewMoreTitle";
 import Layout from "../Partials/Layout";
@@ -7,30 +7,35 @@ import CampaignCountDown from "./CampaignCountDown";
 import ProductsAds from "./ProductsAds";
 import {Link} from "react-router-dom";
 import QuickViewIco from "../Helpers/icons/QuickViewIco.jsx";
-import ThinLove from "../Helpers/icons/ThinLove.jsx";
 import Compair from "../Helpers/icons/Compair.jsx";
 import {useEffect, useState} from "react";
+import AddWishListButton from "../Wishlist/AddWishListButton.jsx";
 import {getProductByCategoryId} from "../../Services/HttpServices/CategoriesHttpService.js";
 import {environment} from "../../environment.dev.js";
 
 export default function Home() {
 
     const [productData, setProductData] = useState([]);
-    const {products} = datas;
-    const brands = [];
-    products.forEach((product) => {
-        brands.push(product.brand);
-    });
 
+    const [wishlist, setWishlist] = useState(() => {
+        const storedWishlist = localStorage.getItem("wishlist");
+        return storedWishlist ? JSON.parse(storedWishlist) : [];
+    });
 
     useEffect(() => {
         async function productsResponse() {
             const response = await getProductByCategoryId(environment.appId);
             setProductData(response.data.data[0].products);
         }
-
         productsResponse();
+        const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+        setWishlist(storedWishlist);
     }, []);
+
+    const updateWishlist = (newWishlist) => {
+        setWishlist(newWishlist);
+        localStorage.setItem("wishlist", JSON.stringify(newWishlist));
+    };
 
     return (
         <>
@@ -38,8 +43,6 @@ export default function Home() {
                 <div className="btn w-5 h-5 "></div>
                 <Banner className="banner-wrapper mb-[60px]"/>
                 <SectionStyleOne
-                    products={products}
-                    brands={brands}
                     categoryTitle="Բջջային և պլանշետ"
                     sectionTitle="Խաղացողի աշխարհ"
                     seeMoreUrl="/all-products"
@@ -80,12 +83,12 @@ export default function Home() {
                                                         {data.name}
                                                     </p>
                                                 </Link>
-                                                <p className="price mb-[26px]">
+                                                <div className="price mb-[26px]">
                                                     <div
                                                         className="main-price text-qgray line-through font-600 sm:text-[18px] text-base">
                                                         {data.price}
                                                     </div>
-                                                </p>
+                                                </div>
                                                 <button type="button" className="w-[110px] h-[30px]">
                                                     <div className={"yellow-btn"}>
                                                         {" "}
@@ -95,27 +98,27 @@ export default function Home() {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* quick-access-btns */}
                                     <div
                                         className="quick-access-btns flex flex-col space-y-2 absolute group-hover:right-4 -right-10 top-[30px]  transition-all duration-300 ease-in-out">
-                                        <a href="#">
+                                        <button >
                                             <div
                                                 className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
                                                 <QuickViewIco/>
                                             </div>
-                                        </a>
-                                        <a href="#">
-                                            <div
-                                                className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
-                                                <ThinLove/>
+                                        </button>
+                                            <div className="w-10 h-10 flex justify-center items-center bg-primarygray rounded p-0 m-0 pointer-events-auto">
+                                                <AddWishListButton
+                                                    productId={data.id}
+                                                    wishlist={wishlist}
+                                                    updateWishlist={updateWishlist}
+                                                />
                                             </div>
-                                        </a>
-                                        <a href="#">
+                                        <button >
                                             <div
                                                 className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
                                                 <Compair/>
                                             </div>
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             ))

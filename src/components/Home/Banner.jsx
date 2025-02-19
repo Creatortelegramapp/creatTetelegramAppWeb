@@ -38,9 +38,9 @@ export default function Banner({className}) {
                   </Link>
                 </div>
                 <div data-aos="fade-left" className="flex-1 flex flex-col xl:space-y-[30px] h-full">
-                  {topProducts.slice(1, 3).map((product,productId) => (
-                    <div key={productId} className="w-full xl:h-1/2">
-                      <Link to={`/single-product/${productId}`}>
+                  {topProducts.slice(1, 3).map((product,index) => (
+                    <div key={product.id || index} className="w-full xl:h-1/2">
+                      <Link to={`/single-product/${product.id}`}>
                         <img src={product.image_url} alt="" className="w-full h-full object-cover"/>
                       </Link>
                     </div>
