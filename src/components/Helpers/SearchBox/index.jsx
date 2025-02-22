@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import {searchBox} from "../../../Services/HttpServices/SearchHttpServices.js";
 
-export default function SearchBox({ className, type }) {
+export default function SearchBox({ className }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
 
@@ -26,10 +26,6 @@ export default function SearchBox({ className, type }) {
 
   const handleClear = () => setQuery("");
 
-  const handleSearchClick = () => {
-    fetchResults(query);
-  };
-
   return (
       <div className={`relative w-full h-full ${className || ""}`}>
         <div className="w-full flex items-center border border-qgray-border bg-white rounded-lg p-2">
@@ -49,13 +45,6 @@ export default function SearchBox({ className, type }) {
             ×
           </span>
           )}
-          <button
-              className={`px-4 py-2 ${type === 3 ? "bg-qh3-blue text-white" : "search-btn"}`}
-              onClick={handleSearchClick}
-              type="button"
-          >
-            Որոնել
-          </button>
         </div>
 
         {results.length > 0 && (

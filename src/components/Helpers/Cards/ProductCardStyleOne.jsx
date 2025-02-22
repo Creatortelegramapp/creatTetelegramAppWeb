@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function ProductCardStyleOne({ datas }) {
-    const product = datas;
+export default function ProductCardStyleOne({ product }) {
 
     return (
         <div className="product-card-one w-full">

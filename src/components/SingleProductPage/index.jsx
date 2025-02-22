@@ -4,6 +4,7 @@ import {getProductById} from "../../Services/HttpServices/ProductsHttpService.js
 import Layout from "../Partials/Layout";
 import ProductView from "./ProductView";
 import BreadcrumbCom from "../BreadcrumbCom";
+import {Loading, Error} from "../Loading/index.jsx";
 
 export default function SingleProductPage() {
   const { productId } = useParams();
@@ -15,23 +16,18 @@ export default function SingleProductPage() {
     const fetchProduct = async () => {
       try {
         const response = await getProductById(productId);
-        console.log("Fetched Product:", response);
         setProduct(response.data);
       } catch (err) {
-        setError("Չհաջողվեց բեռնել տվյալները");
+        setError("Throw Error");
       } finally {
         setLoading(false);
       }
     };
-
-    if (productId) {
       fetchProduct();
-    }
   }, [productId]);
 
-  if (loading) return <p>🔄 Բեռնվում է...</p>;
-  if (error) return <p>❌ Սխալ։ {error}</p>;
-  if (!product) return <p>❌ Ապրանք չի գտնվել</p>;
+  if (loading) return <p><Loading/></p>;
+  if (error) return <p>{Error}</p>;
 
   return (
       <Layout childrenClasses="pt-0 pb-0">
@@ -49,7 +45,7 @@ export default function SingleProductPage() {
             </div>
             <div className="w-full bg-white pb-[60px]">
               <div className="container-x mx-auto">
-                <ProductView product={product} />
+                <ProductView product={product.data} />
               </div>
             </div>
           </div>
