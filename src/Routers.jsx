@@ -54,6 +54,7 @@ const router = createBrowserRouter([
   { path: "/become-saller", element: <BecomeSaller /> },
   { path: "/privacy-policy", element: <PrivacyPolicy /> },
   { path: "/terms-condition", element: <TermsCondition /> },
+  { path: "/not-found", element: <FourZeroFour />},
   { path: "*", element: <FourZeroFour /> },
 ]);
 

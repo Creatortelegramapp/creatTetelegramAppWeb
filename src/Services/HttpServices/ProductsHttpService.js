@@ -1,7 +1,4 @@
 import {httpClient} from "../HttpClientService.js";
-import addInterceptors from "../InterceptorService.js";
-
-addInterceptors();
 
 export const getProductById = async (productId) => {
     try {
