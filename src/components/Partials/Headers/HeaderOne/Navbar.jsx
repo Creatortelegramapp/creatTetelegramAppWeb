@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Arrow from "../../../Helpers/icons/Arrow";
 import {getCategoryById} from "../../../../Services/HttpServices/CategoriesHttpService.js";
 
-export default function Navbar({ className, type }) {
+export default function Navbar({ type }) {
   const [categoryToggle, setToggle] = useState(false);
   const [elementsSize, setSize] = useState("0px");
   const [categoryData,setCategoryData] = useState([false]);
@@ -95,7 +95,7 @@ export default function Navbar({ className, type }) {
                           {categoryData.map((category,index) => (
                               <li className="category-item"
                                   key={category.id || index}>
-                                  <Link to={`/all-products/${category.id}`}>
+                                <Link to={`/all-products?categories=${category.id}`}>
                                       <div
                                           className={`flex justify-between items-center px-5 h-10 bg-white 
                                        transition-all duration-300 ease-in-out cursor-pointer text-qblack ${type === 3 ? "hover:bg-qh3-blue hover:text-white w-full" : "hover:bg-qyellow"}`}

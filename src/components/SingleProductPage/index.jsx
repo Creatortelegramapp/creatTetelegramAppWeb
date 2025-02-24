@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; // Import for getting product ID
-import {getProductById} from "../../Services/HttpServices/ProductsHttpService.js"; // API function
+import { useParams } from "react-router-dom";
+import {getProductById} from "../../Services/HttpServices/ProductsHttpService.js";
 import Layout from "../Partials/Layout";
 import ProductView from "./ProductView";
 import BreadcrumbCom from "../BreadcrumbCom";
-import {Loading, Error} from "../Loading/index.jsx";
+import {Loading} from "../Loading/Loading.jsx";
+import {Error} from "../Loading/LoadingError.jsx";
 
 export default function SingleProductPage() {
   const { productId } = useParams();
@@ -26,8 +27,8 @@ export default function SingleProductPage() {
       fetchProduct();
   }, [productId]);
 
-  if (loading) return <p><Loading/></p>;
-  if (error) return <p>{Error}</p>;
+  if (loading) return <Loading/>;
+  if (error) return <Error/>;
 
   return (
       <Layout childrenClasses="pt-0 pb-0">
