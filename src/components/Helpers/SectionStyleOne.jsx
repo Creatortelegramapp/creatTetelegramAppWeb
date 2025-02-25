@@ -10,7 +10,9 @@ import Compair from "./icons/Compair.jsx";
 export default function SectionStyleOne({
                                             className,
                                             sectionTitle,
-                                            seeMoreUrl
+                                            seeMoreUrl,
+                                            wishlist,
+                                            updateWishlist
                                         }) {
 
     const [productsData, setProductsData] = useState([]);
@@ -24,6 +26,7 @@ export default function SectionStyleOne({
 
         productsResponse();
     }, []);
+
     const type = 2
     return (
         <div data-aos="fade-up" className={`section-style-one ${className || ""}`}>
@@ -84,15 +87,21 @@ export default function SectionStyleOne({
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="quick-access-btns flex flex-col space-y-2 absolute group-hover:right-4 -right-10 top-20  transition-all duration-300 ease-in-out">
+                                    <div
+                                        className="quick-access-btns flex flex-col space-y-2 absolute group-hover:right-4 -right-10 top-20  transition-all duration-300 ease-in-out">
                                         <button>
                                             <div
                                                 className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
                                                 <QuickViewIco/>
                                             </div>
                                         </button>
-                                        <div className="quick-access-btns pt-[10px] flex flex-col space-y2 absolute top-20 transition-all duration-300 ease-in-out">
-                                            <AddWishListButton productId={data.id} />
+                                        <div
+                                            className="quick-access-btns pt-[10px] flex flex-col space-y2 absolute top-20 transition-all duration-300 ease-in-out">
+                                            <AddWishListButton
+                                                productId={data.id}
+                                                wishlist={wishlist}
+                                                updateWishlist={updateWishlist}
+                                            />
                                         </div>
                                         <button>
                                             <div

@@ -15,7 +15,6 @@ export default function SingleProductPage() {
     const fetchProduct = async () => {
       try {
         const response = await getProductById(productId);
-        console.log("Fetched Product:", response);
         setProduct(response.data);
       } catch (err) {
         setError("Չհաջողվեց բեռնել տվյալները");

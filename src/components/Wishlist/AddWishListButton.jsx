@@ -1,50 +1,35 @@
-import {useState, useEffect} from "react";
+import   {useEffect,useState} from "react";
 
-export default function AddWishListButton({productId}) {
-    const WISHLIST_KEY = "wishlist";
-    const [wishlist, setWishlist] = useState([]);
-
+export default function AddWishListButton({ productId, wishlist, updateWishlist }) {
+    const [isInWishlist, setIsInWishlist] = useState(false);
     useEffect(() => {
-        const storedWishlist = localStorage.getItem(WISHLIST_KEY);
-        try {
-            setWishlist(storedWishlist ? JSON.parse(storedWishlist) : []);
-        } catch (error) {
-            console.error("Wishlist parse error:", error);
-            setWishlist([]);
-        }
-
-        const handleStorageChange = (event) => {
-            if (event.key === WISHLIST_KEY) {
-                setWishlist(event.newValue ? JSON.parse(event.newValue) : []);
-            }
-        };
-
-        window.addEventListener("storage", handleStorageChange);
-        return () => window.removeEventListener("storage", handleStorageChange);
-    }, []);
-
-    const isInWishlist = wishlist.includes(productId);
+        setIsInWishlist(wishlist.includes(productId));
+    }, [wishlist, productId]);
 
     const toggleWishlist = () => {
         let newWishlist = isInWishlist
             ? wishlist.filter(id => id !== productId)
             : [...wishlist, productId];
 
-        localStorage.setItem(WISHLIST_KEY, JSON.stringify(newWishlist));
-        setWishlist(newWishlist);
 
-        // Հաղորդում ենք ամբողջ application-ին, որ wishlist-ը փոխվել է
-        window.dispatchEvent(new Event("storage"));
+        setIsInWishlist(!isInWishlist);
+        updateWishlist(newWishlist);
+
+        try {
+            localStorage.setItem("wishlist", JSON.stringify(newWishlist));
+            window.dispatchEvent(new Event("storage"));
+        } catch (error) {
+            console.error("error", error);
+        }
     };
 
     return (
         <button
-            onClick={() => toggleWishlist(productId)}
+            onClick={toggleWishlist}
             className="appearance-none bg-transparent border-none p-0 m-0"
-            style={{outline: "none", boxShadow: "none"}} // Լրացուցիչ reset
         >
             <div className={`w-10 h-10 flex justify-center items-center rounded cursor-pointer 
-                ${isInWishlist ? "bg-red-500 text-white" : "bg-gray-300"}`}>
+                ${isInWishlist ? "bg-purple-200 text-white" : "bg-white"}`}>
                 {isInWishlist ? "❤️" : "🤍"}
             </div>
         </button>

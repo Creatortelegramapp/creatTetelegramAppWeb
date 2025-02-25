@@ -18,8 +18,8 @@ export default function Home() {
     const [productData, setProductData] = useState([]);
 
     const [wishlist, setWishlist] = useState(() => {
-        const storedWishlist = localStorage.getItem("wishlist");
-        return storedWishlist ? JSON.parse(storedWishlist) : [];
+        const storedWishlist = localStorage.getItem("wishlist") || "[]";  // ✅
+        return JSON.parse(storedWishlist);
     });
 
     useEffect(() => {
@@ -28,14 +28,22 @@ export default function Home() {
             setProductData(response.data.data[0].products);
         }
         productsResponse();
-        const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-        setWishlist(storedWishlist);
-    }, []);
+        if(localStorage.getItem("wishlist")) {
+            const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+            setWishlist(storedWishlist);
+        }
 
+    }, []);
     const updateWishlist = (newWishlist) => {
         setWishlist(newWishlist);
-        localStorage.setItem("wishlist", JSON.stringify(newWishlist));
+        try {
+            localStorage.setItem("wishlist", JSON.stringify(newWishlist));
+            window.dispatchEvent(new Event("storage"));
+        } catch (error) {
+            console.error("error", error);
+        }
     };
+
 
     return (
         <>
@@ -43,10 +51,13 @@ export default function Home() {
                 <div className="btn w-5 h-5 "></div>
                 <Banner className="banner-wrapper mb-[60px]"/>
                 <SectionStyleOne
+
                     categoryTitle="Բջջային և պլանշետ"
                     sectionTitle="Խաղացողի աշխարհ"
                     seeMoreUrl="/all-products"
                     className="category-products mb-[60px]"
+                    wishlist={wishlist}
+                    updateWishlist={updateWishlist}
                 />
 
                 <ProductsAds
@@ -106,13 +117,13 @@ export default function Home() {
                                                 <QuickViewIco/>
                                             </div>
                                         </button>
-                                            <div className="w-10 h-10 flex justify-center items-center bg-primarygray rounded p-0 m-0 pointer-events-auto">
-                                                <AddWishListButton
-                                                    productId={data.id}
-                                                    wishlist={wishlist}
-                                                    updateWishlist={updateWishlist}
-                                                />
-                                            </div>
+                                        <div className="min-w-[40px] min-h-[40px] flex justify-center items-center bg-primarygray rounded">
+                                            <AddWishListButton
+                                                productId={data.id}
+                                                wishlist={wishlist}
+                                                updateWishlist={updateWishlist}
+                                            />
+                                        </div>
                                         <button >
                                             <div
                                                 className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
