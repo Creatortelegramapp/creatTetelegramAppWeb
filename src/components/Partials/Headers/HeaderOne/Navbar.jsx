@@ -6,7 +6,7 @@ import {getCategoryById} from "../../../../Services/HttpServices/CategoriesHttpS
 export default function Navbar({ type }) {
   const [categoryToggle, setToggle] = useState(false);
   const [elementsSize, setSize] = useState("0px");
-  const [categoryData,setCategoryData] = useState([false]);
+  const [categoryData,setCategoryData] = useState([]);
 
   const handler = () => {
     setToggle(!categoryToggle);

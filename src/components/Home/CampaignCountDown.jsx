@@ -12,17 +12,16 @@ export default function CampaignCountDown({
                   <div className="lg:flex xl:space-x-[30px] lg:space-x-5 items-center h-full">
                       <div
                           data-aos="fade-right"
-                          className="campaign-countdown lg:w-1/2 h-full w-full mb-5 lg:mb-0"
+                          className="campaign-countdown lg:w-1/2 h-full w-full lg:mb-0 hidden lg:block"
                           style={{
                               background: `url(/assets/images/qr.png) no-repeat`,
                               backgroundSize: "cover",
                           }}
                       >
-
                       </div>
                       <div
                           data-aos="fade-left"
-                          className="download-app flex-1 lg:h-full h-[430px] xl:p-12 p-5"
+                          className="download-app flex-1 lg:h-full h-[430px] xl:p-12 p-5 hidden lg:block"
                           style={{
                               background: `url(${
                                   counterbg ||
@@ -46,8 +45,8 @@ export default function CampaignCountDown({
                                   <h1 className="text-[30px] font-600 text-qblack leading-10 mb-8">
                                       Ստացեք մեր
                                       <span className="text-qred border-b-2 border-qred mx-2">
-                        Telegram հավելվածը
-                    </span>
+                                            Telegram հավելվածը
+                                      </span>
                                       <br/> Դա հեշտացնում է ձեր կյանքը:
                                   </h1>
 
