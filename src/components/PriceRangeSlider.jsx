@@ -13,6 +13,7 @@ const PriceRangeSlider = ({ min, max, step, onChange, initialValues }) => {
         onChange(newValues);
     };
 
+
     return (
         <div className="w-full p-4">
             <Range
@@ -20,7 +21,8 @@ const PriceRangeSlider = ({ min, max, step, onChange, initialValues }) => {
                 min={min}
                 max={max}
                 values={values}
-                onChange={handleChange}
+                onChange={setValues}
+                onFinalChange={handleChange}
                 renderTrack={({ props, children }) => (
                     <div {...props} className="h-2 bg-gray-300 rounded relative">
                         <div
