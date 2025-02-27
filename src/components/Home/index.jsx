@@ -1,4 +1,3 @@
-
 import SectionStyleOne from "../Helpers/SectionStyleOne";
 import ViewMoreTitle from "../Helpers/ViewMoreTitle";
 import Layout from "../Partials/Layout";
@@ -27,6 +26,7 @@ export default function Home() {
             const response = await getProductByCategoryId(environment.appId);
             setProductData(response.data.data[0].products);
         }
+
         productsResponse();
         if(localStorage.getItem("wishlist")) {
             const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];

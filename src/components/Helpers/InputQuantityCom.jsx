@@ -8,6 +8,7 @@ export default function InputQuantityCom({ quantity, setQuantity }) {
       setQuantity(quantity - 1);
     }
   };
+
   return (
       <div className="w-[120px] h-[40px] px-[26px] flex items-center border border-qgray-border">
         <div className="flex justify-between items-center w-full">
