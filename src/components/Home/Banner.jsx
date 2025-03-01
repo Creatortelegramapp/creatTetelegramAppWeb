@@ -21,7 +21,7 @@ export default function Banner({ className }) {
                   {!!topProducts.length && (
                       <div className="banner-card xl:flex xl:space-x-[30px] xl:h-[600px] mb-[30px]">
                           <div data-aos="fade-right" className="xl:w-[740px] w-full h-full">
-                              <Link to={`/single-product/${topProducts[0].productId}`}>
+                              <Link to={`/single-product/${topProducts[0].product_id}`}>
                                   <picture>
                                       <source
                                           media="(min-width:1025px)"
@@ -37,7 +37,7 @@ export default function Banner({ className }) {
                           </div>
                           <div data-aos="fade-left" className="flex-1 flex flex-col xl:space-y-[30px] h-full">
                               <div className="hidden xl:block w-full xl:h-1/2">
-                                  <Link to={`/single-product/${topProducts[1]?.productId}`}>
+                                  <Link to={`/single-product/${topProducts[1]?.product_id}`}>
                                       <img
                                           src={topProducts[1]?.image_url}
                                           alt=""
@@ -46,7 +46,7 @@ export default function Banner({ className }) {
                                   </Link>
                               </div>
                               <div className="hidden xl:block w-full xl:h-1/2">
-                                  <Link to={`/single-product/${topProducts[2]?.productId}`}>
+                                  <Link to={`/single-product/${topProducts[2]?.product_id}`}>
                                       <img
                                           src={topProducts[2]?.image_url}
                                           alt=""
@@ -56,7 +56,7 @@ export default function Banner({ className }) {
                               </div>
                               <div className="block xl:hidden flex gap-2 mt-2">
                                   <div className="w-1/2">
-                                      <Link to={`/single-product/${topProducts[1]?.productId}`}>
+                                      <Link to={`/single-product/${topProducts[1]?.product_id}`}>
                                           <img
                                               src={topProducts[1]?.image_url}
                                               alt=""
@@ -65,7 +65,7 @@ export default function Banner({ className }) {
                                       </Link>
                                   </div>
                                   <div className="w-1/2">
-                                      <Link to={`/single-product/${topProducts[2]?.productId}`}>
+                                      <Link to={`/single-product/${topProducts[2]?.product_id}`}>
                                           <img
                                               src={topProducts[2]?.image_url}
                                               alt=""

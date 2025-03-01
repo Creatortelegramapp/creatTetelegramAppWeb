@@ -57,13 +57,6 @@ export default function Middlebar({ className, type }) {
                     <ThinLove />
                   </span>
                 </Link>
-                <span
-                  className={`w-[18px] h-[18px] rounded-full  absolute -top-2.5 -right-2.5 flex justify-center items-center text-[9px] ${
-                    type === 3 ? "bg-qh3-blue text-white" : "bg-qyellow"
-                  }`}
-                >
-                  1
-                </span>
               </div>
               <div className="cart-wrapper group relative py-4">
                 <div className="cart relative cursor-pointer">
@@ -72,16 +65,7 @@ export default function Middlebar({ className, type }) {
                       <ThinBag />
                     </span>
                   </Link>
-                  <span
-                    className={`w-[18px] h-[18px] rounded-full  absolute -top-2.5 -right-2.5 flex justify-center items-center text-[9px] ${
-                      type === 3 ? "bg-qh3-blue text-white" : "bg-qyellow"
-                    }`}
-                  >
-                    15
-                  </span>
                 </div>
-                {/* <div className="fixed left-0 top-0 w-full h-full z-40"></div> */}
-                {/* hidden group-hover:block" */}
                 <Cart
                   type={type}
                   className="absolute -right-[45px] top-11 z-50 hidden group-hover:block"
