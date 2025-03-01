@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; // Import for getting product ID
-import {getProductById} from "../../Services/HttpServices/ProductsHttpService.js"; // API function
+import { useParams } from "react-router-dom";
+import {getProductById} from "../../Services/HttpServices/ProductsHttpService.js";
 import Layout from "../Partials/Layout";
 import ProductView from "./ProductView";
 import BreadcrumbCom from "../BreadcrumbCom";
+import {Loading} from "../Loading/Loading.jsx";
+import {Error} from "../Loading/LoadingError.jsx";
 
 export default function SingleProductPage() {
   const { productId } = useParams();
@@ -17,20 +19,16 @@ export default function SingleProductPage() {
         const response = await getProductById(productId);
         setProduct(response.data);
       } catch (err) {
-        setError("Չհաջողվեց բեռնել տվյալները");
+        setError("Throw Error");
       } finally {
         setLoading(false);
       }
     };
-
-    if (productId) {
       fetchProduct();
-    }
   }, [productId]);
 
-  if (loading) return <p>🔄 Բեռնվում է...</p>;
-  if (error) return <p>❌ Սխալ։ {error}</p>;
-  if (!product) return <p>❌ Ապրանք չի գտնվել</p>;
+  if (loading) return <Loading/>;
+  if (error) return <Error/>;
 
   return (
       <Layout childrenClasses="pt-0 pb-0">
@@ -48,7 +46,7 @@ export default function SingleProductPage() {
             </div>
             <div className="w-full bg-white pb-[60px]">
               <div className="container-x mx-auto">
-                <ProductView product={product} />
+                <ProductView product={product.data} />
               </div>
             </div>
           </div>

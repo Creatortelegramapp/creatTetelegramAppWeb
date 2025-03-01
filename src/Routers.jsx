@@ -33,7 +33,7 @@ const router = createBrowserRouter([
   { path: "/home-three", element: <HomeThree /> },
   { path: "/home-four", element: <HomeFour /> },
   { path: "/home-five", element: <HomeFive /> },
-  { path: "/all-products/:id", element: <AllProductPage /> },
+  { path: "/all-products", element: <AllProductPage /> },
   { path: "/single-product/:productId", element: <SingleProductPage /> },
   { path: "/cart", element: <CardPage /> },
   { path: "/checkout", element: <CheakoutPage /> },
@@ -54,6 +54,7 @@ const router = createBrowserRouter([
   { path: "/become-saller", element: <BecomeSaller /> },
   { path: "/privacy-policy", element: <PrivacyPolicy /> },
   { path: "/terms-condition", element: <TermsCondition /> },
+  { path: "/not-found", element: <FourZeroFour />},
   { path: "*", element: <FourZeroFour /> },
 ]);
 

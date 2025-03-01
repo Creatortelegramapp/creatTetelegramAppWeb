@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 export default function ProductView({ product }) {
-  if (!product) return <p>❌ Ապրանք չի գտնվել</p>;
 
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(product.price);
@@ -28,7 +27,7 @@ export default function ProductView({ product }) {
                   className="max-w-full h-auto rounded-lg"
               />
           ) : (
-              <p>📷 Նկար չկա</p>
+              <p>📷 Image not found</p>
           )}
         </div>
         <div className="md:w-1/2 p-6 flex flex-col justify-center">

@@ -47,4 +47,8 @@ const pwaConfig = {
 export default defineConfig({
   basename: "/",
   plugins: [react(), VitePWA(pwaConfig), tailwind()],
+  optimizeDeps: {
+    include: ['slick-carousel'],
+  },
 });
+
