@@ -26,7 +26,7 @@ export default function Banner({className}) {
             {(!!topProducts.length) && (
               <div className="banner-card xl:flex xl:space-x-[30px] xl:h-[600px] mb-[30px]">
                 <div data-aos="fade-right" className="xl:w-[740px] w-full h-full">
-                  <Link to={`/single-product/${topProducts[0].productId}`}>
+                  <Link to={`/single-product/${topProducts[0].product_id}`}>
                     <picture>
                       <source media="(min-width:1025px)" srcSet={topProducts[0].image_url}/>
                       <img
@@ -38,9 +38,9 @@ export default function Banner({className}) {
                   </Link>
                 </div>
                 <div data-aos="fade-left" className="flex-1 flex flex-col xl:space-y-[30px] h-full">
-                  {topProducts.slice(1, 3).map((product,index) => (
-                    <div key={product.id || index} className="w-full xl:h-1/2">
-                      <Link to={`/single-product/${product.id}`}>
+                  {topProducts.slice(1, 3).map((product) => (
+                    <div key={product.product_id} className="w-full xl:h-1/2">
+                      <Link to={`/single-product/${product.product_id}`}>
                         <img src={product.image_url} alt="" className="w-full h-full object-cover"/>
                       </Link>
                     </div>

@@ -19,6 +19,11 @@ export default function ProductsTable() {
         }
         productsResponse();
     }, []);
+
+    const onRemove = (id) => {
+        setProductData(prevProducts => prevProducts.filter(product => product.data.id !== id));
+    }
+
     return (
         <div className="relative w-full overflow-x-auto border border-[#EDEDED]">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -47,12 +52,8 @@ export default function ProductsTable() {
                         <td className="text-right py-4 p-[10px]">
                             <RemoveButton
                                 productId={product.data.id}
-                                onRemove={(id) => {
-                                    setProductData(prevProducts => prevProducts.filter(product => product.data.id !== id));
-                                }}
-
+                                onRemove={onRemove}
                             />
-
                         </td>
                     </tr>
                 ))}

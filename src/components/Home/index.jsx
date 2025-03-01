@@ -17,7 +17,7 @@ export default function Home() {
     const [productData, setProductData] = useState([]);
 
     const [wishlist, setWishlist] = useState(() => {
-        const storedWishlist = localStorage.getItem("wishlist") || "[]";  // ✅
+        const storedWishlist = localStorage.getItem("wishlist") || "[]";
         return JSON.parse(storedWishlist);
     });
 

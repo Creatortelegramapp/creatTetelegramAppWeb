@@ -1,11 +1,11 @@
 export default function InputQuantityCom({ quantity, setQuantity }) {
   const increment = () => {
-    setQuantity(quantity + 1);
+    setQuantity((prev) => prev + 1);
   };
 
   const decrement = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
+      setQuantity((prev) => prev - 1);
     }
   };
 
