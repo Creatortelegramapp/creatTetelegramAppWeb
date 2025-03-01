@@ -31,7 +31,7 @@ export default function SearchBox({ className }) {
         <div className="w-full flex items-center border border-qgray-border bg-white rounded-lg p-2">
           <input
               type="text"
-              className="w-full p-2 outline-none"
+              className="w-full p-1 outline-none"
               placeholder="Որոնել..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
