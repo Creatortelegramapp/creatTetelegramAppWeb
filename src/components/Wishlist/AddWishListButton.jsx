@@ -6,7 +6,8 @@ export default function AddWishListButton({ productId, wishlist, updateWishlist 
         setIsInWishlist(wishlist.includes(productId));
     }, [wishlist, productId]);
 
-    const toggleWishlist = () => {
+    const toggleWishlist = (e) => {
+        e.preventDefault();
         let newWishlist = isInWishlist
             ? wishlist.filter(id => id !== productId)
             : [...wishlist, productId];
@@ -25,7 +26,7 @@ export default function AddWishListButton({ productId, wishlist, updateWishlist 
 
     return (
         <button
-            onClick={toggleWishlist}
+            onClick={(e) => toggleWishlist(e)}
             className="appearance-none bg-transparent border-none p-0 m-0"
         >
             <div className={`w-10 h-10 flex justify-center items-center rounded cursor-pointer 

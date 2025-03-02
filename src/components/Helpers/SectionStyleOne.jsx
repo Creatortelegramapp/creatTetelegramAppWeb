@@ -133,12 +133,12 @@ function ProductCard({ data, wishlist, updateWishlist }) {
                             updateWishlist={updateWishlist}
                         />
                     </div>
-                    <button>
-                        <div
-                            className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
-                            <Compair/>
-                        </div>
-                    </button>
+                    {/*<button>*/}
+                    {/*    <div*/}
+                    {/*        className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">*/}
+                    {/*        <Compair/>*/}
+                    {/*    </div>*/}
+                    {/*</button>*/}
             </div>
         </div>
      </Link>

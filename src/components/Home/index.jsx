@@ -46,6 +46,11 @@ export default function Home() {
         }
     };
 
+    const addProduct = (e, productId) => {
+        e.preventDefault();
+        addProductById(productId);
+    }
+
 
     return (
         <>
@@ -102,7 +107,7 @@ export default function Home() {
                                                             {data.price}
                                                         </div>
                                                     </div>
-                                                    <button type="button" className="w-[110px] h-[30px]">
+                                                    <button type="button" className="w-[110px] h-[30px]" onClick={e => addProduct(e, data.id)}>
                                                         <div className="yellow-btn"> Add To Cart</div>
                                                     </button>
                                                 </div>
@@ -121,12 +126,12 @@ export default function Home() {
                                                 <AddWishListButton productId={data.id} wishlist={wishlist}
                                                                    updateWishlist={updateWishlist}/>
                                             </div>
-                                            <button>
-                                                <div
-                                                    className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
-                                                    <Compair/>
-                                                </div>
-                                            </button>
+                                            {/*<button>*/}
+                                            {/*    <div*/}
+                                            {/*        className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">*/}
+                                            {/*        <Compair/>*/}
+                                            {/*    </div>*/}
+                                            {/*</button>*/}
                                         </div>
                                     </div>
                                 </Link>
