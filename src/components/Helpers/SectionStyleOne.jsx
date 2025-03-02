@@ -69,6 +69,7 @@ export default function SectionStyleOne({
 
 function ProductCard({ data, wishlist, updateWishlist }) {
     return (
+        <Link to={`/single-product/${data.id}`} className="block">
         <div
             className="product-card-one w-full h-full bg-white relative group overflow-hidden"
             style={{
@@ -105,11 +106,9 @@ function ProductCard({ data, wishlist, updateWishlist }) {
                         </div>
                     </button>
                 </div>
-                <Link to="/single-product">
                     <p className="title mb-2 text-[15px] font-600 text-qblack leading-[24px] line-clamp-2 hover:text-blue-600">
                         {data.name}
                     </p>
-                </Link>
                 <div className="price">
                     <div className="main-price text-qgray line-through font-600 text-[18px]">
                         {data.price}
@@ -139,5 +138,6 @@ function ProductCard({ data, wishlist, updateWishlist }) {
                     </button>
             </div>
         </div>
+     </Link>
     );
 }
