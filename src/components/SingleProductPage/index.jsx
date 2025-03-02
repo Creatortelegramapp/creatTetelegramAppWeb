@@ -46,7 +46,7 @@ export default function SingleProductPage() {
             </div>
             <div className="w-full bg-white pb-[60px]">
               <div className="container-x mx-auto">
-                <ProductView product={product.data} />
+                <ProductView product={product} />
               </div>
             </div>
           </div>
