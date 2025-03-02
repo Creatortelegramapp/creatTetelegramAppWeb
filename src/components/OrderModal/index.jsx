@@ -3,11 +3,7 @@ import axios from "axios";
 
 export default function OrderModal({ isOpen, onClose }) {
     const [formData, setFormData] = useState({
-        address: "",
-        deliveryTime: "",
         ordererPhone: "",
-        receiverPhone: "",
-        comment: "",
     });
     const [error, setError] = useState("");
 
@@ -16,13 +12,13 @@ export default function OrderModal({ isOpen, onClose }) {
     };
 
     const handleSubmit = async () => {
-        if (!formData.address || !formData.deliveryTime || !formData.ordererPhone || !formData.receiverPhone) {
+        if (!formData.ordererPhone) {
             setError("Խնդրում ենք լրացնել բոլոր պարտադիր դաշտերը։");
             return;
         }
 
         try {
-            await axios.post("http://localhost:8080/api/orders", formData);
+            await axios.post("http://localhost:8080/api/order", formData);
             alert("Պատվերը հաջողությամբ ուղարկվեց!");
             onClose();
         } catch (error) {
@@ -40,47 +36,13 @@ export default function OrderModal({ isOpen, onClose }) {
                 {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
 
                 <input
-                    type="text"
-                    name="address"
-                    placeholder="Առաքման հասցե *"
-                    value={formData.address}
-                    onChange={handleChange}
-                    className="w-full p-3 border rounded mb-3"
-                />
-
-                <input
-                    type="datetime-local"
-                    name="deliveryTime"
-                    value={formData.deliveryTime}
-                    onChange={handleChange}
-                    className="w-full p-3 border rounded mb-3"
-                />
-
-                <input
                     type="tel"
                     name="ordererPhone"
-                    placeholder="Պատվիրողի հեռախոսահամար *"
+                    placeholder="Հեռախոսահամար *"
                     value={formData.ordererPhone}
                     onChange={handleChange}
                     className="w-full p-3 border rounded mb-3"
                 />
-
-                <input
-                    type="tel"
-                    name="receiverPhone"
-                    placeholder="Ստացողի հեռախոսահամար *"
-                    value={formData.receiverPhone}
-                    onChange={handleChange}
-                    className="w-full p-3 border rounded mb-3"
-                />
-
-                <textarea
-                    name="comment"
-                    placeholder="Լրացուցիչ մեկնաբանություն (ոչ պարտադիր)"
-                    value={formData.comment}
-                    onChange={handleChange}
-                    className="w-full p-3 border rounded mb-4 h-32"
-                ></textarea>
 
                 <div className="flex justify-end space-x-4 mt-4">
                     <button
