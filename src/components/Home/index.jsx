@@ -73,68 +73,63 @@ export default function Home() {
                 >
 
                     <div className="grid grid-cols-2 lg:grid-cols-2 xl:gap-[30px] gap-5">
-                        {productData.length && (
+                        {productData.length > 0 && (
                             productData.slice(0, 4).map((data, index) => (
-                                <div key={index}
-                                     data-aos="fade-left"
-                                     className="product-row-card-style-one w-full h-[400px] lg:h-[500px] bg-white group relative overflow-hidden"
-                                >
+                                <Link to={`/single-product/${data.id}`} key={index}>
                                     <div
-                                        className="flex flex-col sm:flex-row space-x-0 sm:space-x-5 items-center w-full h-full lg:p-[30px] sm:p-3 p-2">
-                                        <div className="lg:w-full w-full h-[250px] sm:h-full"
-                                             style={{
-                                                 backgroundImage: `url(${data.media_urls[0]})`,
-                                                 backgroundRepeat: "no-repeat",
-                                                 backgroundSize: "cover",
-                                                 backgroundPosition: "center center",
-                                             }}>
-                                        </div>
-                                        <div className="flex-1 flex flex-col justify-center h-auto sm:h-full">
-                                            <div>
-                                                <Link to="/single-product">
+                                        data-aos="fade-left"
+                                        className="product-row-card-style-one w-full h-[400px] lg:h-[500px] bg-white group relative overflow-hidden cursor-pointer"
+                                    >
+                                        <div
+                                            className="flex flex-col sm:flex-row space-x-0 sm:space-x-5 items-center w-full h-full lg:p-[30px] sm:p-3 p-2">
+                                            <div
+                                                className="lg:w-full w-full h-[250px] sm:h-full"
+                                                style={{
+                                                    backgroundImage: `url(${data.media_urls[0]})`,
+                                                    backgroundRepeat: "no-repeat",
+                                                    backgroundSize: "cover",
+                                                    backgroundPosition: "center center",
+                                                }}
+                                            ></div>
+                                            <div className="flex-1 flex flex-col justify-center h-auto sm:h-full">
+                                                <div>
                                                     <p className="title mb-2 sm:text-[18px] text-[15px] font-600 text-qblack leading-[24px] line-clamp-2 hover:text-blue-600">
                                                         {data.name}
                                                     </p>
-                                                </Link>
-                                                <div className="price mb-[26px]">
-                                                    <div
-                                                        className="main-price text-qgray line-through font-600 sm:text-[22px] text-base">
-                                                        {data.price}
+                                                    <div className="price mb-[26px]">
+                                                        <div
+                                                            className="main-price text-qgray line-through font-600 sm:text-[22px] text-base">
+                                                            {data.price}
+                                                        </div>
                                                     </div>
+                                                    <button type="button" className="w-[110px] h-[30px]">
+                                                        <div className="yellow-btn"> Add To Cart</div>
+                                                    </button>
                                                 </div>
-                                                <button type="button" className="w-[110px] h-[30px]" onClick={() => addProductById(data.id)}>
-                                                    <div className={"yellow-btn"}>
-                                                        {" "}
-                                                        Add To Cart
-                                                    </div>
-                                                </button>
-
                                             </div>
                                         </div>
-                                    </div>
-                                    <div
-                                        className="quick-access-btns flex flex-col space-y-2 absolute group-hover:right-4 -right-10 top-[30px]  transition-all duration-300 ease-in-out">
-                                        <button >
+                                        <div
+                                            className="quick-access-btns flex flex-col space-y-2 absolute group-hover:right-4 -right-10 top-[30px] transition-all duration-300 ease-in-out">
+                                            <button>
+                                                <div
+                                                    className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
+                                                    <QuickViewIco/>
+                                                </div>
+                                            </button>
                                             <div
-                                                className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
-                                                <QuickViewIco/>
+                                                className="min-w-[40px] min-h-[40px] flex justify-center items-center bg-primarygray rounded">
+                                                <AddWishListButton productId={data.id} wishlist={wishlist}
+                                                                   updateWishlist={updateWishlist}/>
                                             </div>
-                                        </button>
-                                        <div className="min-w-[40px] min-h-[40px] flex justify-center items-center bg-primarygray rounded">
-                                            <AddWishListButton
-                                                productId={data.id}
-                                                wishlist={wishlist}
-                                                updateWishlist={updateWishlist}
-                                            />
+                                            <button>
+                                                <div
+                                                    className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
+                                                    <Compair/>
+                                                </div>
+                                            </button>
                                         </div>
-                                        <button >
-                                            <div
-                                                className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
-                                                <Compair/>
-                                            </div>
-                                        </button>
                                     </div>
-                                </div>
+                                </Link>
                             ))
                         )}
                     </div>

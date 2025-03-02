@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import {searchBox} from "../../../Services/HttpServices/SearchHttpServices.js";
+import { searchBox } from "../../../Services/HttpServices/SearchHttpServices.js";
+import { Link } from "react-router-dom";
 
 export default function SearchBox({ className }) {
   const [query, setQuery] = useState("");
@@ -11,7 +12,7 @@ export default function SearchBox({ className }) {
       return;
     }
 
-    const response = await searchBox(searchTerm); // API հարցումը
+    const response = await searchBox(searchTerm);
     const filteredResults = response?.data?.data || [];
     setResults(filteredResults);
   };
@@ -38,10 +39,7 @@ export default function SearchBox({ className }) {
           />
 
           {query && (
-              <span
-                  className="cursor-pointer text-gray-500"
-                  onClick={handleClear}
-              >
+              <span className="cursor-pointer text-gray-500" onClick={handleClear}>
             ×
           </span>
           )}
@@ -51,7 +49,9 @@ export default function SearchBox({ className }) {
             <ul className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded-lg mt-1 shadow-lg z-50 max-h-60 overflow-y-auto">
               {results.map((item) => (
                   <li key={item.id} className="p-2 hover:bg-gray-100 flex justify-between items-center cursor-pointer">
-                    <span className="font-bold">{item.name}</span>
+                    <Link to={`/single-product/${item.id}`} className="w-full h-full block">
+                      <span className="font-bold">{item.name}</span>
+                    </Link>
                   </li>
               ))}
             </ul>
