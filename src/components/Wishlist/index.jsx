@@ -2,7 +2,7 @@ import BreadcrumbCom from "../BreadcrumbCom";
 import EmptyWishlistError from "../EmptyWishlistError";
 import PageTitle from "../Helpers/PageTitle";
 import Layout from "../Partials/Layout";
-import ProductsTable from "./ProductsTable";
+import WhishlistProductsTable from "./WhishlistProductsTable.jsx";
 
 export default function Wishlist({ wishlist = true }) {
   return (
@@ -32,7 +32,7 @@ export default function Wishlist({ wishlist = true }) {
           </div>
           <div className="w-full mt-[23px]">
             <div className="container-x mx-auto">
-              <ProductsTable className="mb-[30px]" />
+              <WhishlistProductsTable className="mb-[30px]" />
               <div className="w-full mt-[30px] flex sm:justify-end justify-start">
                 <div className="sm:flex sm:space-x-[30px] items-center">
                   <button type="button">

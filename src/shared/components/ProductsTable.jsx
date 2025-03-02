@@ -1,29 +1,7 @@
-import {useEffect, useState} from "react";
-import {getProductById} from "../../Services/HttpServices/ProductsHttpService.js";
-import {localStorageKeys} from "../../constants/lockalStorageDatas.js";
-import RemoveButton from "./RemoveButton.jsx";
+import RemoveButton from "../../components/Wishlist/RemoveButton.jsx";
+import {Link} from "react-router-dom";
 
-
-export default function ProductsTable() {
-    const [productData, setProductData] = useState([]);
-
-    useEffect(() => {
-        const likedProductIds = JSON.parse(localStorage.getItem(localStorageKeys.wishlist)) || [];
-        async function productsResponse() {
-            const fetchedProducts = await Promise.all(
-                likedProductIds.map(async (item) => {
-                    return await getProductById(item);
-                })
-            );
-                setProductData(fetchedProducts);
-        }
-        productsResponse();
-    }, []);
-
-    const onRemove = (id) => {
-        setProductData(prevProducts => prevProducts.filter(product => product.data.id !== id));
-    }
-
+export default function ProductsTable({ products, onRemove }) {
     return (
         <div className="relative w-full overflow-x-auto border border-[#EDEDED]">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -33,25 +11,27 @@ export default function ProductsTable() {
                     <td className="py-4 whitespace-nowrap text-center">Price</td>
                     <td className="py-4 whitespace-nowrap text-right w-[114px] block"></td>
                 </tr>
-                {productData.map((product) => (
-                    <tr key={product.data.id} className="bg-white border-b hover:bg-gray-50">
+                {products?.map((product) => (
+                    <tr key={product.id} className="bg-white border-b hover:bg-gray-50">
                         <td className="pl-10 py-4 w-[380px]">
                             <div className="flex space-x-6 items-center">
                                 <div
                                     className="w-[80px] h-[80px] overflow-hidden flex justify-center items-center border border-[#EDEDED]">
-                                    <img src={product.data.media_urls[0]} alt=""/>
+                                    <Link to={`/single-product/${product.id}`}>
+                                        <img src={product.media_urls[0]} alt=""/>
+                                    </Link>
                                 </div>
                                 <div className="flex-1 flex flex-col">
-                                    <p className="font-medium text-[15px] text-qblack">{product.data.name}</p>
+                                    <p className="font-medium text-[15px] text-qblack">{product.name}</p>
                                 </div>
                             </div>
                         </td>
                         <td className="text-center py-4 px-2">
-                            <p className="text-[15px] font-normal">${product.data.price}</p>
+                            <p className="text-[15px] font-normal">${product.price}</p>
                         </td>
                         <td className="text-right py-4 p-[10px]">
                             <RemoveButton
-                                productId={product.data.id}
+                                productId={product.id}
                                 onRemove={onRemove}
                             />
                         </td>

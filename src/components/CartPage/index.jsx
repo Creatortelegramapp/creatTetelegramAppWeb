@@ -4,7 +4,7 @@ import EmptyCardError from "../EmptyCardError";
 import InputCom from "../Helpers/InputCom";
 import PageTitle from "../Helpers/PageTitle";
 import Layout from "../Partials/Layout";
-import ProductsTable from "./ProductsTable";
+import CartProductsTable from "./CartProductsTable.jsx";
 
 export default function CardPage({ cart = true }) {
   return (
@@ -34,7 +34,7 @@ export default function CardPage({ cart = true }) {
           </div>
           <div className="w-full mt-[23px]">
             <div className="container-x mx-auto">
-              <ProductsTable className="mb-[30px]" />
+              <CartProductsTable className="mb-[30px]" />
               <div className="w-full sm:flex justify-between">
                 <div className="discount-code sm:w-[270px] w-full mb-5 sm:mb-0 h-[50px] flex">
                   <div className="flex-1 h-full">

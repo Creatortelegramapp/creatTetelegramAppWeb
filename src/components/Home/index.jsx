@@ -11,9 +11,11 @@ import {useEffect, useState} from "react";
 import AddWishListButton from "../Wishlist/AddWishListButton.jsx";
 import {getProductByCategoryId} from "../../Services/HttpServices/CategoriesHttpService.js";
 import {environment} from "../../environment.dev.js";
+import {useCartProducts} from "../../hooks/useCartProducts.jsx";
 
 export default function Home() {
 
+    const { addProductById } = useCartProducts();
     const [productData, setProductData] = useState([]);
 
     const [wishlist, setWishlist] = useState(() => {
@@ -100,7 +102,7 @@ export default function Home() {
                                                         {data.price}
                                                     </div>
                                                 </div>
-                                                <button type="button" className="w-[110px] h-[30px]">
+                                                <button type="button" className="w-[110px] h-[30px]" onClick={() => addProductById(data.id)}>
                                                     <div className={"yellow-btn"}>
                                                         {" "}
                                                         Add To Cart

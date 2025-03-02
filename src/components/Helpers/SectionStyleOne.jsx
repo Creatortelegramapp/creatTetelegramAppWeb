@@ -10,6 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
+import {useCartProducts} from "../../hooks/useCartProducts.jsx";
 
 export default function SectionStyleOne({
                                             className,
@@ -68,6 +69,8 @@ export default function SectionStyleOne({
 }
 
 function ProductCard({ data, wishlist, updateWishlist }) {
+    const { addProductById } = useCartProducts();
+
     return (
         <div
             className="product-card-one w-full h-full bg-white relative group overflow-hidden"
@@ -87,7 +90,7 @@ function ProductCard({ data, wishlist, updateWishlist }) {
                         type="button"
                         className="yellow-btn"
                     >
-                        <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-3" onClick={() => addProductById(data.id)}>
                             <div>
                                 <svg
                                     width="14"

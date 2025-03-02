@@ -6,14 +6,17 @@ import App from "./App";
 import "./index.css";
 import 'react-range-slider-input/dist/style.css';
 import { registerSW } from "virtual:pwa-register";
+import {CartProvider} from "./hooks/useCartProducts.jsx";
 if (import.meta.env.MODE === "production") {
   registerSW();
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <CartProvider>
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>
+    </CartProvider>
 );
 
 AOS.init();
