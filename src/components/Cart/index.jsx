@@ -1,12 +1,22 @@
 import {Link} from "react-router-dom";
 
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import OrderModal from "../OrderModal/index.jsx";
 import {useCartProducts} from "../../hooks/useCartProducts.jsx";
 
 export default function Cart({ className, type }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { cartProducts, removeProductById } = useCartProducts();
+  const [subTotal, setSubTotal] = useState(0);
+
+  useEffect(() => {
+    const totalPrice = cartProducts.reduce((acc, product) => {
+      return acc + product.price;
+    }, 0);
+
+    setSubTotal(totalPrice);
+  }, [cartProducts]);
+
   return (
     <>
       <div
@@ -67,7 +77,7 @@ export default function Cart({ className, type }) {
           <div className="product-actions px-4 mb-[30px]">
             <div className="total-equation flex justify-between items-center mb-[28px]">
               <span className="text-[15px] font-500 text-qblack">Subtotal</span>
-              <span className="text-[15px] font-500 text-qred ">$365</span>
+              <span className="text-[15px] font-500 text-qred ">${subTotal}</span>
             </div>
             <div className="product-action-btn">
               <div className="gray-btn w-full h-[50px] mb-[10px] ">

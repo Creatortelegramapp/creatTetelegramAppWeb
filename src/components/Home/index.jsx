@@ -78,7 +78,7 @@ export default function Home() {
                 >
 
                     <div className="grid grid-cols-2 lg:grid-cols-2 xl:gap-[30px] gap-5">
-                        {productData.length > 0 && (
+                        {
                             productData.slice(0, 4).map((data, index) => (
                                 <Link to={`/single-product/${data.id}`} key={index}>
                                     <div
@@ -136,7 +136,7 @@ export default function Home() {
                                     </div>
                                 </Link>
                             ))
-                        )}
+                        }
                     </div>
                 </ViewMoreTitle>
                 <CampaignCountDown
