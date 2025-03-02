@@ -1,4 +1,10 @@
+import {useState} from "react";
+import OrderModal from "../OrderModal/index.jsx";
+
 export default function Cart({ className, type }) {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <>
       <div
@@ -242,13 +248,15 @@ export default function Cart({ className, type }) {
                   <span>View Cart</span>
                 </div>
               </a>
-              <a href="#">
+              {/*<a href="#">*/}
                 <div className="w-full h-[50px]">
                   <div className={type === 3 ? "blue-btn" : "yellow-btn"}>
-                    <span className="text-sm">Checkout Now</span>
+                    {/*<span className="text-sm">Checkout Now</span>*/}
+                    <button onClick={() => setIsModalOpen(true)}>Պատվիրել</button>
+                    <OrderModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
                   </div>
                 </div>
-              </a>
+              {/*</a>*/}
             </div>
           </div>
           <div className="w-full px-4 mt-[20px]">
