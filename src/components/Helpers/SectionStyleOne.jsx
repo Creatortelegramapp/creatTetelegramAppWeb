@@ -5,11 +5,11 @@ import {getProductByCategoryId} from "../../Services/HttpServices/CategoriesHttp
 import {Link} from "react-router-dom";
 import QuickViewIco from "./icons/QuickViewIco.jsx";
 import AddWishListButton from "../Wishlist/AddWishListButton.jsx";
-import Compair from "./icons/Compair.jsx";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
+import {useCartProducts} from "../../hooks/useCartProducts.jsx";
 
 export default function SectionStyleOne({
                                             className,
@@ -54,11 +54,11 @@ export default function SectionStyleOne({
                             </Swiper>
                         ) : (
                     <div className="grid lg:grid-cols-4   xl:gap-[30px] gap-5">
-                        {productsData.length && (
+                        {
                             productsData.slice(0, 4).map((data, index) => (
-                                <ProductCard key={index} data={data} wishlist={wishlist} updateWishlist={updateWishlist} />
+                                <ProductCard key={index} data={data} wishlist={wishlist} updateWishlist={updateWishlist}/>
                             ))
-                        )}
+                        }
                     </div>)
                     }
                 </div>
@@ -68,6 +68,13 @@ export default function SectionStyleOne({
 }
 
 function ProductCard({ data, wishlist, updateWishlist }) {
+    const { addProductById } = useCartProducts();
+
+    const addProduct = (e, id) => {
+        e.preventDefault();
+        addProductById(id);
+    };
+
     return (
         <Link to={`/single-product/${data.id}`} className="block">
         <div
@@ -88,7 +95,7 @@ function ProductCard({ data, wishlist, updateWishlist }) {
                         type="button"
                         className="yellow-btn"
                     >
-                        <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-3" onClick={(e) => addProduct(e, data.id)}>
                             <div>
                                 <svg
                                     width="14"
@@ -122,20 +129,17 @@ function ProductCard({ data, wishlist, updateWishlist }) {
                             <QuickViewIco/>
                         </div>
                     </button>
-                    <div
-                        className="quick-access-btns pt-[10px] flex flex-col space-y2 absolute top-20 transition-all duration-300 ease-in-out">
-                        <AddWishListButton
-                            productId={data.id}
-                            wishlist={wishlist}
-                            updateWishlist={updateWishlist}
-                        />
-                    </div>
-                    <button>
-                        <div
-                            className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
-                            <Compair/>
-                        </div>
-                    </button>
+                    <AddWishListButton
+                        productId={data.id}
+                        wishlist={wishlist}
+                        updateWishlist={updateWishlist}
+                    />
+                    {/*<button>*/}
+                    {/*    <div*/}
+                    {/*        className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">*/}
+                    {/*        <Compair/>*/}
+                    {/*    </div>*/}
+                    {/*</button>*/}
             </div>
         </div>
      </Link>

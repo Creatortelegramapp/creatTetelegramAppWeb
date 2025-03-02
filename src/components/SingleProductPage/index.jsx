@@ -17,7 +17,7 @@ export default function SingleProductPage() {
     const fetchProduct = async () => {
       try {
         const response = await getProductById(productId);
-        setProduct(response.data);
+        setProduct(response);
       } catch (err) {
         setError("Throw Error");
       } finally {

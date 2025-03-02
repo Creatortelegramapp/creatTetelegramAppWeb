@@ -4,9 +4,22 @@ import EmptyCardError from "../EmptyCardError";
 import InputCom from "../Helpers/InputCom";
 import PageTitle from "../Helpers/PageTitle";
 import Layout from "../Partials/Layout";
-import ProductsTable from "./ProductsTable";
+import CartProductsTable from "./CartProductsTable.jsx";
+import {useCartProducts} from "../../hooks/useCartProducts.jsx";
+import {useEffect, useState} from "react";
 
 export default function CardPage({ cart = true }) {
+  const { cartProducts } = useCartProducts();
+  const [subTotal, setSubTotal] = useState(0);
+
+  useEffect(() => {
+    const totalPrice = cartProducts.reduce((acc, product) => {
+      return acc + product.price;
+    }, 0);
+
+    setSubTotal(totalPrice);
+  }, [cartProducts]);
+
   return (
     <Layout childrenClasses={cart ? "pt-0 pb-0" : ""}>
       {cart === false ? (
@@ -34,7 +47,7 @@ export default function CardPage({ cart = true }) {
           </div>
           <div className="w-full mt-[23px]">
             <div className="container-x mx-auto">
-              <ProductsTable className="mb-[30px]" />
+              <CartProductsTable className="mb-[30px]" />
               <div className="w-full sm:flex justify-between">
                 <div className="discount-code sm:w-[270px] w-full mb-5 sm:mb-0 h-[50px] flex">
                   <div className="flex-1 h-full">
@@ -66,7 +79,7 @@ export default function CardPage({ cart = true }) {
                       <p className="text-[15px] font-medium text-qblack">
                         Subtotal
                       </p>
-                      <p className="text-[15px] font-medium text-qred">$365</p>
+                      <p className="text-[15px] font-medium text-qred">${subTotal}</p>
                     </div>
                     <div className="w-full h-[1px] bg-[#EDEDED]"></div>
                   </div>
@@ -177,7 +190,7 @@ export default function CardPage({ cart = true }) {
                       <p className="text-[18px] font-medium text-qblack">
                         Total
                       </p>
-                      <p className="text-[18px] font-medium text-qred">$365</p>
+                      <p className="text-[18px] font-medium text-qred">${subTotal}</p>
                     </div>
                   </div>
                   <Link to="/checkout">

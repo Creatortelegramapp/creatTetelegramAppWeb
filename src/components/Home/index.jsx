@@ -11,9 +11,11 @@ import {useEffect, useState} from "react";
 import AddWishListButton from "../Wishlist/AddWishListButton.jsx";
 import {getProductByCategoryId} from "../../Services/HttpServices/CategoriesHttpService.js";
 import {environment} from "../../environment.dev.js";
+import {useCartProducts} from "../../hooks/useCartProducts.jsx";
 
 export default function Home() {
 
+    const { addProductById } = useCartProducts();
     const [productData, setProductData] = useState([]);
 
     const [wishlist, setWishlist] = useState(() => {
@@ -44,6 +46,11 @@ export default function Home() {
         }
     };
 
+    const addProduct = (e, productId) => {
+        e.preventDefault();
+        addProductById(productId);
+    }
+
 
     return (
         <>
@@ -71,7 +78,7 @@ export default function Home() {
                 >
 
                     <div className="grid grid-cols-2 lg:grid-cols-2 xl:gap-[30px] gap-5">
-                        {productData.length > 0 && (
+                        {
                             productData.slice(0, 4).map((data, index) => (
                                 <Link to={`/single-product/${data.id}`} key={index}>
                                     <div
@@ -100,7 +107,7 @@ export default function Home() {
                                                             {data.price}
                                                         </div>
                                                     </div>
-                                                    <button type="button" className="w-[110px] h-[30px]">
+                                                    <button type="button" className="w-[110px] h-[30px]" onClick={e => addProduct(e, data.id)}>
                                                         <div className="yellow-btn"> Add To Cart</div>
                                                     </button>
                                                 </div>
@@ -119,17 +126,17 @@ export default function Home() {
                                                 <AddWishListButton productId={data.id} wishlist={wishlist}
                                                                    updateWishlist={updateWishlist}/>
                                             </div>
-                                            <button>
-                                                <div
-                                                    className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
-                                                    <Compair/>
-                                                </div>
-                                            </button>
+                                            {/*<button>*/}
+                                            {/*    <div*/}
+                                            {/*        className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">*/}
+                                            {/*        <Compair/>*/}
+                                            {/*    </div>*/}
+                                            {/*</button>*/}
                                         </div>
                                     </div>
                                 </Link>
                             ))
-                        )}
+                        }
                     </div>
                 </ViewMoreTitle>
                 <CampaignCountDown
