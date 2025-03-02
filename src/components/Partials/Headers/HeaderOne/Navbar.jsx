@@ -1,22 +1,30 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Arrow from "../../../Helpers/icons/Arrow";
-import {getCategoryById} from "../../../../Services/HttpServices/CategoriesHttpService.js";
+import { getCategoryById } from "../../../../Services/HttpServices/CategoriesHttpService.js";
+import ThinBag from "../../../Helpers/icons/ThinBag";
+import ThinLove from "../../../Helpers/icons/ThinLove";
+import ThinPeople from "../../../Helpers/icons/ThinPeople";
+import SearchBox from "../../../Helpers/SearchBox";
 
-export default function Navbar({ type }) {
-  const [categoryToggle, setToggle] = useState(false);
-  const [elementsSize, setSize] = useState("0px");
-  const [categoryData,setCategoryData] = useState([]);
+export default function Navbar() {
+  const [menuToggle, setMenuToggle] = useState(false);
+  const [categoryToggle, setCategoryToggle] = useState(false);
+  const [categoryData, setCategoryData] = useState([]);
 
-  const handler = () => {
-    setToggle(!categoryToggle);
+  const toggleMenu = () => {
+    setMenuToggle(!menuToggle);
+    setCategoryToggle(false);
+  };
+
+  const toggleCategory = () => {
+    setCategoryToggle(!categoryToggle);
   };
 
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await getCategoryById(2);
-        setCategoryData(response.data.data)
+        setCategoryData(response.data.data);
       } catch (error) {
         console.log("error", error);
       }
@@ -25,148 +33,162 @@ export default function Navbar({ type }) {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (categoryToggle) {
-      const getItems = document.querySelectorAll(`.categories-list li`).length;
-      if (categoryToggle && getItems > 0) {
-        setSize(`${42 * getItems}px`);
-      }
-    } else {
-      setSize(`0px`);
-    }
-  }, [categoryToggle]);
-
   return (
-    <div
-      className={`nav-widget-wrapper w-full  h-[60px] relative z-30`}
-      style={{
-        backgroundColor:"#f1c6d6"
-      }}
-    >
-      <div className="container-x mx-auto h-full">
-        <div className="w-full h-full relative">
-          <div className="w-full h-full flex justify-between items-center">
+      <div className="nav-widget-wrapper w-full h-[60px] relative z-30 bg-[#f1c6d6]">
+        <div className="container-x mx-auto h-full flex justify-between items-center">
+          <button
+              onClick={toggleMenu}
+              className="lg:hidden text-2xl left-5"
+          >
+            ☰
+          </button>
+          <div className="hidden lg:flex justify-between w-full">
             <div className="category-and-nav flex xl:space-x-7 space-x-3 items-center">
               <div className="category w-[270px] h-[53px] bg-white px-5 rounded-t-md mt-[6px] relative">
                 <button
-                  onClick={handler}
-                  type="button"
-                  className="w-full h-full flex justify-between items-center"
+                    onClick={toggleCategory}
+                    className="w-full text-sm font-600 text-qblacktext flex justify-between items-center"
                 >
-                  <div className="flex space-x-3 items-center">
-                    <span>
-                      <svg
-                        className="fill-current"
-                        width="14"
-                        height="9"
-                        viewBox="0 0 14 9"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect width="14" height="1" />
-                        <rect y="8" width="14" height="1" />
-                        <rect y="4" width="10" height="1" />
-                      </svg>
-                    </span>
-                    <span className="text-sm font-600 text-qblacktext">
-                      Տեսականի
-                    </span>
-                  </div>
-                  <div>
-                    <Arrow
-                      width="5.78538"
-                      height="1.28564"
-                      className="fill-current text-qblacktext"
-                    />
-                  </div>
+                  <span className="flex-1 text-left pt-4">Տեսականին</span>
+                  <span
+                      className={`transform transition-transform pt-4 ${
+                          categoryToggle ? "rotate-180" : "rotate-0"
+                      }`}
+                  >
+                  ▼
+                </span>
                 </button>
-                {categoryToggle && (
-                  <div
-                    className="fixed top-0 left-0 w-full h-full -z-10"
-                    onClick={handler}
-                  ></div>
+                {categoryToggle && categoryData.length > 0 && (
+                    <div className="absolute top-[53px] left-0 w-full bg-white shadow-lg">
+                      {categoryData.map((category, index) => (
+                          <Link
+                              key={category.id || index}
+                              to={`/all-products?categories=${category.id}`}
+                              className="block text-lg font-semibold px-4 py-2 hover:bg-gray-100"
+                          >
+                            {category.name}
+                          </Link>
+                      ))}
+                    </div>
                 )}
-                <div
-                  className="category-dropdown w-full absolute left-0 top-[53px] overflow-hidden"
-                  style={{ height: `${elementsSize} ` }}
-                >
-                  {categoryData.length && categoryToggle && (
-                      <ul className='categories-list'>
-                          {categoryData.map((category,index) => (
-                              <li className="category-item"
-                                  key={category.id || index}>
-                                <Link to={`/all-products?categories=${category.id}`}>
-                                      <div
-                                          className={`flex justify-between items-center px-5 h-10 bg-white 
-                                       transition-all duration-300 ease-in-out cursor-pointer text-qblack ${type === 3 ? "hover:bg-qh3-blue hover:text-white w-full" : "hover:bg-qyellow"}`}
-                                      >
-                                          <div className="flex items-center space-x-6 w-full">
-                                          <span className='text-xs font-400'>
-                                          {category.name}
-                                          </span>
-                                          </div>
-                                      </div>
-                                  </Link>
-                              </li>
-                          ))}
-                      </ul>
-                  ) }
-                </div>
               </div>
               <div className="nav">
                 <ul className="nav-wrapper flex xl:space-x-10 space-x-5">
-
-                  <li className="relative">
-
-                    <Link to="/">
-                      <span
-                          className={`flex items-center text-sm font-600 cursor-pointer ${
-                              type === 3 ? "text-white" : "text-qblacktext"
-                          }`}
-                      >
-                      <span>Գլխավոր էջ</span>
-                    </span>
-                    </Link>
+                  <li>
+                    <Link to="/">Գլխավոր էջ</Link>
                   </li>
                   <li>
-                    <Link to="/about">
-                      <span
-                        className={`flex items-center text-sm font-600 cursor-pointer ${
-                          type === 3 ? "text-white" : "text-qblacktext"
-                        }`}
-                      >
-                        <span>Մեր մասին</span>
-                      </span>
-                    </Link>
+                    <Link to="/about">Մեր մասին</Link>
                   </li>
                   <li>
-                    <Link to="/blogs">
-                      <span
-                        className={`flex items-center text-sm font-600 cursor-pointer ${
-                          type === 3 ? "text-white" : "text-qblacktext"
-                        }`}
-                      >
-                        <span>Բլոգ</span>
-                      </span>
-                    </Link>
+                    <Link to="/blogs">Բլոգ</Link>
                   </li>
                   <li>
-                    <Link to="/contact">
-                      <span
-                        className={`flex items-center text-sm font-600 cursor-pointer ${
-                          type === 3 ? "text-white" : "text-qblacktext"
-                        }`}
-                      >
-                        <span>Կոնտակտներ</span>
-                      </span>
-                    </Link>
+                    <Link to="/contact">Կոնտակտներ</Link>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
+
+          <div className="lg:hidden flex justify-between items-center w-full">
+            <div className="w-[220px] h-[50px] relative m-auto">
+              <SearchBox />
+            </div>
+            <div className="flex space-x-4 items-center">
+              <Link to="/wishlist">
+                <ThinLove/>
+              </Link>
+              <Link to="/cart">
+                <ThinBag/>
+              </Link>
+              <Link to="/profile">
+                <ThinPeople/>
+              </Link>
+            </div>
+          </div>
         </div>
+        <div
+            className={`fixed top-0 left-0 h-full w-[300px] bg-white shadow-lg transform transition-transform duration-300 ${
+                menuToggle ? "translate-x-0" : "-translate-x-full"
+            } z-50 lg:hidden`}
+        >
+          <button
+              onClick={toggleMenu}
+              className="absolute top-4 right-4 text-3xl font-bold text-gray-600 hover:text-red-500"
+          >
+            ×
+          </button>
+
+          <ul className="p-6 space-y-4">
+            <li className="border-b border-gray-300 pb-2">
+              <Link
+                  to="/"
+                  className="block text-lg font-semibold hover:bg-gray-100 px-4 py-2 rounded-md transition-all"
+              >
+                Գլխավոր էջ
+              </Link>
+            </li>
+            <li className="border-b border-gray-300 pb-2">
+              <Link
+                  to="/about"
+                  className="block text-lg font-semibold hover:bg-gray-100 px-4 py-2 rounded-md transition-all"
+              >
+                Մեր մասին
+              </Link>
+            </li>
+            <li className="border-b border-gray-300 pb-2">
+              <Link
+                  to="/blogs"
+                  className="block text-lg font-semibold hover:bg-gray-100 px-4 py-2 rounded-md transition-all"
+              >
+                Բլոգ
+              </Link>
+            </li>
+            <li className="border-b border-gray-300 pb-2">
+              <Link
+                  to="/contact"
+                  className="block text-lg font-semibold hover:bg-gray-100 px-4 py-2 rounded-md transition-all"
+              >
+                Կոնտակտներ
+              </Link>
+            </li>
+            <li className="text-lg font-bold mt-6 border-t pt-4">
+              <button
+                  onClick={toggleCategory}
+                  className="w-full flex justify-between items-center text-lg font-semibold px-4 py-2 rounded-md hover:bg-gray-100 transition-all"
+              >
+                Տեսականի
+                <span
+                    className={`transform transition-transform ${
+                        categoryToggle ? "rotate-180" : "rotate-0"
+                    }`}
+                >
+                ▼
+              </span>
+              </button>
+            </li>
+
+            {categoryToggle &&
+                categoryData.length > 0 &&
+                categoryData.map((category, index) => (
+                    <li key={category.id || index} className="border-b border-gray-300 pb-2 pl-6">
+                      <Link
+                          to={`/all-products?categories=${category.id}`}
+                          className="block text-lg font-semibold hover:bg-gray-100 px-4 py-2 rounded-md transition-all"
+                      >
+                        {category.name}
+                      </Link>
+                    </li>
+                ))}
+          </ul>
+        </div>
+        {menuToggle && (
+            <div
+                className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 lg:hidden"
+                onClick={toggleMenu}
+            ></div>
+        )}
       </div>
-    </div>
   );
 }
