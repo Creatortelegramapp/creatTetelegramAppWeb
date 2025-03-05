@@ -9,19 +9,10 @@ import {useCartProducts} from "../../hooks/useCartProducts.jsx";
 import {useEffect, useState} from "react";
 
 export default function CardPage({ cart = true }) {
-  const { cartProducts, total } = useCartProducts();
-  const [subTotal, setSubTotal] = useState(0);
+  const { total } = useCartProducts();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   let type = 3
-
-  useEffect(() => {
-    const totalPrice = cartProducts.reduce((acc, product) => {
-      return acc + product.price;
-    }, 0);
-
-    setSubTotal(totalPrice);
-  }, [cartProducts]);
 
   return (
     <Layout childrenClasses={cart ? "pt-0 pb-0" : ""}>
@@ -54,7 +45,14 @@ export default function CardPage({ cart = true }) {
               <div className="w-full mt-[30px] flex sm:justify-end">
                 <div className="sm:w-[370px] w-full border border-[#EDEDED] px-[30px] py-[26px]">
 
-
+                  <div className="total mb-6">
+                    <div className=" flex justify-between">
+                      <p className="text-[18px] font-medium text-qblack">
+                        Total
+                      </p>
+                      <p className="text-[18px] font-medium text-qred">${total}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="w-full h-[50px]">
