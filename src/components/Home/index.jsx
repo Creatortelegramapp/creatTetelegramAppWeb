@@ -56,7 +56,6 @@ export default function Home() {
                 <div className="btn w-5 h-5 "></div>
                 <Banner className="banner-wrapper mb-[60px]"/>
                 <SectionStyleOne
-
                     categoryTitle="Բջջային և պլանշետ"
                     sectionTitle="Խաղացողի աշխարհ"
                     seeMoreUrl="/all-products"

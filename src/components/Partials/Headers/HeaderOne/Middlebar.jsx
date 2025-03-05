@@ -4,8 +4,21 @@ import ThinLove from "../../../Helpers/icons/ThinLove";
 import ThinPeople from "../../../Helpers/icons/ThinPeople";
 import SearchBox from "../../../Helpers/SearchBox";
 import { Link } from "react-router-dom";
+import {useCartProducts} from "../../../../hooks/useCartProducts.jsx";
+import {useEffect, useState} from "react";
 
 export default function Middlebar({ className, type }) {
+
+  const { cartProducts } = useCartProducts();
+  const [cartProcuctQuantity, setCartProcuctQuantity] = useState(0);
+
+  useEffect(() => {
+    setCartProcuctQuantity(cartProducts.reduce((acc, current) => {
+      console.log(acc, current);
+      return acc + current.quantity
+    }, 0));
+  }, [cartProducts]);
+
   return (
     <div className={`w-full h-[86px] bg-white ${className}`}>
       <div className="container-x mx-auto h-full">
@@ -62,13 +75,17 @@ export default function Middlebar({ className, type }) {
                 <div className="cart relative cursor-pointer">
                   <Link to="/cart">
                     <span>
-                      <ThinBag />
+                      <ThinBag/>
                     </span>
+                    <span
+                        className="w-[18px] h-[18px] rounded-full bg-qh4-pink absolute -top-2.5 -right-2.5 flex justify-center items-center text-[9px] text-qblack">
+                    {cartProcuctQuantity}
+                  </span>
                   </Link>
                 </div>
                 <Cart
-                  type={type}
-                  className="absolute -right-[45px] top-11 z-50 hidden group-hover:block"
+                    type={type}
+                    className="absolute -right-[45px] top-11 z-50 hidden group-hover:block"
                 />
               </div>
               <div>

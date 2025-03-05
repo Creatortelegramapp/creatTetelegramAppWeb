@@ -1,7 +1,7 @@
 import ProductsTable from "../../shared/components/ProductsTable.jsx";
 import { useCartProducts } from "../../hooks/useCartProducts.jsx";
 
-export default function CartProductsTable({ className }) {
+export default function CartProductsTable({isCart }) {
   const { cartProducts, removeProductById, updateProductQuantities } = useCartProducts();
 
   const onRemove = (id) => {
@@ -17,6 +17,7 @@ export default function CartProductsTable({ className }) {
           products={cartProducts}
           onRemove={onRemove}
           onQuantityChange={onQuantityChange}
+          isCart={isCart}
       />
   );
 }
