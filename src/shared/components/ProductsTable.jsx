@@ -1,11 +1,9 @@
 import RemoveButton from "../../components/Wishlist/RemoveButton.jsx";
 import { Link } from "react-router-dom";
 import {useCartProducts} from "../../hooks/useCartProducts.jsx";
-export default function ProductsTable({ products, onRemove , isCart}) {
-    const { addProductById } = useCartProducts();
 
-export default function ProductsTable({ products, onRemove }) {
-    const { quantityChange } = useCartProducts();
+export default function ProductsTable({ products, onRemove, isCart }) {
+    const { quantityChange, addProductById } = useCartProducts();
 
     const addProduct = (e, id) => {
         e.preventDefault();
