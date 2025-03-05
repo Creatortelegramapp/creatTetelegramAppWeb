@@ -24,7 +24,7 @@ export default function Navbar() {
     async function fetchData() {
       try {
         const response = await getCategoryById(2);
-        setCategoryData(response.data.data);
+        setCategoryData(response);
       } catch (error) {
         console.log("error", error);
       }

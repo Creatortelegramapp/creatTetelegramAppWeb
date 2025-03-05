@@ -3,7 +3,7 @@ import {environment} from "../../environment.dev.js";
 
 export const getCategoryById = async (categoryId) => {
     try {
-        return await httpClient.get(`/category/${categoryId}`);
+        return await httpClient.get(`/category/${categoryId}`).then((response) => response.data.data);
     } catch (error) {
         console.error('Error fetching category:', error);
     }

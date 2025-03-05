@@ -18,12 +18,12 @@ export default function AllProductPage() {
   const [products, setProducts] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [priceRange, setPriceRange] = useState([Number(minPriceParam), Number(maxPriceParam)]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
       const categoriesData = await getCategoryById(2);
-      setCategories(categoriesData.data.data);
+      setCategories(categoriesData);
     };
     fetchCategories();
   }, []);
