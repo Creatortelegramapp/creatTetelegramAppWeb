@@ -5,8 +5,6 @@ import Banner from "./Banner";
 import CampaignCountDown from "./CampaignCountDown";
 import ProductsAds from "./ProductsAds";
 import {Link} from "react-router-dom";
-import QuickViewIco from "../Helpers/icons/QuickViewIco.jsx";
-import Compair from "../Helpers/icons/Compair.jsx";
 import {useEffect, useState} from "react";
 import AddWishListButton from "../Wishlist/AddWishListButton.jsx";
 import {getProductByCategoryId} from "../../Services/HttpServices/CategoriesHttpService.js";
@@ -115,22 +113,12 @@ export default function Home() {
                                         <div
                                             className="quick-access-btns flex flex-col space-y-2 absolute group-hover:right-4 -right-10 top-[30px] transition-all duration-300 ease-in-out">
                                             <button>
-                                                <div
-                                                    className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
-                                                    <QuickViewIco/>
-                                                </div>
                                             </button>
                                             <div
                                                 className="min-w-[40px] min-h-[40px] flex justify-center items-center bg-primarygray rounded">
                                                 <AddWishListButton productId={data.id} wishlist={wishlist}
                                                                    updateWishlist={updateWishlist}/>
                                             </div>
-                                            {/*<button>*/}
-                                            {/*    <div*/}
-                                            {/*        className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">*/}
-                                            {/*        <Compair/>*/}
-                                            {/*    </div>*/}
-                                            {/*</button>*/}
                                         </div>
                                     </div>
                                 </Link>

@@ -9,7 +9,7 @@ import {useCartProducts} from "../../hooks/useCartProducts.jsx";
 import {useEffect, useState} from "react";
 
 export default function CardPage({ cart = true }) {
-  const { cartProducts } = useCartProducts();
+  const { cartProducts, total } = useCartProducts();
   const [subTotal, setSubTotal] = useState(0);
 
   const [isModalOpen, setIsModalOpen] = useState(false);

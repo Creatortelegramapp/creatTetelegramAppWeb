@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import ViewMoreTitle from "./ViewMoreTitle";
 import {getProductByCategoryId} from "../../Services/HttpServices/CategoriesHttpService.js";
 import {Link} from "react-router-dom";
-import QuickViewIco from "./icons/QuickViewIco.jsx";
 import AddWishListButton from "../Wishlist/AddWishListButton.jsx";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -56,7 +55,7 @@ export default function SectionStyleOne({
                         ) : (
                     <div className="grid lg:grid-cols-4   xl:gap-[30px] gap-5">
                         {
-                            productsData.slice(0, 4).map((data, index) => (
+                            productsData.slice(2, 6).map((data, index) => (
                                 <ProductCard key={index} data={data} wishlist={wishlist} updateWishlist={updateWishlist}/>
                             ))
                         }
