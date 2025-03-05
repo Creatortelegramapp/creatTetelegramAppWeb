@@ -9,7 +9,7 @@ import {useCartProducts} from "../../hooks/useCartProducts.jsx";
 import {useEffect, useState} from "react";
 
 export default function CardPage({ cart = true }) {
-  const { cartProducts } = useCartProducts();
+  const { cartProducts, total } = useCartProducts();
   const [subTotal, setSubTotal] = useState(0);
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function CardPage({ cart = true }) {
                       <p className="text-[15px] font-medium text-qblack">
                         Subtotal
                       </p>
-                      <p className="text-[15px] font-medium text-qred">${subTotal}</p>
+                      <p className="text-[15px] font-medium text-qred">${total}</p>
                     </div>
                     <div className="w-full h-[1px] bg-[#EDEDED]"></div>
                   </div>
@@ -190,7 +190,7 @@ export default function CardPage({ cart = true }) {
                       <p className="text-[18px] font-medium text-qblack">
                         Total
                       </p>
-                      <p className="text-[18px] font-medium text-qred">${subTotal}</p>
+                      <p className="text-[18px] font-medium text-qred">${total}</p>
                     </div>
                   </div>
                   <Link to="/checkout">
