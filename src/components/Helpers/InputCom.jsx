@@ -1,7 +1,6 @@
 export default function InputCom({
   label,
   name,
-  children,
   inputHandler,
   value,
   labelClasses = "text-gray text-[13px] font-normal",
