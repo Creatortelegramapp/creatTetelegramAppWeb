@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import ViewMoreTitle from "./ViewMoreTitle";
 import {getProductByCategoryId} from "../../Services/HttpServices/CategoriesHttpService.js";
 import {Link} from "react-router-dom";
-import QuickViewIco from "./icons/QuickViewIco.jsx";
 import AddWishListButton from "../Wishlist/AddWishListButton.jsx";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -55,7 +54,7 @@ export default function SectionStyleOne({
                         ) : (
                     <div className="grid lg:grid-cols-4   xl:gap-[30px] gap-5">
                         {
-                            productsData.slice(0, 4).map((data, index) => (
+                            productsData.slice(2, 6).map((data, index) => (
                                 <ProductCard key={index} data={data} wishlist={wishlist} updateWishlist={updateWishlist}/>
                             ))
                         }
@@ -123,23 +122,11 @@ function ProductCard({ data, wishlist, updateWishlist }) {
                 </div>
             </div>
             <div className="quick-access-btns flex flex-col space-y-2 absolute group-hover:right-4 -right-10 top-20 transition-all duration-300 ease-in-out">
-                    <button>
-                        <div
-                            className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
-                            <QuickViewIco/>
-                        </div>
-                    </button>
                     <AddWishListButton
                         productId={data.id}
                         wishlist={wishlist}
                         updateWishlist={updateWishlist}
                     />
-                    {/*<button>*/}
-                    {/*    <div*/}
-                    {/*        className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">*/}
-                    {/*        <Compair/>*/}
-                    {/*    </div>*/}
-                    {/*</button>*/}
             </div>
         </div>
      </Link>

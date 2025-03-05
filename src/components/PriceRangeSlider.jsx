@@ -35,12 +35,15 @@ const PriceRangeSlider = ({ min, max, step, onChange, initialValues }) => {
                         {children}
                     </div>
                 )}
-                renderThumb={({ props }) => (
-                    <div
-                        {...props}
+                renderThumb={({ props, index }) => {
+                    const { key, ...restProps } = props;
+
+                    return <div
+                        key={index}
+                        {...restProps}
                         className="w-5 h-5 bg-white border border-gray-500 rounded-full shadow cursor-pointer"
                     />
-                )}
+                }}
             />
             <div className="text-center mt-2 text-lg font-semibold">
                 ${values[0]} - ${values[1]}

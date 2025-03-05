@@ -72,7 +72,7 @@ export default function Middlebar({ className, type }) {
                 />
               </div>
               <div>
-                <Link to="/profile">
+                <Link to="/#">
                   <span>
                     <ThinPeople />
                   </span>
