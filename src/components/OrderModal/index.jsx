@@ -31,17 +31,15 @@ export default function OrderModal({ isOpen, onClose }) {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4" onClick={onClose}>
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl" onClick={(e) => e.stopPropagation()}>
-                <h2 className="text-2xl font-bold mb-6">Պատվերի տվյալներ</h2>
-
+                <h2 className=" font-bold mb-6 text-black">Պատվերի տվյալներ</h2>
                 {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-
                 <input
                     type="tel"
                     name="ordererPhone"
                     placeholder="Հեռախոսահամար *"
                     value={formData.ordererPhone}
                     onChange={handleChange}
-                    className="w-full p-3 border rounded mb-3"
+                    className="w-full text-black p-3 border rounded mb-3"
                 />
 
                 <div className="flex justify-end space-x-4 mt-4">
