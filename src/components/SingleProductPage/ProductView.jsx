@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {useCartProducts} from "../../hooks/useCartProducts.jsx";
+import AddWishListButton from "../Wishlist/AddWishListButton.jsx";
 
 export default function ProductView({ product }) {
 
@@ -17,10 +18,25 @@ export default function ProductView({ product }) {
       setTotalPrice((prev) => prev - product.price);
     }
   };
+  const [wishlist, setWishlist] = useState(() => {
+    const storedWishlist = localStorage.getItem("wishlist") || "[]";
+    return JSON.parse(storedWishlist);
+  });
+
+  const updateWishlist = (newWishlist) => {
+    setWishlist(newWishlist);
+    try {
+      localStorage.setItem("wishlist", JSON.stringify(newWishlist));
+      window.dispatchEvent(new Event("storage"));
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
 
   const { addProductById } = useCartProducts();
 
   const addProduct = (e, id) => {
+    console.log(id);
     e.preventDefault();
     addProductById(id);
   };
@@ -82,10 +98,11 @@ export default function ProductView({ product }) {
                 </div>
                 <p>Add To Cart</p>
               </div>
-            </button>
-            <button className="px-5 py-3 bg-gray-300 rounded-lg">
-              ❤️ Wishlist
-            </button>
+            </button><div
+              className="min-w-[40px] min-h-[40px] flex justify-center items-center bg-primarygray rounded">
+            <AddWishListButton productId={product.id} wishlist={wishlist}
+                               updateWishlist={updateWishlist}/>
+          </div>
           </div>
         </div>
       </div>
