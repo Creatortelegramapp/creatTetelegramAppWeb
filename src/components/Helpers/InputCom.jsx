@@ -1,13 +1,10 @@
 export default function InputCom({
   label,
-  type,
   name,
-  placeholder,
   children,
   inputHandler,
   value,
-  inputClasses,
-  labelClasses = "text-qgray text-[13px] font-normal",
+  labelClasses = "text-gray text-[13px] font-normal",
 }) {
   return (
     <div className="input-com w-full h-full">
@@ -21,16 +18,14 @@ export default function InputCom({
       )}
       <div className="input-wrapper border border-qgray-border w-full h-full overflow-hidden relative ">
         <input
-          placeholder={placeholder}
-          value={value}
-          onChange={inputHandler}
-          className={`input-field placeholder:text-sm text-sm px-6 text-dark-gray w-full h-full font-normal bg-white focus:ring-0 focus:outline-none ${
-            inputClasses || ""
-          }`}
-          type={type}
-          id={name}
+            type="text"
+            name={name}
+            value={value}
+            onChange={inputHandler}
+            placeholder={label}
+            className="h-[25px] text-black"
         />
-        {children && children}
+        {/*{children && children}*/}
       </div>
     </div>
   );
