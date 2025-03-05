@@ -36,7 +36,6 @@ export default function ProductView({ product }) {
   const { addProductById } = useCartProducts();
 
   const addProduct = (e, id) => {
-    console.log(id);
     e.preventDefault();
     addProductById(id);
   };
