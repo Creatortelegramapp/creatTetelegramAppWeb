@@ -1,7 +1,10 @@
 import RemoveButton from "../../components/Wishlist/RemoveButton.jsx";
 import { Link } from "react-router-dom";
+import {useCartProducts} from "../../hooks/useCartProducts.jsx";
 
-export default function ProductsTable({ products, onRemove, onQuantityChange }) {
+export default function ProductsTable({ products, onRemove }) {
+    const { quantityChange } = useCartProducts();
+
     return (
         <div className="relative w-full overflow-x-auto border border-[#EDEDED]">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -11,7 +14,6 @@ export default function ProductsTable({ products, onRemove, onQuantityChange }) 
                     <td className="py-4 whitespace-nowrap text-center">Price</td>
                     <td className="py-4 whitespace-nowrap text-center w-[200px]">Quantity</td>
                     <td className="py-4 whitespace-nowrap text-center w-[200px]"></td>
-
                 </tr>
                 {products?.map((product) => (
                     <tr key={product.id} className="bg-white border-b hover:bg-gray-50">
@@ -29,7 +31,7 @@ export default function ProductsTable({ products, onRemove, onQuantityChange }) 
                         </td>
                         <td className="text-center py-4 px-2">
                             <p className="text-[15px] font-normal">
-                                {(product.price && !isNaN(product.price) && product.quantity && !isNaN(product.quantity))
+                                {(product.price && !isNaN(product.price) && (product.quantity || product.quantity === 0) && !isNaN(product.quantity))
                                     ? (product.price * product.quantity).toFixed(2)
                                     : 'Invalid Price'}
                             </p>
@@ -37,7 +39,7 @@ export default function ProductsTable({ products, onRemove, onQuantityChange }) 
                         <td className="text-center py-4">
                             <div className="flex items-center justify-center space-x-2">
                                 <button
-                                    onClick={() => onQuantityChange(product.id, -1)}
+                                    onClick={() => quantityChange(product.id, -1)}
                                     className="px-3 py-1 border border-[#EDEDED] rounded text-gray-500 hover:text-black"
                                     disabled={product.quantity <= 1}
                                 >
@@ -45,7 +47,7 @@ export default function ProductsTable({ products, onRemove, onQuantityChange }) 
                                 </button>
                                 <span className="mx-2">{product.quantity}</span>
                                 <button
-                                    onClick={() => onQuantityChange(product.id, 1)}
+                                    onClick={() => quantityChange(product.id, 1)}
                                     className="px-3 py-1 border border-[#EDEDED] rounded text-gray-500 hover:text-black"
                                 >
                                     +

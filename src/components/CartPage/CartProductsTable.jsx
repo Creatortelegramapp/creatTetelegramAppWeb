@@ -1,32 +1,20 @@
-import { useState } from "react";
 import ProductsTable from "../../shared/components/ProductsTable.jsx";
 import { useCartProducts } from "../../hooks/useCartProducts.jsx";
 
 export default function CartProductsTable({ className }) {
-  const { cartProducts, removeProductById } = useCartProducts();
-  const [updatedProducts, setUpdatedProducts] = useState(cartProducts);
+  const { cartProducts, removeProductById, updateProductQuantities } = useCartProducts();
 
   const onRemove = (id) => {
     removeProductById(id);
-    setUpdatedProducts(updatedProducts.filter((product) => product.id !== id));
   };
 
   const onQuantityChange = (productId, amount) => {
-    setUpdatedProducts((prevProducts) =>
-        prevProducts.map((product) =>
-            product.id === productId
-                ? {
-                  ...product,
-                  quantity: Math.max(1, (product.quantity || 1) + amount),
-                }
-                : product
-        )
-    );
+    updateProductQuantities(productId, amount);
   };
 
   return (
       <ProductsTable
-          products={updatedProducts}
+          products={cartProducts}
           onRemove={onRemove}
           onQuantityChange={onQuantityChange}
       />
