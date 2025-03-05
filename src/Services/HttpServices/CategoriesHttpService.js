@@ -1,4 +1,5 @@
 import {httpClient} from "../HttpClientService.js";
+import {environment} from "../../environment.dev.js";
 
 export const getCategoryById = async (categoryId) => {
     try {
@@ -8,9 +9,9 @@ export const getCategoryById = async (categoryId) => {
     }
 }
 
-export const getProductByCategoryId  = async (categoryId) => {
+export const getProductByCategoryId  = async () => {
     try {
-        return await httpClient.get(`/category/product/${categoryId}`)
+        return await httpClient.get(`/category/product/${environment.appId}`)
     } catch (error) {
         console.error('Error fetching category:', error);
     }

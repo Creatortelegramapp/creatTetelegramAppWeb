@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { getCategoryById, getProductByCategory } from "../../Services/HttpServices/CategoriesHttpService.js";
+import { getCategoryById, getProductByCategory, getProductByCategoryId } from "../../Services/HttpServices/CategoriesHttpService.js";
 import BreadcrumbCom from "../BreadcrumbCom";
 import ProductCardStyleOne from "../Helpers/Cards/ProductCardStyleOne";
 import Layout from "../Partials/Layout";
@@ -66,16 +66,20 @@ export default function AllProductPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
+      let finalProducts = [];
+
       if (selectedCategories.length === 0) {
-        setProducts([]);
-        setLoading(false);
-        return;
+        const response = await getProductByCategoryId();
+        if (response?.data.data) {
+          finalProducts = response?.data?.data.flatMap(category => category.products || []);
+        }
+      } else {
+        const allProducts = await Promise.all(
+            selectedCategories.map((categoryId) => getProductByCategory(categoryId))
+        );
+        finalProducts = allProducts.flatMap((item) => item?.data?.data || []);
       }
-      const allProducts = await Promise.all(
-          selectedCategories.map((categoryId) => getProductByCategory(categoryId))
-      );
-      const filteredProducts = allProducts.flatMap((item) => item.data.data);
-      const finalProducts = filteredProducts.filter(
+      finalProducts = finalProducts.filter(
           (product) => Number(product.price) >= priceRange[0] && Number(product.price) <= priceRange[1]
       );
       setProducts(finalProducts);
@@ -83,6 +87,7 @@ export default function AllProductPage() {
     };
     fetchProducts();
   }, [selectedCategories, priceRange]);
+
 
   const toggleFilterModal = () => {
     setIsFilterOpen(!isFilterOpen);
