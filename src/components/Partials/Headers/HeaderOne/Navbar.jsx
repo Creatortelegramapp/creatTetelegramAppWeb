@@ -24,7 +24,7 @@ export default function Navbar() {
     async function fetchData() {
       try {
         const response = await getCategoryById(2);
-        setCategoryData(response.data.data);
+        setCategoryData(response);
       } catch (error) {
         console.log("error", error);
       }
@@ -102,7 +102,7 @@ export default function Navbar() {
               <Link to="/cart">
                 <ThinBag/>
               </Link>
-              <Link to="/profile">
+              <Link to="/#">
                 <ThinPeople/>
               </Link>
             </div>

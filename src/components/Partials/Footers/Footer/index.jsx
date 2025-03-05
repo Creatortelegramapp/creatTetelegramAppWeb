@@ -59,16 +59,9 @@ export default function Footer({ type }) {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/terms-condition">
-                      <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                        Պայմաններ
-                      </span>
-                    </Link>
-                  </li>
-                  <li>
                     <Link to="/all-products">
                       <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                        Լավագույն Ապրանքներ
+                        Բոլոր Ապրանքները
                       </span>
                     </Link>
                   </li>
@@ -86,54 +79,9 @@ export default function Footer({ type }) {
                   <ul className="flex flex-col space-y-4 ">
                     <li>
                       <Link to="/blogs">
-                        <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
+                        <span
+                            className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
                           Բլոգ
-                        </span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/tracking-order">
-                        <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                          Հետևել պատվերը
-                        </span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/become-saller">
-                        <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                          Դարձիր վաճառող
-                        </span>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className="lg:w-1/3 lg:flex lg:flex-col items-center w-full mb-10 lg:mb-0">
-              <div>
-                <div className="mb-5">
-                  <h6 className="text-[18] font-500 text-[#2F2F2F]">Օգտակար</h6>
-                </div>
-                <div>
-                  <ul className="flex flex-col space-y-4 ">
-                    <li>
-                      <Link to="/flash-sale">
-                        <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                          Ֆլեշ Վաճառք
-                        </span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/faq">
-                        <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                          FAQ
-                        </span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/about">
-                        <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                          Աջակցություն
                         </span>
                       </Link>
                     </li>
@@ -164,7 +112,7 @@ export default function Footer({ type }) {
                 rel="noreferrer"
                 className="font-500 text-qblack mx-1"
               >
-                Quomodosoft
+                Minimum Investment for Maximum Success
               </a>
               Բոլոր իրավունքները պաշտպանված են
             </span>

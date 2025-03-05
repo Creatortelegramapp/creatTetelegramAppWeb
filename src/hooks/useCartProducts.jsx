@@ -15,6 +15,7 @@ export function CartProvider({ children }) {
     });
 
     const [cartProducts, setCartProducts] = useState([]);
+    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         if (!cartIds.length) {
@@ -23,12 +24,17 @@ export function CartProvider({ children }) {
         }
 
         (async () => {
-            const products = await Promise.all(
+            let products = await Promise.all(
                 cartIds.map((id) => getProductById(id))
             );
+            products = products.map(product => ({...product, quantity: 1}));
             setCartProducts(products);
         })();
     }, [cartIds]);
+
+    useEffect(() => {
+        setTotal(cartProducts.reduce((acc, product) => acc + (product.quantity * product.price), 0));
+    }, [cartProducts]);
 
     const addProductById = async (productId) => {
         if (cartIds.includes(productId)) return;
@@ -62,12 +68,28 @@ export function CartProvider({ children }) {
         localStorage.setItem('cart', JSON.stringify([]));
     };
 
+    const quantityChange = (productId, amount) => {
+        if (amount === 1) {
+            setCartProducts(prev => prev.map(product => product.id === productId ? {
+                ...product,
+                quantity: product.quantity + 1,
+            } : product));
+        } else {
+            setCartProducts(prev => prev.map(product => product.id === productId ? {
+                ...product,
+                quantity: product.quantity > 0 ? product.quantity - 1 : 1,
+            } : product));
+        }
+    };
+
     const value = {
         cartIds,
         cartProducts,
         addProductById,
         removeProductById,
-        clearCart
+        clearCart,
+        quantityChange,
+        total
     };
 
     return (
