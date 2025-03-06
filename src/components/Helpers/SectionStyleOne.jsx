@@ -11,7 +11,6 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import AddToCartButton from "../CartPage/AddToCart.jsx";
 import {useCartProducts} from "../../hooks/useCartProducts.jsx";
-import QuickViewIco from "./icons/QuickViewIco.jsx";
 
 export default function SectionStyleOne({
                                             className,
