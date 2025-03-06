@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
+import AddToCartButton from "../../CartPage/AddToCart.jsx";
+import {useCartProducts} from "../../../hooks/useCartProducts.jsx";
 
 export default function ProductCardStyleOne({ product }) {
+
+    const { addProductById } = useCartProducts();
+    const addProduct = (productId) => {
+        addProductById(productId);
+    };
+
 
     return (
         <div className="product-card-one w-full">
@@ -14,12 +22,11 @@ export default function ProductCardStyleOne({ product }) {
                 </div>
                 <div className="product-card-details px-4 py-4 relative">
                     <div className="absolute w-full h-10 px-4 left-0 top-40 group-hover:top-[50px] transition-all duration-300 ease-in-out">
-                        <button
-                            type="button"
-                            className="yellow-btn w-full bg-yellow-400 text-white py-2 rounded-md flex justify-center items-center hover:bg-yellow-500 transition-all"
-                        >
-                            <span>Add To Cart</span>
-                        </button>
+                        <AddToCartButton
+                            productId={product.id}
+                            onAddToCart={addProduct}
+                            initialIsAdded={JSON.parse(localStorage.getItem("cart") || "[]").includes(product.id)}
+                        />
                     </div>
                     <Link to={`/single-product/${product.id}`}>
                         <p className="title mb-2 text-[16px] font-semibold text-gray-800 leading-[24px] line-clamp-2 hover:text-blue-600">
