@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import InputCom from "../../../Helpers/InputCom";
 import { registerUser} from "../../../../Services/HttpServices/LoginHttpServices.js";
-import {httpClient} from "../../../../Services/HttpClientService.js";
 
 export default function ProfileTab() {
   const [profileImg, setProfileImg] = useState(null);
