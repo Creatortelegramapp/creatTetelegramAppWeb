@@ -26,7 +26,7 @@ export default function WhishlistProductsTable() {
 
     if (productData.length) {
         return (
-            <ProductsTable products={productData} onRemove={onRemove} />
+            <ProductsTable products={productData} onRemove={onRemove} isCart={false} />
         );
     }
 

@@ -18,8 +18,15 @@ export default function ProductsTable({ products, onRemove, isCart }) {
                 <tbody>
                 <tr className="text-[13px] font-medium text-black bg-[#F6F6F6] whitespace-nowrap px-2 border-b default-border-bottom uppercase">
                     <td className="py-4 pl-10 block whitespace-nowrap w-[380px]">Product</td>
-                    <td className="py-4 whitespace-nowrap text-center">Price</td>
-                    <td className="py-4 whitespace-nowrap text-center w-[200px]">Quantity</td>
+                    {
+                        isCart && (
+                            <>
+                                <td className="py-4 whitespace-nowrap text-center">Price</td>
+                                <td className="py-4 whitespace-nowrap text-center w-[200px]">Quantity</td>
+                            </>
+                        )
+                    }
+
                     <td className="py-4 whitespace-nowrap text-center w-[200px]"></td>
                 </tr>
                 {products?.map((product) => (
@@ -36,31 +43,37 @@ export default function ProductsTable({ products, onRemove, isCart }) {
                                 </div>
                             </div>
                         </td>
-                        <td className="text-center py-4 px-2">
-                            <p className="text-[15px] font-normal">
-                                {(product.price && !isNaN(product.price) && (product.quantity || product.quantity === 0) && !isNaN(product.quantity))
-                                    ? (product.price * product.quantity).toFixed(2)
-                                    : 'Invalid Price'}
-                            </p>
-                        </td>
-                        <td className="text-center py-4">
-                            <div className="flex items-center justify-center space-x-2">
-                                <button
-                                    onClick={() => quantityChange(product.id, -1)}
-                                    className="px-3 py-1 border border-[#EDEDED] rounded text-gray-500 hover:text-black"
-                                    disabled={product.quantity <= 1}
-                                >
-                                    -
-                                </button>
-                                <span className="mx-2">{product.quantity}</span>
-                                <button
-                                    onClick={() => quantityChange(product.id, 1)}
-                                    className="px-3 py-1 border border-[#EDEDED] rounded text-gray-500 hover:text-black"
-                                >
-                                    +
-                                </button>
-                            </div>
-                        </td>
+                        {
+                            isCart && (<td className="text-center py-4 px-2">
+                                <p className="text-[15px] font-normal">
+                                    {(product.price && !isNaN(product.price) && (product.quantity || product.quantity === 0) && !isNaN(product.quantity))
+                                        ? (product.price * product.quantity).toFixed(2)
+                                        : 'Invalid Price'}
+                                </p>
+                            </td>)
+                        }
+                        {
+                            isCart && (
+                                <td className="text-center py-4">
+                                    <div className="flex items-center justify-center space-x-2">
+                                        <button
+                                            onClick={() => quantityChange(product.id, -1)}
+                                            className="px-3 py-1 border border-[#EDEDED] rounded text-gray-500 hover:text-black"
+                                            disabled={product.quantity <= 1}
+                                        >
+                                            -
+                                        </button>
+                                        <span className="mx-2">{product.quantity}</span>
+                                        <button
+                                            onClick={() => quantityChange(product.id, 1)}
+                                            className="px-3 py-1 border border-[#EDEDED] rounded text-gray-500 hover:text-black"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </td>
+                            )
+                        }
                         {!isCart && (
                             <td className="text-center py-4 px-2">
                                 <AddToCartButton
