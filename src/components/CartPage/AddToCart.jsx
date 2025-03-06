@@ -28,7 +28,7 @@ export default function AddToCartButton({ productId, onAddToCart, initialIsAdded
             <div className="flex items-center space-x-3" onClick={handleAddToCart}>
                 <div>
                     <svg
-                        width="14"
+                        width="10"
                         height="50"
                         viewBox="0 0 14 16"
                         fill="none"
