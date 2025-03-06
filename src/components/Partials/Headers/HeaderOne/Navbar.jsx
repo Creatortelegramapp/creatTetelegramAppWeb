@@ -5,11 +5,37 @@ import ThinBag from "../../../Helpers/icons/ThinBag";
 import ThinLove from "../../../Helpers/icons/ThinLove";
 import ThinPeople from "../../../Helpers/icons/ThinPeople";
 import SearchBox from "../../../Helpers/SearchBox";
+import {useCartProducts} from "../../../../hooks/useCartProducts.jsx";
 
 export default function Navbar() {
   const [menuToggle, setMenuToggle] = useState(false);
   const [categoryToggle, setCategoryToggle] = useState(false);
   const [categoryData, setCategoryData] = useState([]);
+  const { cartProducts } = useCartProducts();
+  const [cartProcuctQuantityMobile, setCartProcuctQuantityMobile] = useState(0);
+  const [wishlistCountMobile, setWishlistCountMobile] = useState(0);
+
+  const updateWishlistCount = () => {
+    const wishlistItems = JSON.parse(localStorage.getItem("wishlist")) || [];
+    setWishlistCountMobile(wishlistItems.length);
+  };
+
+  useEffect(() => {
+    updateWishlistCount();
+
+    window.addEventListener("storage", updateWishlistCount);
+
+    return () => {
+      window.removeEventListener("storage", updateWishlistCount);
+    };
+  }, []);
+
+  useEffect(() => {
+    setCartProcuctQuantityMobile(cartProducts.reduce((acc, current) => {
+      console.log(acc, current);
+      return acc + current.quantity
+    }, 0));
+  }, [cartProducts]);
 
   const toggleMenu = () => {
     setMenuToggle(!menuToggle);
@@ -96,11 +122,24 @@ export default function Navbar() {
               <SearchBox />
             </div>
             <div className="flex space-x-4 items-center">
-              <Link to="/wishlist">
-                <ThinLove/>
+              <Link to="/wishlist" className="relative">
+                <ThinLove />
+                  {wishlistCountMobile > 0 && (
+                      <span className="w-[18px] h-[18px] rounded-full bg-qh4-pink absolute -top-2.5 -right-2.5 flex justify-center items-center text-[9px] text-qblack">
+                          {wishlistCountMobile}
+                        </span>
+                  )}
               </Link>
-              <Link to="/cart">
-                <ThinBag/>
+              <Link to="/cart" className="relative">
+                <span>
+                      <ThinBag/>
+                    </span>
+                {cartProcuctQuantityMobile > 0 && (
+                    <span
+                        className="w-[18px] h-[18px] rounded-full bg-qh4-pink absolute -top-2.5 -right-2.5 flex justify-center items-center text-[9px] text-qblack">
+                           {cartProcuctQuantityMobile}
+                      </span>
+                )}
               </Link>
               <Link to="/#">
                 <ThinPeople/>
