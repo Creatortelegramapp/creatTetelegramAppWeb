@@ -30,7 +30,6 @@ export default function Middlebar({ className, type }) {
 
   useEffect(() => {
     setCartProcuctQuantity(cartProducts.reduce((acc, current) => {
-      console.log(acc, current);
       return acc + current.quantity
     }, 0));
   }, [cartProducts]);

@@ -32,7 +32,6 @@ export default function Navbar() {
 
   useEffect(() => {
     setCartProcuctQuantityMobile(cartProducts.reduce((acc, current) => {
-      console.log(acc, current);
       return acc + current.quantity
     }, 0));
   }, [cartProducts]);
