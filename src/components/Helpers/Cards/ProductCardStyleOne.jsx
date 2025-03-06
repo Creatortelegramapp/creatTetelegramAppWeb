@@ -1,6 +1,22 @@
 import { Link } from "react-router-dom";
+import {useCartProducts} from "../../../hooks/useCartProducts.jsx";
+import {useEffect, useState} from "react";
 
 export default function ProductCardStyleOne({ product }) {
+
+    const { addProductById, cartProducts } = useCartProducts();
+    const [isAdded, setIsAdded] = useState(false);
+
+    const addProduct = (id) => {
+        addProductById(id);
+        setIsAdded(true);
+    };
+
+    useEffect(() => {
+        if (cartProducts.some(cartProduct => cartProduct.id === product.id)) {
+            setIsAdded(true);
+        }
+    }, []);
 
     return (
         <div className="product-card-one w-full">
@@ -16,9 +32,10 @@ export default function ProductCardStyleOne({ product }) {
                     <div className="absolute w-full h-10 px-4 left-0 top-40 group-hover:top-[50px] transition-all duration-300 ease-in-out">
                         <button
                             type="button"
-                            className="yellow-btn w-full bg-yellow-400 text-white py-2 rounded-md flex justify-center items-center hover:bg-yellow-500 transition-all"
+                            className={`${isAdded ? "blue-btn" : "yellow-btn hover:bg-yellow-500 bg-yellow-400"} w-full  text-white py-2 rounded-md flex justify-center items-center  transition-all`}
+                            onClick={() => addProduct(product.id)}
                         >
-                            <span>Add To Cart</span>
+                            <span>{isAdded ? "Added" : "Add To Cart"}</span>
                         </button>
                     </div>
                     <Link to={`/single-product/${product.id}`}>
