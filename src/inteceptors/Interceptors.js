@@ -5,7 +5,8 @@ export const handlerFor404Error = (httpClient) => {
         },
         (error) => {
             if (error.response && error.response.status === 404) {
-                window.location.href = '/not-found';
+                // window.location.href = '/not-found';
+                console.log(error);
             }
             return Promise.reject(error);
         }
