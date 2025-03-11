@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useLocation} from "react-router-dom";
 import { getCategoryById } from "../../../../Services/HttpServices/CategoriesHttpService.js";
 import ThinBag from "../../../Helpers/icons/ThinBag";
 import ThinLove from "../../../Helpers/icons/ThinLove";
@@ -14,6 +14,8 @@ export default function Navbar() {
   const { cartProducts } = useCartProducts();
   const [cartProcuctQuantityMobile, setCartProcuctQuantityMobile] = useState(0);
   const [wishlistCountMobile, setWishlistCountMobile] = useState(0);
+
+  const location = useLocation();
 
   const updateWishlistCount = () => {
     const wishlistItems = JSON.parse(localStorage.getItem("wishlist")) || [];
@@ -99,18 +101,25 @@ export default function Navbar() {
               </div>
               <div className="nav">
                 <ul className="nav-wrapper flex xl:space-x-10 space-x-5">
-                  <li>
-                    <Link to="/">Գլխավոր էջ</Link>
-                  </li>
-                  <li>
-                    <Link to="/about">Մեր մասին</Link>
-                  </li>
-                  <li>
-                    <Link to="/blogs">Բլոգ</Link>
-                  </li>
-                  <li>
-                    <Link to="/contact">Կոնտակտներ</Link>
-                  </li>
+                  {[
+                    {name: "Գլխավոր էջ", path: "/"},
+                    {name: "Մեր մասին", path: "/about"},
+                    {name: "Բլոգ", path: "/blogs"},
+                    {name: "Կոնտակտներ", path: "/contact"}
+                  ].map((item) => (
+                      <li key={item.path}>
+                        <Link
+                            to={item.path}
+                            className={`pb-2 transition duration-300 ${
+                                location.pathname === item.path
+                                    ? "text-pink-500 font-bold border-b-2 border-pink-500"
+                                    : "text-gray-600 hover:text-pink-400"
+                            }`}
+                        >
+                          {item.name}
+                        </Link>
+                      </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -118,16 +127,17 @@ export default function Navbar() {
 
           <div className="lg:hidden flex justify-between items-center w-full">
             <div className="w-[220px] h-[50px] relative m-auto">
-              <SearchBox />
+              <SearchBox/>
             </div>
             <div className="flex space-x-4 items-center">
               <Link to="/wishlist" className="relative">
-                <ThinLove />
-                  {wishlistCountMobile > 0 && (
-                      <span className="w-[18px] h-[18px] rounded-full bg-qh4-pink absolute -top-2.5 -right-2.5 flex justify-center items-center text-[9px] text-qblack">
+                <ThinLove/>
+                {wishlistCountMobile > 0 && (
+                    <span
+                        className="w-[18px] h-[18px] rounded-full bg-qh4-pink absolute -top-2.5 -right-2.5 flex justify-center items-center text-[9px] text-qblack">
                           {wishlistCountMobile}
                         </span>
-                  )}
+                )}
               </Link>
               <Link to="/cart" className="relative">
                 <span>
