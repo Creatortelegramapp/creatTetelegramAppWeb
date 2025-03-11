@@ -115,7 +115,7 @@ export default function Middlebar({ className, type }) {
                 />
               </div>
               <div>
-                <Link to="/#">
+                <Link to="/login">
                   <span>
                     <ThinPeople />
                   </span>
