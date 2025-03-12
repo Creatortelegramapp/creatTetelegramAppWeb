@@ -29,6 +29,8 @@ export default function Profile() {
   }, [getHashContent]);
   return (
     <Layout childrenClasses="pt-0 pb-0">
+
+
       <div className="profile-page-wrapper w-full">
         <div className="container-x mx-auto">
           <div className="w-full my-10">
@@ -40,56 +42,65 @@ export default function Profile() {
             />
             <div className="w-full bg-white px-10 py-9">
               <div className="profile-wrapper w-full mt-8 flex space-x-10">
-                <div className="w-[236px] min-h-[600px] border-r border-[rgba(0, 0, 0, 0.1)]">
-                  <div className="flex flex-col space-y-10">
-                    <div className="item group">
-                      <Link to="/profile#profile">
-                        <div className="flex space-x-3 items-center text-qgray hover:text-qblack">
+                {localStorage.getItem("access_token") ? (
+                    <>
+                      <div className="w-[236px] min-h-[600px] border-r border-[rgba(0, 0, 0, 0.1)]">
+                        <div className="flex flex-col space-y-10">
+                          <div className="item group">
+                            <Link to="/profile#profile">
+                              <div className="flex space-x-3 items-center text-qgray hover:text-qblack">
                           <span>
                             <IcoPeople />
                           </span>
-                          <span className=" font-normal text-base">
+                                <span className=" font-normal text-base">
                             Անձնական տեղեկատվություն
                           </span>
-                        </div>
-                      </Link>
-                    </div>
-                    <div className="item group">
-                      <Link to="/profile#order">
-                        <div className="flex space-x-3 items-center text-qgray hover:text-qblack">
+                              </div>
+                            </Link>
+                          </div>
+                          <div className="item group">
+                            <Link to="/profile#order">
+                              <div className="flex space-x-3 items-center text-qgray hover:text-qblack">
                           <span>
                             <IcoCart />
                           </span>
-                          <span className=" font-normal text-base"> Պատվեր</span>
-                        </div>
-                      </Link>
-                    </div>
-                    <div className="item group">
-                      <Link to="/profile#support">
-                        <div className="flex space-x-3 items-center text-qgray hover:text-qblack">
+                                <span className=" font-normal text-base"> Պատվեր</span>
+                              </div>
+                            </Link>
+                          </div>
+                          <div className="item group">
+                            <Link to="/profile#support">
+                              <div className="flex space-x-3 items-center text-qgray hover:text-qblack">
                           <span>
                             <IcoSupport />
                           </span>
-                          <span className=" font-normal text-base">
+                                <span className=" font-normal text-base">
                             Աջակցության տոմս
                           </span>
-                        </div>
-                      </Link>
-                    </div>
-                    <div className="item group">
-                      <Link to="/profile#profile">
-                        <div className="flex space-x-3 items-center text-qgray hover:text-qblack">
+                              </div>
+                            </Link>
+                          </div>
+                          <div className="item group">
+                            <Link to="/profile#profile">
+                              <div className="flex space-x-3 items-center text-qgray hover:text-qblack">
                           <span>
                             <IcoLogout />
                           </span>
-                          <span className=" font-normal text-base">
+                                <span className=" font-normal text-base">
                             Դուրս գալ
                           </span>
+                              </div>
+                            </Link>
+                          </div>
                         </div>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+                      </div>
+                    </>
+
+                ):(
+                    <></>
+                )}
+
+
                 <div className="flex-1">
                   <div className="item-body dashboard-wrapper w-full">
                     { active === "profile" ? (

@@ -1,14 +1,11 @@
-import { useRef, useState } from "react";
+import { useRef, useState,useEffect } from "react";
 import InputCom from "../../../Helpers/InputCom";
-import {registerUser} from "../../../../Services/HttpServices/UserHttpServices.js";
+import {getUserDate, registerUser} from "../../../../Services/HttpServices/UserHttpServices.js";
 
 export default function ProfileTab() {
   const [profileImg, setProfileImg] = useState(null);
   const profileImgInput = useRef(null);
 
-  if (localStorage.getItem("access_token")) {
-    console.log("access_token", localStorage.getItem("access_token"));
-  }
 
   const [userData, setUserData] = useState({
     firstname: "",
@@ -17,6 +14,30 @@ export default function ProfileTab() {
     phone: "",
     password: "",
   });
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = JSON.parse(localStorage.getItem("access_token"));
+      if (token) {
+        try {
+          const data = await getUserDate(token);
+          if (data) {
+            setUserData((prevData) => ({
+              ...prevData,
+              firstname: data.data.first_name || "",
+              lastname: data.data.last_name || "",
+              email: data.data.email || "",
+              phone: data.data.phone || "",
+
+            }));
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const browseProfileImg = () => {
     profileImgInput.current.click();
@@ -43,9 +64,22 @@ export default function ProfileTab() {
   const handleRegister = async () => {
     try {
       const response = await registerUser(userData);
-      console.log(response);
       if (response.data.access_token) {
         localStorage.setItem("access_token", JSON.stringify(response.data.access_token));
+        localStorage.setItem("refresh_token", JSON.stringify(response.data.refresh_token));
+
+
+        const token = response.data.access_token;
+        const data = await getUserDate(token);
+        if (data) {
+          setUserData((prevData) => ({
+            ...prevData,
+            firstname: data.first_name || "",
+            lastname: data.last_name || "",
+            email: data.email || "",
+            phone: data.phone || "",
+          }));
+        }
       }
     } catch (error) {
       console.log("Error:", error.message);

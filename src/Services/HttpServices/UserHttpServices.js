@@ -22,10 +22,17 @@ export const loginUser = async (userData) => {
 };
 
 
-export const getUserDate = async (user_id) => {
+export const getUserDate = async (token) => {
     try {
-        return await httpClient.get(`/userData/get/${user_id}`);
+        const response = await httpClient.get(`/user`  ,  {
+            headers: {
+                Authorization: `Bearer ${token}`,
+
+            }
+        })
+        return response.data;
     } catch (error) {
         console.error('Error fetching user data:', error);
+        throw error;
     }
 }
