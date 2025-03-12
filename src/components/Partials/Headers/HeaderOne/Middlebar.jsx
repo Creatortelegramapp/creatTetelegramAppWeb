@@ -8,6 +8,7 @@ import {useCartProducts} from "../../../../hooks/useCartProducts.jsx";
 import {useEffect, useState} from "react";
 
 export default function Middlebar({ className, type }) {
+  const isLoggedIn = !!localStorage.getItem("access_token");
 
   const { cartProducts } = useCartProducts();
   const [cartProcuctQuantity, setCartProcuctQuantity] = useState(0);
@@ -115,7 +116,7 @@ export default function Middlebar({ className, type }) {
                 />
               </div>
               <div>
-                <Link to="/login">
+                <Link to={isLoggedIn ? "/profile" : "/login"}>
                   <span>
                     <ThinPeople />
                   </span>
