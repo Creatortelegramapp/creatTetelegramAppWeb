@@ -1,55 +1,56 @@
 import { useEffect, useState } from "react";
-import { Range } from "react-range";
 
-const PriceRangeSlider = ({ min, max, step, onChange, initialValues }) => {
+const PriceRangeInput = ({ min, onChange, initialValues }) => {
     const [values, setValues] = useState(initialValues);
+    const [delayRequest, setDelayRequest] = useState(initialValues);
 
     useEffect(() => {
         setValues(initialValues);
     }, [initialValues]);
 
-    const handleChange = (newValues) => {
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (delayRequest[0] !== "" && delayRequest[1] !== "") {
+                onChange(delayRequest);
+            }
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [delayRequest, onChange]);
+
+    const handleChange = (e, index) => {
+        const newValue = e.target.value === "" ? "" : Number(e.target.value);
+        const newValues = [...values];
+        newValues[index] = newValue;
+
+        if (newValue !== "") {
+            if (newValues[0] < min) newValues[0] = min;
+            if (newValues[0] > newValues[1]) newValues[0] = newValues[1];
+        }
+
         setValues(newValues);
-        onChange(newValues);
+        setDelayRequest(newValues);
     };
 
-
     return (
-        <div className="w-full p-4">
-            <Range
-                step={step}
+        <div className="w-full flex items-center gap-4">
+            <input
+                type="number"
+                className="border p-2 rounded-lg w-24 focus:outline-none"
+                value={values[0] === "" ? "" : values[0]}
+                onChange={(e) => handleChange(e, 0)}
                 min={min}
-                max={max}
-                values={values}
-                onChange={setValues}
-                onFinalChange={handleChange}
-                renderTrack={({ props, children }) => (
-                    <div {...props} className="h-2 bg-gray-300 rounded relative">
-                        <div
-                            className="absolute h-2 bg-gray-600 rounded"
-                            style={{
-                                left: `${((values[0] - min) / (max - min)) * 100}%`,
-                                right: `${100 - ((values[1] - min) / (max - min)) * 100}%`,
-                            }}
-                        />
-                        {children}
-                    </div>
-                )}
-                renderThumb={({ props, index }) => {
-                    const { key, ...restProps } = props;
-
-                    return <div
-                        key={index}
-                        {...restProps}
-                        className="w-5 h-5 bg-white border border-gray-500 rounded-full shadow cursor-pointer"
-                    />
-                }}
             />
-            <div className="text-center mt-2 text-lg font-semibold">
-                ${values[0]} - ${values[1]}
-            </div>
+            <span className="text-lg font-semibold">-</span>
+            <input
+                type="number"
+                className="border p-2 rounded-lg w-24 focus:outline-none"
+                value={values[1] === "" ? "" : values[1]}
+                onChange={(e) => handleChange(e, 1 )}
+                min={values[0]}
+            />
         </div>
     );
 };
 
-export default PriceRangeSlider;
+export default PriceRangeInput;
