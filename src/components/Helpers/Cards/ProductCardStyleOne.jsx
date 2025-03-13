@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import {useCartProducts} from "../../../hooks/useCartProducts.jsx";
-import {useEffect, useState} from "react";
+import { useCartProducts } from "../../../hooks/useCartProducts.jsx";
+import { useEffect, useState } from "react";
+import AddToCartButton from "../../Cart/AddToCartButton.jsx";
 
 export default function ProductCardStyleOne({ product }) {
-
-    const { addProductById, cartProducts } = useCartProducts();
+    const { addProductById, removeProductById, cartProducts } = useCartProducts();
     const [isAdded, setIsAdded] = useState(false);
 
     const addProduct = (id) => {
@@ -12,11 +12,15 @@ export default function ProductCardStyleOne({ product }) {
         setIsAdded(true);
     };
 
+    const removeProduct = (id) => {
+        removeProductById(id);
+        setIsAdded(false);
+    };
+
     useEffect(() => {
-        if (cartProducts.some(cartProduct => cartProduct.id === product.id)) {
-            setIsAdded(true);
-        }
-    }, []);
+        const isInCart = cartProducts.some((cartProduct) => cartProduct.id === product.id);
+        setIsAdded(isInCart);
+    }, [cartProducts, product.id]);
 
     return (
         <div className="product-card-one w-full">
@@ -30,13 +34,14 @@ export default function ProductCardStyleOne({ product }) {
                 </div>
                 <div className="product-card-details px-4 py-4 relative">
                     <div className="absolute w-full h-10 px-4 left-0 top-40 group-hover:top-[50px] transition-all duration-300 ease-in-out">
-                        <button
-                            type="button"
-                            className={`${isAdded ? "blue-btn" : "yellow-btn hover:bg-yellow-500 bg-yellow-400"} w-full  text-white py-2 rounded-md flex justify-center items-center  transition-all`}
-                            onClick={() => addProduct(product.id)}
-                        >
-                            <span>{isAdded ? "Added" : "Add To Cart"}</span>
-                        </button>
+
+                        <AddToCartButton
+                            productId={product.id}
+                            isAdded={isAdded}
+                            onAddToCart={addProduct}
+                            onRemoveFromCart={removeProduct}
+                            className="w-full text-white py-2 rounded-md flex justify-center items-center transition-all"
+                        />
                     </div>
                     <Link to={`/single-product/${product.id}`}>
                         <p className="title mb-2 text-[16px] font-semibold text-gray-800 leading-[24px] line-clamp-2 hover:text-blue-600">

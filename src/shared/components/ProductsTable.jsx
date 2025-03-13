@@ -1,13 +1,20 @@
 import RemoveButton from "../../components/Wishlist/RemoveButton.jsx";
 import { Link } from "react-router-dom";
 import { useCartProducts } from "../../hooks/useCartProducts.jsx";
+import AddToCartButton from "../../components/Cart/AddToCartButton.jsx";
 
 export default function ProductsTable({ products, onRemove, isCart }) {
-    const { quantityChange, addProductById } = useCartProducts();
+    const { quantityChange, addProductById, removeProductById, cartProducts } = useCartProducts();
 
-    const addProduct = (e, id) => {
-        e.preventDefault();
+    const addProduct = (id) => {
         addProductById(id);
+    };
+    const removeProduct = (id) => {
+        removeProductById(id);
+    };
+
+    const isProductInCart = (productId) => {
+        return cartProducts.some((cartProduct) => cartProduct.id === productId);
     };
 
     return (
@@ -15,11 +22,11 @@ export default function ProductsTable({ products, onRemove, isCart }) {
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 hidden sm:table">
                 <tbody>
                 <tr className="text-[13px] font-medium text-black bg-[#F6F6F6] whitespace-nowrap px-2 border-b default-border-bottom uppercase">
-                    <td className="py-4 pl-10 block whitespace-nowrap w-[380px]">Product</td>
+                    <td className="py-4 pl-10 block whitespace-nowrap w-[380px]">Ապրանք</td>
                     {isCart && (
                         <>
-                            <td className="py-4 whitespace-nowrap text-center">Price</td>
-                            <td className="py-4 whitespace-nowrap text-center w-[200px]">Quantity</td>
+                            <td className="py-4 whitespace-nowrap text-center">Գին</td>
+                            <td className="py-4 whitespace-nowrap text-center w-[200px]">Քանակ</td>
                         </>
                     )}
                     <td className="py-4 whitespace-nowrap text-center w-[200px]"></td>
@@ -43,7 +50,7 @@ export default function ProductsTable({ products, onRemove, isCart }) {
                                 <p className="text-[15px] font-normal">
                                     {(product.price && !isNaN(product.price) && (product.quantity || product.quantity === 0) && !isNaN(product.quantity))
                                         ? (product.price * product.quantity).toFixed(2)
-                                        : 'Invalid Price'}
+                                        : 'Սխալ գին'}
                                 </p>
                             </td>
                         )}
@@ -69,13 +76,12 @@ export default function ProductsTable({ products, onRemove, isCart }) {
                         )}
                         {!isCart && (
                             <td className="text-center py-4 px-2">
-                                <button
-                                    type="button"
-                                    className="bg-yellow-500 text-white px-4 py-2 text-sm rounded hover:bg-yellow-600 transition"
-                                    onClick={(e) => addProduct(e, product.id)}
-                                >
-                                    Add To Cart
-                                </button>
+                                <AddToCartButton
+                                    productId={product.id}
+                                    isAdded={isProductInCart(product.id)}
+                                    onAddToCart={addProduct}
+                                    onRemoveFromCart={removeProduct}
+                                />
                             </td>
                         )}
                         <td className="text-right py-4 pr-10">
@@ -96,13 +102,12 @@ export default function ProductsTable({ products, onRemove, isCart }) {
                         <div className="flex-1 flex items-center justify-between">
                             <p className="text-[14px] font-medium text-qblack">{product.name}</p>
                             {!isCart && (
-                                <button
-                                    type="button"
-                                    className="bg-yellow-500 text-white px-2 py-1 text-xs rounded hover:bg-yellow-600 transition"
-                                    onClick={(e) => addProduct(e, product.id)}
-                                >
-                                    Add To Cart
-                                </button>
+                                <AddToCartButton
+                                    productId={product.id}
+                                    isAdded={isProductInCart(product.id)}
+                                    onAddToCart={addProduct}
+                                    onRemoveFromCart={removeProduct}
+                                />
                             )}
                         </div>
                         {isCart && (
