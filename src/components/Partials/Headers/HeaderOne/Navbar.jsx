@@ -76,7 +76,7 @@ export default function Navbar() {
                     onClick={toggleCategory}
                     className="w-full text-sm font-600 text-qblacktext flex justify-between items-center"
                 >
-                  <span className="flex-1 text-left pt-4">Տեսականին</span>
+                  <span className="flex-1 text-left pt-4 font-sans font-bold text-base">Տեսականի</span>
                   <span
                       className={`transform transition-transform pt-4 ${
                           categoryToggle ? "rotate-180" : "rotate-0"
@@ -91,16 +91,20 @@ export default function Navbar() {
                           <Link
                               key={category.id || index}
                               to={`/all-products?categories=${category.id}`}
-                              className="block text-lg font-semibold px-4 py-2 hover:bg-gray-100"
+                              className="block text-base font-semibold px-4 py-2 hover:bg-gray-100 font-sans font-400"
                           >
                             {category.name}
                           </Link>
                       ))}
+                      <Link to={"/all-products"}
+                            className="block text-base font-semibold px-4 py-2 hover:bg-gray-100 font-sans font-400"
+                      >
+                        Բոլորը</Link>
                     </div>
                 )}
               </div>
               <div className="nav">
-                <ul className="nav-wrapper flex xl:space-x-10 space-x-5">
+                <ul className="nav-wrapper flex xl:space-x-10 space-x-5 font-sans font-400">
                   {[
                     {name: "Գլխավոր էջ", path: "/"},
                     {name: "Մեր մասին", path: "/about"},
@@ -169,7 +173,7 @@ export default function Navbar() {
           </button>
 
           <ul className="p-6 space-y-4">
-            <li className="border-b border-gray-300 pb-2">
+            <li className="border-b border-gray-300 pb-2 ">
               <Link
                   to="/"
                   className="block text-lg font-semibold hover:bg-gray-100 px-4 py-2 rounded-md transition-all"
@@ -218,17 +222,28 @@ export default function Navbar() {
             </li>
 
             {categoryToggle &&
-                categoryData.length > 0 &&
-                categoryData.map((category, index) => (
-                    <li key={category.id || index} className="border-b border-gray-300 pb-2 pl-6">
-                      <Link
-                          to={`/all-products?categories=${category.id}`}
-                          className="block text-lg font-semibold hover:bg-gray-100 px-4 py-2 rounded-md transition-all"
-                      >
-                        {category.name}
-                      </Link>
-                    </li>
-                ))}
+                categoryData.length > 0 && (
+                    <>
+                      {categoryData.map((category, index) => (
+                          <li key={category.id || index} className="border-b border-gray-300 pb-2 pl-6">
+                            <Link
+                                to={`/all-products?categories=${category.id}`}
+                                className="block text-base font-semibold hover:bg-gray-100 px-4 py-2 rounded-md transition-all"
+                            >
+                              {category.name}
+                            </Link>
+                          </li>
+                      ))}
+                      <li className="border-gray-300 pl-6">
+                        <Link to={"/all-products"}
+                              className="block text-base font-semibold px-4 py-2 hover:bg-gray-100 font-sans font-400"
+                        >
+                          Բոլորը
+                        </Link>
+                      </li>
+                    </>
+                )
+            }
           </ul>
         </div>
         {menuToggle && (

@@ -1,5 +1,4 @@
 import {Link} from "react-router-dom";
-
 import {useEffect, useState} from "react";
 import OrderModal from "../OrderModal/index.jsx";
 import {useCartProducts} from "../../hooks/useCartProducts.jsx";
@@ -85,11 +84,9 @@ export default function Cart({ className, type }) {
                   <span>View Cart</span>
                 </Link>
               </div>
-              {/*<a href="#">*/}
               <div className="w-full h-[50px]">
-                <div className={type === 3 ? "blue-btn" : "yellow-btn"}>
-                  {/*<span className="text-sm">Checkout Now</span>*/}
-                  <button onClick={() => setIsModalOpen(true)}>Պատվիրել</button>
+                <div className={type === 3 ? "blue-btn" : "yellow-btn"} onClick={() => setIsModalOpen(true)}>
+                  <button>Պատվիրել</button>
                   <OrderModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}/>
                 </div>
               </div>
