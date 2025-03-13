@@ -26,14 +26,13 @@ export default function Middlebar({ className, type }) {
     };
 
     window.addEventListener("storage", updateWishlistCount);
-    window.addEventListener("wishlistUpdated", handleWishlistUpdate); // Listen for custom event
+    window.addEventListener("wishlistUpdated", handleWishlistUpdate);
 
     return () => {
       window.removeEventListener("storage", updateWishlistCount);
       window.removeEventListener("wishlistUpdated", handleWishlistUpdate);
     };
   }, []);
-
 
   useEffect(() => {
     setCartProcuctQuantity(cartProducts.reduce((acc, current) => {
