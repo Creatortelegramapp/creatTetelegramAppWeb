@@ -1,4 +1,3 @@
-
 import BreadcrumbCom from "../BreadcrumbCom";
 import EmptyCardError from "../EmptyCardError";
 import OrderModal from "../OrderModal";
@@ -6,7 +5,7 @@ import PageTitle from "../Helpers/PageTitle";
 import Layout from "../Partials/Layout";
 import CartProductsTable from "./CartProductsTable.jsx";
 import {useCartProducts} from "../../hooks/useCartProducts.jsx";
-import {useEffect, useState} from "react";
+import { useState } from "react";
 
 export default function CardPage({ cart = true }) {
   const { total } = useCartProducts();
@@ -57,8 +56,8 @@ export default function CardPage({ cart = true }) {
               </div>
               <div className="w-full h-[50px]">
                 <div className="w-full h-[50px]">
-                  <div className={type === 3 ? "blue-btn" : "yellow-btn"}>
-                    <button onClick={() => setIsModalOpen(true)}>Պատվիրել</button>
+                  <div className={type === 3 ? "blue-btn" : "yellow-btn"} onClick={() => setIsModalOpen(true)}>
+                    <button>Պատվիրել</button>
                     <OrderModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}/>
                   </div>
                 </div>
