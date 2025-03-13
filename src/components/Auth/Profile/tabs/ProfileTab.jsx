@@ -1,6 +1,6 @@
 import { useRef, useState,useEffect } from "react";
 import InputCom from "../../../Helpers/InputCom";
-import {getUserDate, registerUser} from "../../../../Services/HttpServices/UserHttpServices.js";
+import {getUserDate, registerUser, updateUserDate} from "../../../../Services/HttpServices/UserHttpServices.js";
 
 export default function ProfileTab() {
   const [profileImg, setProfileImg] = useState(null);
@@ -38,6 +38,37 @@ export default function ProfileTab() {
 
     fetchUserData();
   }, []);
+
+  const handleUpdate = async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem("access_token"));
+      if (!token) {
+        console.error("Token-ը բացակայում է");
+        return;
+      }
+
+      const updatedData = {
+        first_name: userData.firstname,
+        last_name: userData.lastname,
+        email: userData.email,
+        phone: userData.phone,
+        password: userData.password || undefined,
+      };
+
+      const response = await updateUserDate(token, updatedData);
+      console.log("Տվյալները հաջողությամբ թարմացվել են:", response);
+
+      setUserData((prevData) => ({
+        ...prevData,
+        firstname: response.first_name || prevData.firstname,
+        lastname: response.last_name || prevData.lastname,
+        email: response.email || prevData.email,
+        phone: response.phone || prevData.phone,
+      }));
+    } catch (error) {
+      console.error("Թարմացման սխալ:", error.message);
+    }
+  };
 
   const browseProfileImg = () => {
     profileImgInput.current.click();
@@ -196,13 +227,27 @@ export default function ProfileTab() {
           <button type="button" className="text-sm text-qred font-semibold">
             Չեղարկել
           </button>
-          <button
-              type="button"
-              className="w-[164px] h-[50px] bg-qblack text-white text-sm"
-              onClick={handleRegister}
-          >
-            Գրանցվել
-          </button>
+
+          {localStorage.getItem("access_token")?(
+              <button
+                  type="button"
+                  className="w-[164px] h-[50px] bg-qblack text-white text-sm"
+                  onClick={handleUpdate}
+              >
+                Փոխել տվյալներե
+              </button>
+          ) : (
+            <button
+            type="button"
+            className="w-[164px] h-[50px] bg-qblack text-white text-sm"
+            onClick={handleRegister}
+        >
+          Գրանցվել
+             </button>
+            )}
+
+
+
         </div>
       </>
   );
