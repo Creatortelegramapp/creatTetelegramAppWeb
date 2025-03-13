@@ -21,10 +21,16 @@ export default function Middlebar({ className, type }) {
   useEffect(() => {
     updateWishlistCount();
 
+    const handleWishlistUpdate = () => {
+      updateWishlistCount();
+    };
+
     window.addEventListener("storage", updateWishlistCount);
+    window.addEventListener("wishlistUpdated", handleWishlistUpdate);
 
     return () => {
       window.removeEventListener("storage", updateWishlistCount);
+      window.removeEventListener("wishlistUpdated", handleWishlistUpdate);
     };
   }, []);
 

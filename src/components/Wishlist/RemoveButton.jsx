@@ -3,6 +3,7 @@ export default function RemoveButton({ productId, onRemove }) {
         let likedProducts = JSON.parse(localStorage.getItem("wishlist")) || [];
         let updatedProducts = likedProducts.filter(id => id !== productId);
         localStorage.setItem("wishlist", JSON.stringify(updatedProducts));
+        window.dispatchEvent(new Event("wishlistUpdated"));
         if (onRemove) {
             onRemove(productId);
         }
