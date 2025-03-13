@@ -21,12 +21,19 @@ export default function Middlebar({ className, type }) {
   useEffect(() => {
     updateWishlistCount();
 
+    const handleWishlistUpdate = () => {
+      updateWishlistCount();
+    };
+
     window.addEventListener("storage", updateWishlistCount);
+    window.addEventListener("wishlistUpdated", handleWishlistUpdate); // Listen for custom event
 
     return () => {
       window.removeEventListener("storage", updateWishlistCount);
+      window.removeEventListener("wishlistUpdated", handleWishlistUpdate);
     };
   }, []);
+
 
   useEffect(() => {
     setCartProcuctQuantity(cartProducts.reduce((acc, current) => {
