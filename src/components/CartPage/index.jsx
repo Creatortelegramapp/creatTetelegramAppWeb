@@ -5,8 +5,7 @@ import PageTitle from "../Helpers/PageTitle";
 import Layout from "../Partials/Layout";
 import CartProductsTable from "./CartProductsTable.jsx";
 import {useCartProducts} from "../../hooks/useCartProducts.jsx";
-import { useState } from "react";
-
+import {useState} from "react";
 export default function CardPage({ cart = true }) {
   const { total } = useCartProducts();
 
