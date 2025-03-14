@@ -1,10 +1,5 @@
-import {
-    createContext,
-    useContext,
-    useState,
-    useEffect
-} from 'react';
-import {getProductById} from "../Services/HttpServices/ProductsHttpService.js";
+import { createContext, useContext, useState, useEffect } from 'react';
+import { getProductById } from "../Services/HttpServices/ProductsHttpService.js";
 
 const CartContext = createContext(null);
 
@@ -27,7 +22,10 @@ export function CartProvider({ children }) {
             let products = await Promise.all(
                 cartIds.map((id) => getProductById(id))
             );
-            products = products.map(product => ({...product, quantity: 1}));
+            products = products.map(product => {
+                const existingProduct = cartProducts.find(p => p.id === product.id);
+                return { ...product, quantity: existingProduct?.quantity || 1 };
+            });
             setCartProducts(products);
         })();
     }, [cartIds]);
@@ -36,7 +34,7 @@ export function CartProvider({ children }) {
         setTotal(cartProducts.reduce((acc, product) => acc + (product.quantity * product.price), 0));
     }, [cartProducts]);
 
-    const addProductById = async (productId) => {
+    const addProductById = async (productId, quantity = 1) => {
         if (cartIds.includes(productId)) return;
 
         const product = await getProductById(productId);
@@ -47,7 +45,10 @@ export function CartProvider({ children }) {
             return updatedIds;
         });
 
-        setCartProducts((prevProds) => [...prevProds, product]);
+        setCartProducts((prevProds) => [
+            ...prevProds,
+            { ...product, quantity }
+        ]);
     };
 
     const removeProductById = (productId) => {
@@ -57,9 +58,7 @@ export function CartProvider({ children }) {
             return updatedIds;
         });
 
-        setCartProducts((prevProds) =>
-            prevProds.filter((p) => p.id !== productId)
-        );
+        setCartProducts((prevProds) => prevProds.filter((p) => p.id !== productId));
     };
 
     const clearCart = () => {
@@ -69,17 +68,18 @@ export function CartProvider({ children }) {
     };
 
     const quantityChange = (productId, amount) => {
-        if (amount === 1) {
-            setCartProducts(prev => prev.map(product => product.id === productId ? {
-                ...product,
-                quantity: product.quantity + 1,
-            } : product));
-        } else {
-            setCartProducts(prev => prev.map(product => product.id === productId ? {
-                ...product,
-                quantity: product.quantity > 0 ? product.quantity - 1 : 1,
-            } : product));
-        }
+        setCartProducts((prev) =>
+            prev.map((product) =>
+                product.id === productId
+                    ? {
+                        ...product,
+                        quantity: amount > 0
+                            ? product.quantity + 1
+                            : Math.max(1, product.quantity - 1),
+                    }
+                    : product
+            )
+        );
     };
 
     const value = {
@@ -89,7 +89,7 @@ export function CartProvider({ children }) {
         removeProductById,
         clearCart,
         quantityChange,
-        total
+        total,
     };
 
     return (
