@@ -6,21 +6,9 @@ import AddToCartButton from "../Cart/AddToCartButton.jsx";
 export default function ProductView({ product }) {
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(product.price || 0);
-  const { addProductById, removeProductById, cartProducts, quantityChange } = useCartProducts();
+  const { addProductById, removeProductById, cartProducts } = useCartProducts();
   const [isAdded, setIsAdded] = useState(false);
 
-  const handleIncrease = () => {
-    const newQuantity = quantity + 1;
-    setQuantity(newQuantity);
-    setTotalPrice(newQuantity * (product.price || 0));
-  };
-  const handleDecrease = () => {
-    if (quantity > 1) {
-      const newQuantity = quantity - 1;
-      setQuantity(newQuantity);
-      setTotalPrice(newQuantity * (product.price || 0));
-    }
-  };
   const [wishlist, setWishlist] = useState(() => {
     const storedWishlist = localStorage.getItem("wishlist") || "[]";
     return JSON.parse(storedWishlist);
@@ -32,13 +20,27 @@ export default function ProductView({ product }) {
       localStorage.setItem("wishlist", JSON.stringify(newWishlist));
       window.dispatchEvent(new Event("storage"));
     } catch (error) {
-      console.error("սխալ", error);
+      console.error("error", error);
     }
   };
+
+  const handleIncrease = () => {
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    setTotalPrice(newQuantity * (product.price || 0));
+  };
+
+  const handleDecrease = () => {
+    if (quantity > 1) {
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      setTotalPrice(newQuantity * (product.price || 0));
+    }
+  };
+
   const addProduct = (id) => {
-    addProductById(id);
+    addProductById(id, quantity);
     setIsAdded(true);
-    quantityChange(id, quantity - 1);
   };
 
   const removeProduct = (id) => {
@@ -56,8 +58,7 @@ export default function ProductView({ product }) {
       const cartProduct = cartProducts.find((p) => p.id === product.id);
       const cartQuantity = cartProduct?.quantity || 1;
       setQuantity(cartQuantity);
-      const price = product.price || 0;
-      setTotalPrice(cartQuantity * price);
+      setTotalPrice(cartQuantity * (product.price || 0));
     } else {
       setQuantity(1);
       setTotalPrice(product.price || 0);
