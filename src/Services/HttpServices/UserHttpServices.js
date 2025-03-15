@@ -38,7 +38,7 @@ export const getUserDate = async (token) => {
 }
 export const updateUserDate = async (token,updatedData) => {
     try {
-        const response = await httpClient.put(`/user`, updatedData,{
+        const response = await httpClient.post(`/user/refresh_token`, updatedData,{
             headers: {
                 Authorization: `Bearer ${token}`,
 
