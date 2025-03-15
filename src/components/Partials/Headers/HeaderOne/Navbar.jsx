@@ -25,10 +25,16 @@ export default function Navbar() {
   useEffect(() => {
     updateWishlistCount();
 
+    const handleWishlistUpdate = () => {
+      updateWishlistCount();
+    };
+
     window.addEventListener("storage", updateWishlistCount);
+    window.addEventListener("wishlistUpdated", handleWishlistUpdate);
 
     return () => {
       window.removeEventListener("storage", updateWishlistCount);
+      window.removeEventListener("wishlistUpdated", handleWishlistUpdate);
     };
   }, []);
 
@@ -71,7 +77,10 @@ export default function Navbar() {
           </button>
           <div className="hidden lg:flex justify-between w-full">
             <div className="category-and-nav flex xl:space-x-7 space-x-3 items-center">
-              <div className="category w-[270px] h-[53px] bg-white px-5 rounded-t-md mt-[6px] relative">
+              <div className="category w-[270px] h-[53px] bg-white px-5 rounded-t-md mt-[6px] relative"
+                   tabIndex={0}
+                   onBlur={() => setCategoryToggle(false)}
+              >
                 <button
                     onClick={toggleCategory}
                     className="w-full text-sm font-600 text-qblacktext flex justify-between items-center"
