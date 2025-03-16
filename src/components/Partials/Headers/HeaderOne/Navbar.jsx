@@ -61,7 +61,7 @@ export default function Navbar() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await getCategoryById(2);
+        const response = await getCategoryById();
         setCategoryData(response);
       } catch (error) {
         console.log("error", error);

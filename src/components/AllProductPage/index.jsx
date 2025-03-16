@@ -22,7 +22,7 @@ export default function AllProductPage() {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const categoriesData = await getCategoryById(2);
+      const categoriesData = await getCategoryById();
       setCategories(categoriesData);
     };
     fetchCategories();
