@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Arrow from "../../../Helpers/icons/Arrow";
 import {getCategoryById} from "../../../../Services/HttpServices/CategoriesHttpService.js";
 
-export default function Navbar({ className, type }) {
+export default function Navbar({ type }) {
   const [categoryToggle, setToggle] = useState(false);
   const [elementsSize, setSize] = useState("0px");
   const [categoryData,setCategoryData] = useState([false]);
@@ -15,7 +15,7 @@ export default function Navbar({ className, type }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await getCategoryById(1);
+        const response = await getCategoryById();
         setCategoryData(response.data.data)
       } catch (error) {
         console.log("error", error);

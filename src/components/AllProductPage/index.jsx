@@ -15,7 +15,7 @@ export default function AllProductPage() {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const categoriesData = await getCategoryById(1);
+      const categoriesData = await getCategoryById();
       setCategories(categoriesData.data.data);
     };
     fetchCategories();

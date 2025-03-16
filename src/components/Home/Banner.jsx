@@ -8,11 +8,10 @@ const categoryImages = [
   { id: 1, image_url: "https://media.tiffany.com/is/image/tiffanydm/2025_VDAY_HP_SBC_Earrings?$tile$&&fmt=webp", name: "Category 1" },
   { id: 2, image_url: "https://media.istockphoto.com/id/157185698/photo/circular-diamond-pendant-necklace-isolated-on-white.jpg?s=2048x2048&w=is&k=20&c=HzJMihfM-hTKlkmjBc0BJSJzypW-YPt3ffOK17ZaXaE=", name: "Category 2" },
   { id: 3, image_url: "https://media.istockphoto.com/id/658096268/photo/wedding-wedding-day-luxury-bracelet-on-the-brides-hand-close-up-hands-of-the-bride-before.jpg?s=2048x2048&w=is&k=20&c=491hM3yb0xJTaQW5xQO0KHtWsbu3D0U525mumc4zm_o=", name: "Category 3" },
-  // { id: 4, image_url: "https://media.istockphoto.com/id/1365426370/photo/woman-a-lot-of-jewelry-on-herself.jpg?s=2048x2048&w=is&k=20&c=UCZT7iVEo6eDoq3EMYnGjTsNcCFR6Yhq3qa4XPtmk5U=", name: "Category 4" },
-  // { id: 5, image_url: "https://media.istockphoto.com/id/891646116/photo/diamond-ring-on-glass-table.jpg?s=2048x2048&w=is&k=20&c=_7q1nIiDiDFA2xRZWusNXu5dSmy0vBEBZgwxxyymPvQ=", name: "Category 5" },
-  // { id: 6, image_url: "https://media.istockphoto.com/id/658096268/photo/wedding-wedding-day-luxury-bracelet-on-the-brides-hand-close-up-hands-of-the-bride-before.jpg?s=2048x2048&w=is&k=20&c=491hM3yb0xJTaQW5xQO0KHtWsbu3D0U525mumc4zm_o=", name: "Category 6" },
-  // { id: 7, image_url: "https://media.istockphoto.com/id/658096268/photo/wedding-wedding-day-luxury-bracelet-on-the-brides-hand-close-up-hands-of-the-bride-before.jpg?s=2048x2048&w=is&k=20&c=491hM3yb0xJTaQW5xQO0KHtWsbu3D0U525mumc4zm_o=", name: "Category 7" },
-  // { id: 8, image_url: "https://media.istockphoto.com/id/658096268/photo/wedding-wedding-day-luxury-bracelet-on-the-brides-hand-close-up-hands-of-the-bride-before.jpg?s=2048x2048&w=is&k=20&c=491hM3yb0xJTaQW5xQO0KHtWsbu3D0U525mumc4zm_o=", name: "Category 8" },
+  { id: 4, image_url: "https://media.istockphoto.com/id/1365426370/photo/woman-a-lot-of-jewelry-on-herself.jpg?s=2048x2048&w=is&k=20&c=UCZT7iVEo6eDoq3EMYnGjTsNcCFR6Yhq3qa4XPtmk5U=", name: "Category 4" },
+  { id: 5, image_url: "https://media.istockphoto.com/id/891646116/photo/diamond-ring-on-glass-table.jpg?s=2048x2048&w=is&k=20&c=_7q1nIiDiDFA2xRZWusNXu5dSmy0vBEBZgwxxyymPvQ=", name: "Category 5" },
+  { id: 6, image_url: "https://media.istockphoto.com/id/658096268/photo/wedding-wedding-day-luxury-bracelet-on-the-brides-hand-close-up-hands-of-the-bride-before.jpg?s=2048x2048&w=is&k=20&c=491hM3yb0xJTaQW5xQO0KHtWsbu3D0U525mumc4zm_o=", name: "Category 6" },
+  { id: 7, image_url: "https://media.istockphoto.com/id/658096268/photo/wedding-wedding-day-luxury-bracelet-on-the-brides-hand-close-up-hands-of-the-bride-before.jpg?s=2048x2048&w=is&k=20&c=491hM3yb0xJTaQW5xQO0KHtWsbu3D0U525mumc4zm_o=", name: "Category 7" },
 ];
 
 export default function Banner({className}) {
@@ -21,8 +20,19 @@ export default function Banner({className}) {
   const [current, setCurrent] = useState(0);
   const [categories, setCategories] = useState([]);
   const [currentCategory, setCurrentCategory] = useState(0);
+  const categoryWidth = 150;
 
-  console.log(categoryImages)
+  const nextCategorySlide = () => {
+    if (currentCategory < categories.length) {
+      setCurrentCategory((prev) => prev + 1);
+    }
+  };
+
+  const prevCategorySlide = () => {
+    if (currentCategory > 0) {
+      setCurrentCategory((prev) => prev - 1);
+    }
+  };
 
   useEffect(() => {
     getTopProductById().then((response) => {
@@ -45,7 +55,7 @@ export default function Banner({className}) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await getCategoryById(1);
+        const response = await getCategoryById();
         setCategories(response.data.data);
       } catch (error) {
         console.log("error", error);
@@ -63,18 +73,6 @@ export default function Banner({className}) {
     setCurrent((prev) => (prev - 1 + topProducts.length) % topProducts.length);
   };
 
-  // const nextCategory = () => {
-  //   if (currentCategory < categories.length - 5) {
-  //     setCurrentCategory(currentCategory + 1);
-  //   }
-  // };
-  //
-  // const prevCategory = () => {
-  //   if (currentCategory > 0) {
-  //     setCurrentCategory(currentCategory - 1);
-  //   }
-  // };
-
   return (
       <>
         <div className={`w-full ${className || ""}`}>
@@ -85,7 +83,7 @@ export default function Banner({className}) {
                   {topProducts.map((product, index) => (
                       <Link
                           key={product.product_id}
-                          to={`/single-product/${product.product_id}`} // Այժմ id-ն կլինի ճիշտ
+                          to={`/single-product/${product.product_id}`}
                           className="absolute w-full h-full transition-transform duration-700 ease-in-out"
                       >
                         <div
@@ -113,44 +111,47 @@ export default function Banner({className}) {
           <div className="container-x mx-auto">
             <div className="main-wrapper w-full">
 
-              <div className="relative w-full h-[350px] md:h-[400px] overflow-hidden flex justify-center items-center">
-                <div
-                    className="flex transition-transform duration-700 ease-in-out"
-                    style={{
-                      transform: `translateX(-${currentCategory * 150}px)`,
-                    }}
-                >
-                  {categories.map((category) => (
-                      <Link
-                          key={category.id}
-                          to={`/all-products/${category.id}`} // Այստեղ կապվում է այդ կատեգորիայի էջը
-                          className="flex-shrink-0 w-[180px] h-[180px] mx-4 rounded-full overflow-hidden bg-cover bg-center relative transition-transform duration-500 transform hover:rotate-6 hover:scale-110"
-                          style={{ backgroundImage: `url(${categoryImages[0].image_url || 'default-image.jpg'})` }}
-                      >
-                        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-lg font-bold">
-                          {category.name}
-                        </div>
-                      </Link>
-                      // </div>
-                  ))}
+              <div className="relative w-full max-w-6xl mx-auto md:h-[400px] flex justify-center items-center">
+                <div className="overflow-hidden relative">
+                  <div
+                      className="flex transition-transform duration-500 ease-in-out"
+                      style={{
+                        transform: `translateX(-${currentCategory * categoryWidth}px)`,
+                      }}
+                  >
+                    {categories.map((category, index) => (
+                        <Link
+                            key={category.id}
+                            to={`/all-products/${category.id}`}
+                            className="flex-shrink-0 w-[180px] h-[180px] mx-2 rounded-full overflow-hidden bg-cover bg-center relative transition-transform duration-500 transform hover:rotate-6 hover:scale-110"
+                            style={{
+                              backgroundImage: `url(${categoryImages[index]?.image_url || 'default-image.jpg'})`,
+                            }}
+                        >
+                          <div
+                              className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-lg font-bold">
+                            {category.name}
+                          </div>
+                        </Link>
+                    ))}
+                  </div>
                 </div>
-
-                {/*<div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-4">*/}
-                {/*  <button*/}
-                {/*      onClick={prevCategory}*/}
-                {/*      disabled={currentCategory === 0}*/}
-                {/*      className={`bg-gray-800 bg-opacity-50 p-3 rounded-full text-white transition-all hover:bg-opacity-75 ${currentCategory === 0 ? "cursor-not-allowed opacity-50" : ""}`}*/}
-                {/*  >*/}
-                {/*    ◀*/}
-                {/*  </button>*/}
-                {/*  <button*/}
-                {/*      onClick={nextCategory}*/}
-                {/*      disabled={currentCategory === categories.length - 6}*/}
-                {/*      className={`bg-gray-800 bg-opacity-50 p-3 rounded-full text-white transition-all hover:bg-opacity-75 ${currentCategory === categories.length - 6 ? "cursor-not-allowed opacity-50" : ""}`}*/}
-                {/*  >*/}
-                {/*    ▶*/}
-                {/*  </button>*/}
-                {/*</div>*/}
+                {currentCategory > 0 && (
+                    <button
+                        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-700 transition"
+                        onClick={prevCategorySlide}
+                    >
+                      ←
+                    </button>
+                )}
+                {currentCategory < categories.length && (
+                    <button
+                        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-700 transition"
+                        onClick={nextCategorySlide}
+                    >
+                      →
+                    </button>
+                )}
               </div>
 
               <div
