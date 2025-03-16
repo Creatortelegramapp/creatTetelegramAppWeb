@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { useCartProducts } from "../../hooks/useCartProducts.jsx";
 import AddWishListButton from "../Wishlist/AddWishListButton.jsx";
 import AddToCartButton from "../Cart/AddToCartButton.jsx";
+import {useCartProducts} from "../../hooks/useCartProducts.jsx";
 
 export default function ProductView({ product }) {
   const [quantity, setQuantity] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(product.price || 0);
-  const { addProductById, removeProductById, cartProducts } = useCartProducts();
-  const [isAdded, setIsAdded] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(product.price || 0)
+
+  const { cartProducts } = useCartProducts();
 
   const [wishlist, setWishlist] = useState(() => {
     const storedWishlist = localStorage.getItem("wishlist") || "[]";
@@ -38,21 +38,8 @@ export default function ProductView({ product }) {
     }
   };
 
-  const addProduct = (id) => {
-    addProductById(id, quantity);
-    setIsAdded(true);
-  };
-
-  const removeProduct = (id) => {
-    removeProductById(id);
-    setIsAdded(false);
-    setQuantity(1);
-    setTotalPrice(product.price || 0);
-  };
-
   useEffect(() => {
     const isProductInCart = cartProducts.some((cartProduct) => cartProduct.id === product.id);
-    setIsAdded(isProductInCart);
 
     if (isProductInCart) {
       const cartProduct = cartProducts.find((p) => p.id === product.id);
@@ -103,10 +90,8 @@ export default function ProductView({ product }) {
 
           <div className="flex gap-4">
             <AddToCartButton
-                productId={product.id}
-                isAdded={isAdded}
-                onAddToCart={addProduct}
-                onRemoveFromCart={removeProduct}
+                product={product}
+                quantity={quantity}
             />
             <div className="min-w-[40px] min-h-[40px] flex justify-center items-center bg-primarygray rounded">
               <AddWishListButton

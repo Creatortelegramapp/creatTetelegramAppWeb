@@ -7,7 +7,6 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import {Pagination} from "swiper/modules";
-import {useCartProducts} from "../../hooks/useCartProducts.jsx";
 import AddToCartButton from "../Cart/AddToCartButton.jsx";
 
 export default function SectionStyleOne({
@@ -73,27 +72,8 @@ export default function SectionStyleOne({
 }
 
 function ProductCard({data, wishlist, updateWishlist}) {
-  const {addProductById, removeProductById, cartProducts} = useCartProducts()
-  const [isAdded, setIsAdded] = useState(false);
-
-  useEffect(() => {
-    const isInCart = cartProducts.some((product) => product.id === data.id);
-    setIsAdded(isInCart);
-  }, [cartProducts, data.id]);
-
-  const addProduct = (id) => {
-    addProductById(id);
-    setIsAdded(true);
-  };
-
-  const removeProduct = (id) => {
-    removeProductById(id);
-    setIsAdded(false);
-  };
-
   return (
     <div>
-
       <div
         className="product-card-one w-full h-fit bg-white relative group overflow-hidden"
         style={{
@@ -110,10 +90,7 @@ function ProductCard({data, wishlist, updateWishlist}) {
             className="absolute w-full h-10 px-[30px] left-0 top-40 group-hover:top-[-25px] transition-all duration-300 ease-in-out"
           >
             <AddToCartButton
-              productId={data.id}
-              isAdded={isAdded}
-              onAddToCart={addProduct}
-              onRemoveFromCart={removeProduct}
+              product={data}
             />
           </div>
         </div>
@@ -137,6 +114,5 @@ function ProductCard({data, wishlist, updateWishlist}) {
         </div>
       </div>
     </div>
-
   );
 }
