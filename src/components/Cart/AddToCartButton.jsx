@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function AddToCartButton({ productId, isAdded, onAddToCart, onRemoveFromCart }) {
     const handleClick = () => {
         if (isAdded) {
@@ -30,7 +28,7 @@ export default function AddToCartButton({ productId, isAdded, onAddToCart, onRem
                         />
                     </svg>
                 </div>
-                <p>{isAdded ? "Ավելացված է" : "Ավելացնել"}</p>
+                <p className="font-sans">{isAdded ? "Ավելացված է" : "Ավելացնել"}</p>
             </div>
         </button>
     );
