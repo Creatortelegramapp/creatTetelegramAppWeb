@@ -30,11 +30,11 @@ export default function Navbar() {
     };
 
     window.addEventListener("storage", updateWishlistCount);
-    window.addEventListener("wishlistUpdated", handleWishlistUpdate);
+    window.addEventListener("wishlist-Updated", handleWishlistUpdate);
 
     return () => {
       window.removeEventListener("storage", updateWishlistCount);
-      window.removeEventListener("wishlistUpdated", handleWishlistUpdate);
+      window.removeEventListener("wishlist-updated", handleWishlistUpdate);
     };
   }, []);
 
