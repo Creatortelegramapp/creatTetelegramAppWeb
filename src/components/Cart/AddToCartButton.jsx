@@ -1,16 +1,22 @@
-export default function AddToCartButton({ productId, isAdded, onAddToCart, onRemoveFromCart }) {
+import {useCartProducts} from "../../hooks/useCartProducts.jsx";
+
+export default function AddToCartButton({ product, quantity }) {
+    const { addProductById, removeProductById, cartProducts } = useCartProducts();
+
+    const isAdded = cartProducts.some((p) => p.id === product.id)
+
     const handleClick = () => {
         if (isAdded) {
-            onRemoveFromCart(productId);
+            removeProductById(product.id);
         } else {
-            onAddToCart(productId);
+            addProductById(product.id, quantity);
         }
     };
 
     return (
         <button
             type="button"
-            className={isAdded ? "blue-btn" : "yellow-btn"}
+            className={ isAdded ? "blue-btn" : "yellow-btn"}
             onClick={handleClick}
         >
             <div className="flex items-center space-x-3">

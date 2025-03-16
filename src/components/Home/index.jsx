@@ -9,11 +9,9 @@ import { useEffect, useState } from "react";
 import AddWishListButton from "../Wishlist/AddWishListButton.jsx";
 import { getProductByCategoryId } from "../../Services/HttpServices/CategoriesHttpService.js";
 import { environment } from "../../environment.dev.js";
-import { useCartProducts } from "../../hooks/useCartProducts.jsx";
 import AddToCartButton from "../Cart/AddToCartButton.jsx";
 
 export default function Home() {
-    const { addProductById, removeProductById, cartProducts } = useCartProducts(); // Վերցնում ենք ֆունկցիաներն ու տվյալները
     const [productData, setProductData] = useState([]);
 
     const [wishlist, setWishlist] = useState(() => {
@@ -42,14 +40,6 @@ export default function Home() {
         } catch (error) {
             console.error("error", error);
         }
-    };
-
-    const addProduct = (productId) => {
-        addProductById(productId);
-    };
-
-    const removeProduct = (productId) => {
-        removeProductById(productId);
     };
 
     return (
@@ -107,10 +97,7 @@ export default function Home() {
                                                 </div>
                                             </div>
                                             <AddToCartButton
-                                                productId={data.id}
-                                                isAdded={cartProducts.some((p) => p.id === data.id)}
-                                                onAddToCart={addProduct}
-                                                onRemoveFromCart={removeProduct}
+                                                product={data}
                                             />
                                         </div>
                                     </div>
