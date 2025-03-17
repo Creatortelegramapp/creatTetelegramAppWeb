@@ -1,6 +1,7 @@
 import { useRef, useState,useEffect } from "react";
 import InputCom from "../../../Helpers/InputCom";
 import {getUserDate, registerUser, updateUserDate} from "../../../../Services/HttpServices/UserHttpServices.js";
+import defaultProfileImg from "/assets/images/edit-profileimg.jpg";
 
 export default function ProfileTab() {
   const [profileImg, setProfileImg] = useState(null);
@@ -197,10 +198,7 @@ export default function ProfileTab() {
                   <div className="sm:w-[198px] sm:h-[198px] w-[199px] h-[199px] rounded-full overflow-hidden relative">
                     <img
                         src={
-                            profileImg ||
-                            `${
-                                import.meta.env.VITE_PUBLIC_URL
-                            }/assets/images/edit-profileimg.jpg`
+                            profileImg ||defaultProfileImg
                         }
                         alt="Profile"
                         className="object-cover w-full h-full"
