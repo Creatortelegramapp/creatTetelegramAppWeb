@@ -117,6 +117,7 @@ export default function ProfileTab() {
       console.log("Error:", error.message);
     }
   };
+  const isLoggedIn = !!localStorage.getItem("access_token");
 
   return (
       <>
@@ -170,17 +171,20 @@ export default function ProfileTab() {
                 />
               </div>
 
-              <div className="w-1/2 h-full">
-                <InputCom
-                    label="Գաղտնաբար*"
-                    placeholder="Գաղտնաբար"
-                    type="password"
-                    name="password"
-                    value={userData.password}
-                    inputHandler={inputHandler}
-                    inputClasses="h-[50px]"
-                />
-              </div>
+
+              {!isLoggedIn && (
+                  <div className="w-1/2 h-full">
+                    <InputCom
+                        label="Գաղտնաբառ*"
+                        placeholder="Գաղտնաբառ"
+                        type="password"
+                        name="password"
+                        value={userData.password}
+                        inputHandler={inputHandler}
+                        inputClasses="h-[50px]"
+                    />
+                  </div>
+              )}
             </div>
           </div>
           <div className="flex-1">
