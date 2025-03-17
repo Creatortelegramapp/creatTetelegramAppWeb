@@ -174,7 +174,7 @@ export default function ProfileTab() {
                 <InputCom
                     label="Գաղտնաբար*"
                     placeholder="Գաղտնաբար"
-                    type="text"
+                    type="password"
                     name="password"
                     value={userData.password}
                     inputHandler={inputHandler}
