@@ -53,6 +53,10 @@ export default function Navbar() {
     setCategoryToggle(!categoryToggle);
   };
 
+  const closeDropdown = () => {
+    setCategoryToggle(false);
+  };
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -78,8 +82,7 @@ export default function Navbar() {
           <div className="hidden lg:flex justify-between w-full">
             <div className="category-and-nav flex xl:space-x-7 space-x-3 items-center">
               <div className="category w-[270px] h-[53px] bg-white px-5 rounded-t-md mt-[6px] relative"
-                   tabIndex={0}
-                   onBlur={() => setCategoryToggle(false)}
+
               >
                 <button
                     onClick={toggleCategory}
@@ -95,21 +98,23 @@ export default function Navbar() {
                 </span>
                 </button>
                 {categoryToggle && categoryData.length > 0 && (
-                    <div className="absolute top-[53px] left-0 w-full bg-white shadow-lg">
-                      {categoryData.map((category, index) => (
-                          <Link
-                              key={category.id || index}
-                              to={`/all-products?categories=${category.id}`}
-                              className="block text-base font-semibold px-4 py-2 hover:bg-gray-100 font-sans font-400"
-                          >
-                            {category.name}
-                          </Link>
-                      ))}
-                      <Link to={"/all-products"}
-                            className="block text-base font-semibold px-4 py-2 hover:bg-gray-100 font-sans font-400"
-                      >
-                        Բոլորը</Link>
-                    </div>
+                    <>
+                      <div className="fixed inset-0 w-full h-full -z-10" onClick={closeDropdown}></div>
+                      <div className="absolute top-[53px] left-0 w-full bg-white shadow-lg z-20">
+                        {categoryData.map((category, index) => (
+                            <Link
+                                key={category.id || index}
+                                to={`/all-products?categories=${category.id}`}
+                                className="block text-base font-semibold px-4 py-2 hover:bg-gray-100 font-sans font-400"
+                            >
+                              {category.name}
+                            </Link>
+                        ))}
+                        <Link to={"/all-products"} className="block text-base font-semibold px-4 py-2 hover:bg-gray-100 font-sans font-400">
+                          Բոլորը
+                        </Link>
+                      </div>
+                    </>
                 )}
               </div>
               <div className="nav">
