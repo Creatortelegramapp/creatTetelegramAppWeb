@@ -80,8 +80,12 @@ export default function Profile() {
                               </div>
                             </Link>
                           </div>
-                          <div className="item group">
-                            <Link to="/profile#profile">
+                          <button className="item group" onClick={ () =>  {
+                            localStorage.removeItem("access_token")
+                            localStorage.removeItem("refresh_token")
+                          }
+                          }>
+                            <Link to="/login">
                               <div className="flex space-x-3 items-center text-qgray hover:text-qblack">
                           <span>
                             <IcoLogout />
@@ -91,7 +95,7 @@ export default function Profile() {
                           </span>
                               </div>
                             </Link>
-                          </div>
+                          </button>
                         </div>
                       </div>
                     </>

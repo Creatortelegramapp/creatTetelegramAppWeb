@@ -43,6 +43,7 @@ export default function ProfileTab() {
   const handleUpdate = async () => {
     try {
       const token = JSON.parse(localStorage.getItem("access_token"));
+      const refreshToken = localStorage.getItem("refresh_token")  ;
       if (!token) {
         console.error("Token-ը բացակայում է");
         return;
@@ -56,7 +57,7 @@ export default function ProfileTab() {
         password: userData.password || undefined,
       };
 
-      const response = await updateUserDate(token, updatedData);
+      const response = await updateUserDate(token, updatedData,refreshToken);
       console.log("Տվյալները հաջողությամբ թարմացվել են:", response);
 
       setUserData((prevData) => ({
