@@ -14,6 +14,9 @@ export const registerUser = async (userData) => {
 export const loginUser = async (userData) => {
     try {
         const response = await httpClient.post("/user/login", userData);
+        console.log(response);
+        localStorage.setItem("access_token", JSON.stringify(response.data.data.access_token));
+        localStorage.setItem("refresh_token", JSON.stringify(response.data.data.refresh_token));
         return response.data;
     } catch (error) {
         console.error("error", error);
@@ -36,16 +39,19 @@ export const getUserDate = async (token) => {
         throw error;
     }
 }
-export const updateUserDate = async (token,updatedData) => {
+export const updateUserDate = async (token,updatedData,refreshToken) => {
     try {
         const response = await httpClient.post(`/user/refresh_token`, updatedData,{
             headers: {
-                Authorization: `Bearer ${token}`,
-
+                Authorization: `Bearer ${token} Refresh ${refreshToken}`
             }
         })
+
         return response.data;
     } catch (error) {
+
+        console.log("updatedData",updatedData)
+        console.log("refreshToken",refreshToken)
         console.error('Error fetching user data:', error);
         throw error;
     }
