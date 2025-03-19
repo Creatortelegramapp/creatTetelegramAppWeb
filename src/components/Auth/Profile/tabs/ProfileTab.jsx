@@ -21,16 +21,16 @@ export default function ProfileTab() {
       if (token) {
         try {
           const data = await getUserDate(token);
-          if (data) {
-            setUserData((prevData) => ({
-              ...prevData,
-              firstname: data.data.first_name || "",
-              lastname: data.data.last_name || "",
-              email: data.data.email || "",
-              phone: data.data.phone || "",
-
-            }));
+          if (!data) {
+            return;
           }
+          setUserData((prevData) => ({
+            ...prevData,
+            firstname: data.data.first_name || "",
+            lastname: data.data.last_name || "",
+            email: data.data.email || "",
+            phone: data.data.phone || "",
+          }));
         } catch (error) {
           console.error("Error fetching user data:", error);
         }
@@ -43,22 +43,19 @@ export default function ProfileTab() {
   const handleUpdate = async () => {
     try {
       const token = JSON.parse(localStorage.getItem("access_token"));
-      const refreshToken = localStorage.getItem("refresh_token")  ;
       if (!token) {
         console.error("Token-ը բացակայում է");
         return;
       }
-
       const updatedData = {
         first_name: userData.firstname,
         last_name: userData.lastname,
         email: userData.email,
         phone: userData.phone,
-        password: userData.password || undefined,
       };
 
-      const response = await updateUserDate(token, updatedData,refreshToken);
-      console.log("Տվյալները հաջողությամբ թարմացվել են:", response);
+      const response = await updateUserDate(token, updatedData);
+      console.log(response);
 
       setUserData((prevData) => ({
         ...prevData,
