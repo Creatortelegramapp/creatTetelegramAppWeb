@@ -30,7 +30,6 @@ export const getUserDate = async (token) => {
         const response = await httpClient.get(`/user`  ,  {
             headers: {
                 Authorization: `Bearer ${token}`,
-
             }
         })
         return response.data;
@@ -39,19 +38,15 @@ export const getUserDate = async (token) => {
         throw error;
     }
 }
-export const updateUserDate = async (token,updatedData,refreshToken) => {
+export const updateUserDate = async (token,updatedData,) => {
     try {
-        const response = await httpClient.post(`/user/refresh_token`, updatedData,{
+        const response = await httpClient.put(`/user`, updatedData,{
             headers: {
-                Authorization: `Bearer ${token} Refresh ${refreshToken}`
+                Authorization: `Bearer ${token}`,
             }
         })
-
         return response.data;
     } catch (error) {
-
-        console.log("updatedData",updatedData)
-        console.log("refreshToken",refreshToken)
         console.error('Error fetching user data:', error);
         throw error;
     }
