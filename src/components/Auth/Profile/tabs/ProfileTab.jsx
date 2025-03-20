@@ -15,6 +15,8 @@ export default function ProfileTab() {
     password: "",
   });
 
+  const [errorMessages, setErrorMessages] = useState([]);
+
   useEffect(() => {
     const fetchUserData = async () => {
       const token = JSON.parse(localStorage.getItem("access_token"));
@@ -88,6 +90,7 @@ export default function ProfileTab() {
       ...prevData,
       [name]: value,
     }));
+    setErrorMessages([]);
   };
 
   const handleRegister = async () => {
@@ -108,10 +111,26 @@ export default function ProfileTab() {
             phone: data.data.phone || "",
             password: "",
           }));
+          setErrorMessages([]);
         }
       }
     } catch (error) {
-      console.log("Error:", error.message);
+      if (error.response && error.response.data) {
+        const backendError = error.response.data;
+        if (backendError.errors) {
+          const allErrors = Object.values(backendError.errors).flat();
+          setErrorMessages(allErrors);
+        }
+        else if (backendError.message) {
+          setErrorMessages([backendError.message]);
+        }
+        else {
+          setErrorMessages(["Something went wrong during registration"]);
+        }
+      } else {
+        setErrorMessages([error.message || "Request failed unexpectedly"]);
+      }
+      console.log("Registration Error:", error.response?.data || error.message);
     }
   };
 
@@ -183,6 +202,13 @@ export default function ProfileTab() {
                   </div>
               )}
             </div>
+            {errorMessages.length > 0 && (
+                <div className="text-red-500 text-sm mb-4">
+                  {errorMessages.map((error, index) => (
+                      <div key={index}>{error}</div>
+                  ))}
+                </div>
+            )}
           </div>
           <div className="flex-1">
             <div className="update-logo w-full mb-9">
