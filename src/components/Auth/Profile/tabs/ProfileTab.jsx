@@ -1,12 +1,11 @@
-import { useRef, useState,useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import InputCom from "../../../Helpers/InputCom";
-import {getUserDate, registerUser, updateUserDate} from "../../../../Services/HttpServices/UserHttpServices.js";
+import { getUserDate, registerUser, updateUserDate } from "../../../../Services/HttpServices/UserHttpServices.js";
 import defaultProfileImg from "/assets/images/edit-profileimg.jpg";
 
 export default function ProfileTab() {
   const [profileImg, setProfileImg] = useState(null);
   const profileImgInput = useRef(null);
-
 
   const [userData, setUserData] = useState({
     firstname: "",
@@ -15,22 +14,22 @@ export default function ProfileTab() {
     phone: "",
     password: "",
   });
+
   useEffect(() => {
     const fetchUserData = async () => {
       const token = JSON.parse(localStorage.getItem("access_token"));
       if (token) {
         try {
           const data = await getUserDate(token);
-          if (!data) {
-            return;
+          if (data) {
+            setUserData((prevData) => ({
+              ...prevData,
+              firstname: data.data.first_name || "",
+              lastname: data.data.last_name || "",
+              email: data.data.email || "",
+              phone: data.data.phone || "",
+            }));
           }
-          setUserData((prevData) => ({
-            ...prevData,
-            firstname: data.data.first_name || "",
-            lastname: data.data.last_name || "",
-            email: data.data.email || "",
-            phone: data.data.phone || "",
-          }));
         } catch (error) {
           console.error("Error fetching user data:", error);
         }
@@ -98,16 +97,16 @@ export default function ProfileTab() {
         localStorage.setItem("access_token", JSON.stringify(response.data.access_token));
         localStorage.setItem("refresh_token", JSON.stringify(response.data.refresh_token));
 
-
         const token = response.data.access_token;
         const data = await getUserDate(token);
         if (data) {
           setUserData((prevData) => ({
             ...prevData,
-            firstname: data.first_name || "",
-            lastname: data.last_name || "",
-            email: data.email || "",
-            phone: data.phone || "",
+            firstname: data.data.first_name || "",
+            lastname: data.data.last_name || "",
+            email: data.data.email || "",
+            phone: data.data.phone || "",
+            password: "",
           }));
         }
       }
@@ -115,6 +114,7 @@ export default function ProfileTab() {
       console.log("Error:", error.message);
     }
   };
+
   const isLoggedIn = !!localStorage.getItem("access_token");
 
   return (
@@ -122,7 +122,7 @@ export default function ProfileTab() {
         <div className="flex space-x-8">
           <div className="w-[570px]">
             <div className="input-item flex space-x-2.5 mb-8">
-              <div  className="w-1/2 h-full">
+              <div className="w-1/2 h-full">
                 <InputCom
                     label="Անուն"
                     type="text"
@@ -134,7 +134,7 @@ export default function ProfileTab() {
                 />
               </div>
               <div className="w-1/2 h-full">
-                <InputCom 
+                <InputCom
                     label="Ազգանուն*"
                     type="text"
                     name="lastname"
@@ -169,7 +169,6 @@ export default function ProfileTab() {
                 />
               </div>
 
-
               {!isLoggedIn && (
                   <div className="w-1/2 h-full">
                     <InputCom
@@ -199,9 +198,7 @@ export default function ProfileTab() {
                 <div className="relative">
                   <div className="sm:w-[198px] sm:h-[198px] w-[199px] h-[199px] rounded-full overflow-hidden relative">
                     <img
-                        src={
-                            profileImg ||defaultProfileImg
-                        }
+                        src={profileImg || defaultProfileImg}
                         alt="Profile"
                         className="object-cover w-full h-full"
                     />
@@ -227,27 +224,23 @@ export default function ProfileTab() {
           <button type="button" className="text-sm text-qred font-semibold">
             Չեղարկել
           </button>
-
-          {localStorage.getItem("access_token")?(
+          {localStorage.getItem("access_token") ? (
               <button
                   type="button"
                   className="w-[164px] h-[50px] bg-qblack text-white text-sm"
                   onClick={handleUpdate}
               >
-                Փոխել տվյալներե
+                Փոխել տվյալները
               </button>
           ) : (
-            <button
-            type="button"
-            className="w-[164px] h-[50px] bg-qblack text-white text-sm"
-            onClick={handleRegister}
-        >
-          Գրանցվել
-             </button>
-            )}
-
-
-
+              <button
+                  type="button"
+                  className="w-[164px] h-[50px] bg-qblack text-white text-sm"
+                  onClick={handleRegister}
+              >
+                Գրանցվել
+              </button>
+          )}
         </div>
       </>
   );
