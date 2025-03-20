@@ -5,13 +5,20 @@ import PageTitle from "../Helpers/PageTitle";
 import Layout from "../Partials/Layout";
 import CartProductsTable from "./CartProductsTable.jsx";
 import {useCartProducts} from "../../hooks/useCartProducts.jsx";
-import { useState } from "react";
-
+import {useState} from "react";
 export default function CardPage({ cart = true }) {
   const { total } = useCartProducts();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   let type = 3
+
+  const getCartItems = () => {
+    const cart = localStorage.getItem("cart");
+    return cart ? JSON.parse(cart) : [];
+  };
+
+  const hasItemsInCart =getCartItems().length > 0;
+
 
   return (
     <Layout childrenClasses={cart ? "pt-0 pb-0" : ""}>
@@ -56,10 +63,12 @@ export default function CardPage({ cart = true }) {
               </div>
               <div className="w-full h-[50px]">
                 <div className="w-full h-[50px]">
-                  <div className={type === 3 ? "blue-btn" : "yellow-btn"} onClick={() => setIsModalOpen(true)}>
-                    <button>Պատվիրել</button>
+                  {hasItemsInCart && (
+                  <div className={type === 3 ? "blue-btn" : "yellow-btn"}>
+                    <button onClick={() => setIsModalOpen(true)}>Պատվիրել</button>
                     <OrderModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}/>
                   </div>
+                    )}
                 </div>
               </div>
             </div>
