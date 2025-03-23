@@ -73,7 +73,7 @@ export default function Login() {
                   <div className="input-item mb-5">
                     <InputCom
                       placeholder="example@quomodosoft.com"
-                      label="Email Address*"
+                      label="Email Address"
                       value={userData.email}
                       inputHandler={inputHandler}
                       name="email"
@@ -87,7 +87,7 @@ export default function Login() {
                   <div className="input-item mb-5">
                     <InputCom
                       placeholder="● ● ● ● ● ●"
-                      label="Password*"
+                      label="Password"
                       name="password"
                       type="password"
                       value={userData.password}

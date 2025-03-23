@@ -137,7 +137,7 @@ export default function ProfileTab() {
               </div>
               <div className="w-1/2 h-full">
                 <InputCom
-                    label="Ազգանուն*"
+                    label="Ազգանուն"
                     type="text"
                     name="lastname"
                     value={userData.lastname}
@@ -150,7 +150,7 @@ export default function ProfileTab() {
             <div className="input-item flex space-x-2.5 mb-8">
               <div className="w-1/2 h-full">
                 <InputCom
-                    label="Էլ․ հասցե*"
+                    label="Էլ․ հասցե"
                     placeholder="Էլ․ հասցե"
                     type="email"
                     name="email"
@@ -161,7 +161,7 @@ export default function ProfileTab() {
               </div>
               <div className="w-1/2 h-full">
                 <InputCom
-                    label="Հեռախոսահամար*"
+                    label="Հեռախոսահամար"
                     placeholder="012 3 *******"
                     type="text"
                     name="phone"
@@ -174,7 +174,7 @@ export default function ProfileTab() {
               {!isLoggedIn && (
                   <div className="w-1/2 h-full">
                     <InputCom
-                        label="Գաղտնաբառ*"
+                        label="Գաղտնաբառ"
                         placeholder="Գաղտնաբառ"
                         type="password"
                         name="password"
