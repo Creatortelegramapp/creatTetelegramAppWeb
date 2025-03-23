@@ -11,7 +11,7 @@ export default function ProfileTab() {
     phone: "",
     password: "",
   });
-
+  const [initialUserData, setInitialUserData] = useState(null)
   const [errorMessages, setErrorMessages] = useState([]);
 
   useEffect(() => {
@@ -21,13 +21,14 @@ export default function ProfileTab() {
         try {
           const data = await getUserDate(token);
           if (data) {
-            setUserData((prevData) => ({
-              ...prevData,
-              firstname: data.data.first_name || "",
-              lastname: data.data.last_name || "",
-              email: data.data.email || "",
-              phone: data.data.phone || "",
-            }));
+            const fetchedData = {
+            firstname: data.data.first_name || "",
+            lastname: data.data.last_name || "",
+            email: data.data.email || "",
+            phone: data.data.phone || "",
+          };
+            setUserData(fetchedData);
+            setInitialUserData(fetchedData)
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -49,6 +50,13 @@ export default function ProfileTab() {
       };
 
       const response = await updateUserDate(token, updatedData);
+
+      setInitialUserData({
+        firstname: response.first_name || userData.firstname,
+        lastname: response.last_name || userData.lastname,
+        email: response.email || userData.email,
+        phone: response.phone || userData.phone,
+      });
 
       setUserData((prevData) => ({
         ...prevData,
@@ -81,14 +89,15 @@ export default function ProfileTab() {
         const token = response.data.access_token;
         const data = await getUserDate(token);
         if (data) {
-          setUserData((prevData) => ({
-            ...prevData,
+          const fetchData = {
             firstname: data.data.first_name || "",
             lastname: data.data.last_name || "",
             email: data.data.email || "",
             phone: data.data.phone || "",
             password: "",
-          }));
+          };
+          setUserData(fetchData);
+          setInitialUserData(fetchData);
           setErrorMessages([]);
         }
       }
@@ -111,6 +120,11 @@ export default function ProfileTab() {
       console.log("Registration Error:", error.response?.data || error.message);
     }
   };
+  const  handleCancel = () =>{
+    if(initialUserData){
+      setUserData(initialUserData);
+    }
+  }
 
   const isLoggedIn = !!localStorage.getItem("access_token");
 
@@ -190,7 +204,11 @@ export default function ProfileTab() {
           </div>
         </div>
         <div className="action-area flex space-x-4 items-center">
-          <button type="button" className="text-sm text-qred font-semibold">
+          <button type="button" className="text-sm text-qred font-semibold"
+            onClick={
+              handleCancel
+            }
+          >
             Չեղարկել
           </button>
           {localStorage.getItem("access_token") ? (
