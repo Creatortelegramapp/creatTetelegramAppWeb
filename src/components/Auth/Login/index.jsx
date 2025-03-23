@@ -6,11 +6,8 @@ import {Link, useNavigate} from "react-router-dom";
 import {loginUser} from "../../../Services/HttpServices/UserHttpServices.js";
 
 export default function Login() {
-  const [checked, setValue] = useState(false);
   const navigate = useNavigate();
-  const rememberMe = () => {
-    setValue(!checked);
-  };
+
   const [emailError, setEmailError] = useState("")
   const [userData, setUserData] = useState({
     email: "",
@@ -97,36 +94,6 @@ export default function Login() {
                       inputHandler={inputHandler}
                       inputClasses="h-[50px]"
                     />
-                  </div>
-                  <div className="forgot-password-area flex justify-between items-center mb-7">
-                    <div className="remember-checkbox flex items-center space-x-2.5">
-                      <button
-                        onClick={rememberMe}
-                        type="button"
-                        className="w-5 h-5 text-qblack flex justify-center items-center border border-light-gray"
-                      >
-                        {checked && (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        )}
-                      </button>
-                      <span
-                        onClick={rememberMe}
-                        className="text-base text-black"
-                      >
-                        Remember Me
-                      </span>
-                    </div>
                   </div>
                   <div className="signin-area mb-3.5">
                     <div className="flex justify-center">
