@@ -14,7 +14,6 @@ export const registerUser = async (userData) => {
 export const loginUser = async (userData) => {
     try {
         const response = await httpClient.post("/user/login", userData);
-        console.log(response);
         localStorage.setItem("access_token", JSON.stringify(response.data.data.access_token));
         localStorage.setItem("refresh_token", JSON.stringify(response.data.data.refresh_token));
         return response.data;

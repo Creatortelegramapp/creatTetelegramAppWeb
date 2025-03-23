@@ -41,10 +41,6 @@ export default function ProfileTab() {
   const handleUpdate = async () => {
     try {
       const token = JSON.parse(localStorage.getItem("access_token"));
-      if (!token) {
-        console.error("Token-ը բացակայում է");
-        return;
-      }
       const updatedData = {
         first_name: userData.firstname,
         last_name: userData.lastname,
@@ -53,7 +49,6 @@ export default function ProfileTab() {
       };
 
       const response = await updateUserDate(token, updatedData);
-      console.log(response);
 
       setUserData((prevData) => ({
         ...prevData,
@@ -63,7 +58,7 @@ export default function ProfileTab() {
         phone: response.phone || prevData.phone,
       }));
     } catch (error) {
-      console.error("Թարմացման սխալ:", error.message);
+      console.error(error.message);
     }
   };
 
