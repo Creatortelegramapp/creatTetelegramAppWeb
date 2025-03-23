@@ -52,10 +52,10 @@ export default function ProfileTab() {
       const response = await updateUserDate(token, updatedData);
 
       setInitialUserData({
-        firstname: response.first_name || userData.firstname,
-        lastname: response.last_name || userData.lastname,
-        email: response.email || userData.email,
-        phone: response.phone || userData.phone,
+        firstname: response.first_name ,
+        lastname: response.last_name ,
+        email: response.email ,
+        phone: response.phone ,
       });
 
       setUserData((prevData) => ({
