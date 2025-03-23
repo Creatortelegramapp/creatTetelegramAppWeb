@@ -29,10 +29,8 @@ export default function Login() {
     try {
       const response = await loginUser(userData);
       if (response.data.access_token) {
-        loginUser("aaaa");
         navigate("/profile");
       }
-      console.log(response);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         setEmailError("Սխալ մեյլ կամ գաղտնաբառ");
