@@ -13,8 +13,6 @@ export default function SectionStyleOne({
                                           className,
                                           sectionTitle,
                                           seeMoreUrl,
-                                          wishlist,
-                                          updateWishlist,
                                         }) {
   const [productsData, setProductsData] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
@@ -47,8 +45,6 @@ export default function SectionStyleOne({
                 <SwiperSlide key={index}>
                   <ProductCard
                     data={data}
-                    wishlist={wishlist}
-                    updateWishlist={updateWishlist}
                   />
                 </SwiperSlide>
               ))}
@@ -59,8 +55,6 @@ export default function SectionStyleOne({
                 <ProductCard
                   key={index}
                   data={data}
-                  wishlist={wishlist}
-                  updateWishlist={updateWishlist}
                 />
               ))}
             </div>
@@ -71,7 +65,7 @@ export default function SectionStyleOne({
   );
 }
 
-function ProductCard({data, wishlist, updateWishlist}) {
+function ProductCard({data}) {
   return (
     <div>
       <div
@@ -98,8 +92,6 @@ function ProductCard({data, wishlist, updateWishlist}) {
           className="quick-access-btns flex flex-col space-y-2 absolute group-hover:right-4 -right-10 top-8 transition-all duration-300 ease-in-out">
           <AddWishListButton
             productId={data.id}
-            wishlist={wishlist}
-            updateWishlist={updateWishlist}
           />
         </div>
       </div>

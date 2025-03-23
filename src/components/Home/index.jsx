@@ -14,11 +14,6 @@ import AddToCartButton from "../Cart/AddToCartButton.jsx";
 export default function Home() {
     const [productData, setProductData] = useState([]);
 
-    const [wishlist, setWishlist] = useState(() => {
-        const storedWishlist = localStorage.getItem("wishlist") || "[]";
-        return JSON.parse(storedWishlist);
-    });
-
     useEffect(() => {
         async function productsResponse() {
             const response = await getProductByCategoryId(environment.appId);
@@ -26,21 +21,8 @@ export default function Home() {
         }
 
         productsResponse();
-        if (localStorage.getItem("wishlist")) {
-            const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-            setWishlist(storedWishlist);
-        }
     }, []);
 
-    const updateWishlist = (newWishlist) => {
-        setWishlist(newWishlist);
-        try {
-            localStorage.setItem("wishlist", JSON.stringify(newWishlist));
-            window.dispatchEvent(new Event("storage"));
-        } catch (error) {
-            console.error("error", error);
-        }
-    };
 
     return (
         <>
@@ -52,8 +34,6 @@ export default function Home() {
                     sectionTitle="Խաղացողի աշխարհ"
                     seeMoreUrl="/all-products"
                     className="category-products mb-[60px]"
-                    wishlist={wishlist}
-                    updateWishlist={updateWishlist}
                 />
 
                 <ProductsAds
@@ -107,8 +87,6 @@ export default function Home() {
                                     <div className="flex justify-center items-center bg-primarygray rounded">
                                         <AddWishListButton
                                             productId={data.id}
-                                            wishlist={wishlist}
-                                            updateWishlist={updateWishlist}
                                         />
                                     </div>
                                 </div>

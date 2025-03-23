@@ -6,6 +6,7 @@ import ThinLove from "../../../Helpers/icons/ThinLove";
 import ThinPeople from "../../../Helpers/icons/ThinPeople";
 import SearchBox from "../../../Helpers/SearchBox";
 import {useCartProducts} from "../../../../hooks/useCartProducts.jsx";
+import {localStorageKeys} from "../../../../constants/lockalStorageDatas.js";
 
 export default function Navbar() {
   const [menuToggle, setMenuToggle] = useState(false);
@@ -18,7 +19,7 @@ export default function Navbar() {
   const location = useLocation();
 
   const updateWishlistCount = () => {
-    const wishlistItems = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const wishlistItems = JSON.parse(localStorage.getItem(localStorageKeys.wishlist)) || [];
     setWishlistCountMobile(wishlistItems.length);
   };
 

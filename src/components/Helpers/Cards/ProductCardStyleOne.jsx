@@ -1,38 +1,8 @@
 import {Link} from "react-router-dom";
-import {useEffect, useState} from "react";
 import AddToCartButton from "../../Cart/AddToCartButton.jsx";
 import AddWishListButton from "../../Wishlist/AddWishListButton.jsx";
 
 export default function ProductCardStyleOne({product}) {
-  const [wishlist, setWishlist] = useState(() => {
-    const storedWishlist = localStorage.getItem("wishlist") || "[]";
-    return JSON.parse(storedWishlist);
-  });
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const storedWishlist = localStorage.getItem("wishlist") || "[]";
-      setWishlist(JSON.parse(storedWishlist));
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    window.addEventListener("wishlist-updated", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-      window.removeEventListener("wishlist-updated", handleStorageChange);
-    };
-  }, []);
-
-  const updateWishlist = (newWishlist) => {
-    setWishlist(newWishlist);
-    try {
-      localStorage.setItem("wishlist", JSON.stringify(newWishlist));
-      window.dispatchEvent(new Event("wishlist-updated"));
-    } catch (error) {
-      console.error("error", error);
-    }
-  };
 
   return (
     <div className="product-card-one w-full">
@@ -49,8 +19,6 @@ export default function ProductCardStyleOne({product}) {
             <div className="flex justify-center items-center bg-primarygray rounded">
               <AddWishListButton
                 productId={product.id}
-                wishlist={wishlist}
-                updateWishlist={updateWishlist}
               />
             </div>
           </div>

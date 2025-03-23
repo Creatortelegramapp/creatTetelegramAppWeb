@@ -6,23 +6,7 @@ import {useCartProducts} from "../../hooks/useCartProducts.jsx";
 export default function ProductView({ product }) {
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(product.price || 0)
-
   const { cartProducts } = useCartProducts();
-
-  const [wishlist, setWishlist] = useState(() => {
-    const storedWishlist = localStorage.getItem("wishlist") || "[]";
-    return JSON.parse(storedWishlist);
-  });
-
-  const updateWishlist = (newWishlist) => {
-    setWishlist(newWishlist);
-    try {
-      localStorage.setItem("wishlist", JSON.stringify(newWishlist));
-      window.dispatchEvent(new Event("storage"));
-    } catch (error) {
-      console.error("error", error);
-    }
-  };
 
   const handleIncrease = () => {
     const newQuantity = quantity + 1;
@@ -96,8 +80,6 @@ export default function ProductView({ product }) {
             <div className="min-w-[40px] min-h-[40px] flex justify-center items-center bg-primarygray rounded">
               <AddWishListButton
                   productId={product.id}
-                  wishlist={wishlist}
-                  updateWishlist={updateWishlist}
               />
             </div>
           </div>
