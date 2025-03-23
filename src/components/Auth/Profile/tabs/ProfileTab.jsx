@@ -1,9 +1,11 @@
 import { useRef, useState, useEffect } from "react";
+import {useNavigate} from "react-router-dom"
 import InputCom from "../../../Helpers/InputCom";
 import { getUserDate, registerUser, updateUserDate } from "../../../../Services/HttpServices/UserHttpServices.js";
 import defaultProfileImg from "/assets/images/edit-profileimg.jpg";
 
 export default function ProfileTab() {
+  const navigate = useNavigate();
   const [profileImg, setProfileImg] = useState(null);
   const profileImgInput = useRef(null);
 
@@ -247,7 +249,9 @@ export default function ProfileTab() {
           </div>
         </div>
         <div className="action-area flex space-x-4 items-center">
-          <button type="button" className="text-sm text-qred font-semibold">
+          <button type="button" className="text-sm text-qred font-semibold" onClick={
+            navigate("/login")
+          }>
             Չեղարկել
           </button>
           {localStorage.getItem("access_token") ? (
