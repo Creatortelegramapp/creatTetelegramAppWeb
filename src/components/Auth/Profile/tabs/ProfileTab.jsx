@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import InputCom from "../../../Helpers/InputCom";
-import { getUserDate, registerUser, updateUserDate } from "../../../../Services/HttpServices/UserHttpServices.js";
+import {handleRegister,handleUpdate,fetchUserData} from "../../../../Services/AuthServices/userRegServices.js";
 
 export default function ProfileTab() {
 
@@ -11,64 +11,12 @@ export default function ProfileTab() {
     phone: "",
     password: "",
   });
-  const [initialUserData, setInitialUserData] = useState(null)
+
   const [errorMessages, setErrorMessages] = useState([]);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const token = JSON.parse(localStorage.getItem("access_token"));
-      if (token) {
-        try {
-          const data = await getUserDate(token);
-          if (data) {
-            const fetchedData = {
-            firstname: data.data.first_name || "",
-            lastname: data.data.last_name || "",
-            email: data.data.email || "",
-            phone: data.data.phone || "",
-          };
-            setUserData(fetchedData);
-            setInitialUserData(fetchedData)
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
-      }
-    };
-
-    fetchUserData();
+    fetchUserData(setUserData);
   }, []);
-
-  const handleUpdate = async () => {
-    try {
-      const token = JSON.parse(localStorage.getItem("access_token"));
-      const updatedData = {
-        first_name: userData.firstname,
-        last_name: userData.lastname,
-        email: userData.email,
-        phone: userData.phone,
-      };
-
-      const response = await updateUserDate(token, updatedData);
-
-      setInitialUserData({
-        firstname: response.first_name ,
-        lastname: response.last_name ,
-        email: response.email ,
-        phone: response.phone ,
-      });
-
-      setUserData((prevData) => ({
-        ...prevData,
-        firstname: response.first_name || prevData.firstname,
-        lastname: response.last_name || prevData.lastname,
-        email: response.email || prevData.email,
-        phone: response.phone || prevData.phone,
-      }));
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
@@ -79,52 +27,7 @@ export default function ProfileTab() {
     setErrorMessages([]);
   };
 
-  const handleRegister = async () => {
-    try {
-      const response = await registerUser(userData);
-      if (response.data.access_token) {
-        localStorage.setItem("access_token", JSON.stringify(response.data.access_token));
-        localStorage.setItem("refresh_token", JSON.stringify(response.data.refresh_token));
 
-        const token = response.data.access_token;
-        const data = await getUserDate(token);
-        if (data) {
-          const fetchData = {
-            firstname: data.data.first_name || "",
-            lastname: data.data.last_name || "",
-            email: data.data.email || "",
-            phone: data.data.phone || "",
-            password: "",
-          };
-          setUserData(fetchData);
-          setInitialUserData(fetchData);
-          setErrorMessages([]);
-        }
-      }
-    } catch (error) {
-      if (error.response && error.response.data) {
-        const backendError = error.response.data;
-        if (backendError.errors) {
-          const allErrors = Object.values(backendError.errors).flat();
-          setErrorMessages(allErrors);
-        }
-        else if (backendError.message) {
-          setErrorMessages([backendError.message]);
-        }
-        else {
-          setErrorMessages(["Something went wrong during registration"]);
-        }
-      } else {
-        setErrorMessages([error.message || "Request failed unexpectedly"]);
-      }
-      console.log("Registration Error:", error.response?.data || error.message);
-    }
-  };
-  const  handleCancel = () =>{
-    if(initialUserData){
-      setUserData(initialUserData);
-    }
-  }
 
   const isLoggedIn = !!localStorage.getItem("access_token");
 
@@ -204,18 +107,14 @@ export default function ProfileTab() {
           </div>
         </div>
         <div className="action-area flex space-x-4 items-center">
-          <button type="button" className="text-sm text-qred font-semibold"
-            onClick={
-              handleCancel
-            }
-          >
+          <button type="button" className="text-sm text-qred font-semibold">
             Չեղարկել
           </button>
           {localStorage.getItem("access_token") ? (
               <button
                   type="button"
                   className="w-[164px] h-[50px] bg-qblack text-white text-sm"
-                  onClick={handleUpdate}
+                  onClick={() => handleUpdate(userData, setUserData)}
               >
                 Փոխել տվյալները
               </button>
@@ -223,7 +122,7 @@ export default function ProfileTab() {
               <button
                   type="button"
                   className="w-[164px] h-[50px] bg-qblack text-white text-sm"
-                  onClick={handleRegister}
+                  onClick={() => handleRegister(userData, setUserData, setErrorMessages)}
               >
                 Գրանցվել
               </button>

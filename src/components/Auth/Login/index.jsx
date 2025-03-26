@@ -3,7 +3,7 @@ import InputCom from "../../Helpers/InputCom";
 import Layout from "../../Partials/Layout";
 import Thumbnail from "./Thumbnail";
 import {Link, useNavigate} from "react-router-dom";
-import {loginUser} from "../../../Services/HttpServices/UserHttpServices.js";
+import {handleLogin} from "../../../Services/AuthServices/userRegServices.js";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -25,20 +25,10 @@ export default function Login() {
     }
   };
 
-  const handleRegister = async () => {
-    try {
-      const response = await loginUser(userData);
-      if (response.data.access_token) {
-        navigate("/profile");
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        setEmailError("Սխալ մեյլ կամ գաղտնաբառ");
-      } else {
-        setEmailError("Ինչ-որ սխալ տեղի ունեցավ");
-      }
-      console.log("Error:", error.message);
-    }
+
+  const handleLoginClick = () => {
+    handleLogin(userData, navigate, setEmailError);
+
   };
 
   return (
@@ -97,7 +87,7 @@ export default function Login() {
                     <div className="flex justify-center">
 
                       <button
-                        onClick={handleRegister}
+                        onClick={handleLoginClick}
                         type="button"
                         className="black-btn mb-6 text-sm text-white w-full h-[50px] font-semibold flex justify-center bg-purple items-center"
                       >
