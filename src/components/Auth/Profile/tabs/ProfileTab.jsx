@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import InputCom from "../../../Helpers/InputCom";
-import {handleRegister,handleUpdate,fetchUserData} from "../../../../Services/AuthServices/userRegServices.js";
+import { handleRegister, handleUpdate, fetchUserData } from "../../../../Services/AuthServices/userRegServices.js";
 
 export default function ProfileTab() {
-
   const [userData, setUserData] = useState({
     firstname: "",
     lastname: "",
@@ -12,10 +11,14 @@ export default function ProfileTab() {
     password: "",
   });
 
+  const [initialUserData, setInitialUserData] = useState({});
   const [errorMessages, setErrorMessages] = useState([]);
 
   useEffect(() => {
-    fetchUserData(setUserData);
+    fetchUserData((data) => {
+      setUserData(data);
+      setInitialUserData(data);
+    });
   }, []);
 
   const inputHandler = (e) => {
@@ -27,7 +30,10 @@ export default function ProfileTab() {
     setErrorMessages([]);
   };
 
-
+  const handleCancel = () => {
+    setUserData(initialUserData);
+    setErrorMessages([]);
+  };
 
   const isLoggedIn = !!localStorage.getItem("access_token");
 
@@ -107,10 +113,10 @@ export default function ProfileTab() {
           </div>
         </div>
         <div className="action-area flex space-x-4 items-center">
-          <button type="button" className="text-sm text-qred font-semibold">
+          <button type="button" className="text-sm text-qred font-semibold" onClick={handleCancel}>
             Չեղարկել
           </button>
-          {localStorage.getItem("access_token") ? (
+          {isLoggedIn ? (
               <button
                   type="button"
                   className="w-[164px] h-[50px] bg-qblack text-white text-sm"
