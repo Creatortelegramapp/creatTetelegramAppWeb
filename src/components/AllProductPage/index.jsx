@@ -68,26 +68,31 @@ export default function AllProductPage() {
       setLoading(true);
       let finalProducts = [];
 
-      if (selectedCategories.length === 0) {
+      const updatedCategories = categoriesParam ? categoriesParam.split(",").map(Number) : [];
+      setSelectedCategories(updatedCategories);
+
+      if (updatedCategories.length === 0) {
         const response = await getProductByCategoryId();
-        if (response?.data.data) {
+        if (response?.data?.data) {
           finalProducts = response?.data?.data.flatMap(category => category.products || []);
         }
       } else {
         const allProducts = await Promise.all(
-            selectedCategories.map((categoryId) => getProductByCategory(categoryId))
+            updatedCategories.map((categoryId) => getProductByCategory(categoryId))
         );
         finalProducts = allProducts.flatMap((item) => item?.data?.data || []);
       }
+
       finalProducts = finalProducts.filter(
           (product) => Number(product.price) >= priceRange[0] && Number(product.price) <= priceRange[1]
       );
+
       setProducts(finalProducts);
       setLoading(false);
     };
-    fetchProducts();
-  }, [selectedCategories, priceRange]);
 
+    fetchProducts();
+  }, [categoriesParam, priceRange]);
 
   const toggleFilterModal = () => {
     setIsFilterOpen(!isFilterOpen);
