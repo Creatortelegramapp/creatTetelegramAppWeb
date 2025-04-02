@@ -72,7 +72,7 @@ export default function Home() {
                                                 </p>
                                             </Link>
                                             <div className="price mb-[26px]">
-                                                <div className="main-price text-qgray line-through font-600 sm:text-[22px] text-base">
+                                                <div className="main-price text-qgray  font-600 sm:text-[22px] text-base">
                                                     {data.price}
                                                 </div>
                                             </div>
