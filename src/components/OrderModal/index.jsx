@@ -29,13 +29,13 @@ export default function OrderModal({ isOpen, onClose }) {
             setError("Խնդրում ենք մուտքագրել վավեր հեռախոսահամար (9-12 թիվ)։");
             return;
         }
-
         try {
-            await axios.post("http://localhost:8080/api/order", formData);
+            await axios.post("https://backend.min4max.net/api/order", formData);
             alert("Պատվերը հաջողությամբ ուղարկվեց!");
             setFormData({ ordererPhone: "" });
             setError("");
             onClose();
+            console.log(formData);
         } catch (error) {
             console.error("Error sending order", error);
         }
