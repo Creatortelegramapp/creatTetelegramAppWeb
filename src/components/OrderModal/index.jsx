@@ -90,6 +90,7 @@ export default function OrderModal({ isOpen, onClose }) {
             setFormData({ ordererPhone: "" });
             setError("");
             onClose();
+            console.log(formData);
         } catch (error) {
             console.error("Error sending order", error);
             setError("Պատվերի ուղարկման ընթացքում խնդիր է առաջացել։");
