@@ -4,8 +4,8 @@ export const handleRegister = async (userData, setUserData, setErrorMessages) =>
     try {
         const response = await registerUser(userData);
         if (response.data.access_token) {
-            localStorage.setItem("access_token", JSON.stringify(response.data.access_token));
-            localStorage.setItem("refresh_token", JSON.stringify(response.data.refresh_token));
+            localStorage.setItem("access_token", response.data.access_token);
+            localStorage.setItem("refresh_token", response.data.refresh_token);
 
             const token = response.data.access_token;
             const data = await getUserData(token);

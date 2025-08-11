@@ -3,7 +3,7 @@ import Layout from "../Partials/Layout";
 
 import {getBlogs} from "../../Services/HttpServices/BlogsHttpServices.js";
 import {useEffect, useState} from "react";
-import {environment} from "../../environment.dev.js";
+import {environment} from "../../../../clothersShop/src/environment.dev.js";
 
 export default function Blogs() {
     const [blogsData, setBlogsData] = useState([]);

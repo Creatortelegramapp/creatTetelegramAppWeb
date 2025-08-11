@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AddWishListButton from "../Wishlist/AddWishListButton.jsx";
 import { getProductByCategoryId } from "../../Services/HttpServices/CategoriesHttpService.js";
-import { environment } from "../../environment.dev.js";
+import { environment } from "../../../../clothersShop/src/environment.dev.js";
 import AddToCartButton from "../Cart/AddToCartButton.jsx";
 
 export default function Home() {
