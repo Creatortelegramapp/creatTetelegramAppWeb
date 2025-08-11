@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AddWishListButton from "../Wishlist/AddWishListButton.jsx";
 import { getProductByCategoryId } from "../../Services/HttpServices/CategoriesHttpService.js";
-import { environment } from "../../environment.dev.js";
+import { environment } from "../../../../clothersShop/src/environment.dev.js";
 import AddToCartButton from "../Cart/AddToCartButton.jsx";
 
 export default function Home() {
@@ -72,7 +72,7 @@ export default function Home() {
                                                 </p>
                                             </Link>
                                             <div className="price mb-[26px]">
-                                                <div className="main-price text-qgray line-through font-600 sm:text-[22px] text-base">
+                                                <div className="main-price text-qgray  font-600 sm:text-[22px] text-base">
                                                     {data.price}
                                                 </div>
                                             </div>

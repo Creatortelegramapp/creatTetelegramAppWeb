@@ -10,8 +10,18 @@ export function CartProvider({ children }) {
         return storedIds ? JSON.parse(storedIds) : [];
     });
 
+    const [cartQuantities, setCartQuantities] = useState(() => {
+        const storedQuantities = localStorage.getItem("cart_quantities");
+        return storedQuantities ? JSON.parse(storedQuantities) : [];
+    });
+
     const [cartProducts, setCartProducts] = useState([]);
     const [total, setTotal] = useState(0);
+
+    const saveCartToLocalStorage = (ids, quantities) => {
+        localStorage.setItem("cart", JSON.stringify(ids));
+        localStorage.setItem("cart_quantities", JSON.stringify(quantities));
+    };
 
     useEffect(() => {
         if (!cartIds.length) {
@@ -20,58 +30,74 @@ export function CartProvider({ children }) {
         }
 
         (async () => {
-            let products = await Promise.all(cartIds.map((id) => getProductById(id)));
-            products = products.map((product) => ({
+            const products = await Promise.all(cartIds.map((id) => getProductById(id)));
+            const merged = products.map((product, index) => ({
                 ...product,
-                quantity: cartProducts.find((p) => p.id === product.id)?.quantity || 1,
+                quantity: cartQuantities[index] || 1,
             }));
-            setCartProducts(products);
+            setCartProducts(merged);
         })();
-    }, [cartIds]);
+    }, [cartIds, cartQuantities]);
 
     useEffect(() => {
-        setTotal(cartProducts.reduce((acc, product) => acc + product.quantity * product.price, 0));
+        const totalPrice = cartProducts.reduce(
+            (acc, product) => acc + product.quantity * product.price,
+            0
+        );
+        setTotal(totalPrice);
     }, [cartProducts]);
 
     const addProductById = async (productId, quantity = 1) => {
         if (cartIds.includes(productId)) return;
 
         const product = await getProductById(productId);
+        const updatedIds = [...cartIds, productId];
+        const updatedQuantities = [...cartQuantities, quantity];
 
-        setCartIds((prevIds) => {
-            const updatedIds = [...prevIds, productId];
-            localStorage.setItem("cart", JSON.stringify(updatedIds));
-            return updatedIds;
-        });
+        setCartIds(updatedIds);
+        setCartQuantities(updatedQuantities);
+        saveCartToLocalStorage(updatedIds, updatedQuantities);
 
-        setCartProducts((prevProds) => [...prevProds, { ...product, quantity }]);
+        setCartProducts((prev) => [...prev, { ...product, quantity }]);
     };
 
     const removeProductById = debounce((productId) => {
-        setCartIds((prevIds) => {
-            const updatedIds = prevIds.filter((id) => id !== productId);
-            localStorage.setItem("cart", JSON.stringify(updatedIds));
-            return updatedIds;
-        });
+        const index = cartIds.indexOf(productId);
+        if (index === -1) return;
 
-        setCartProducts((prevProds) => prevProds.filter((p) => p.id !== productId));
-    }, 500);
+        const newIds = [...cartIds];
+        const newQuantities = [...cartQuantities];
+        newIds.splice(index, 1);
+        newQuantities.splice(index, 1);
+
+        setCartIds(newIds);
+        setCartQuantities(newQuantities);
+        saveCartToLocalStorage(newIds, newQuantities);
+
+        setCartProducts((prev) => prev.filter((p) => p.id !== productId));
+    }, 300);
 
     const clearCart = () => {
         setCartIds([]);
+        setCartQuantities([]);
         setCartProducts([]);
-        localStorage.setItem("cart", JSON.stringify([]));
+        saveCartToLocalStorage([], []);
     };
 
     const quantityChange = (productId, amount) => {
+        const index = cartIds.indexOf(productId);
+        if (index === -1) return;
+
+        const newQuantities = [...cartQuantities];
+        const newValue = Math.max(1, newQuantities[index] + (amount > 0 ? 1 : -1));
+        newQuantities[index] = newValue;
+
+        setCartQuantities(newQuantities);
+        saveCartToLocalStorage(cartIds, newQuantities);
+
         setCartProducts((prev) =>
-            prev.map((product) =>
-                product.id === productId
-                    ? {
-                        ...product,
-                        quantity: amount > 0 ? product.quantity + 1 : Math.max(1, product.quantity - 1),
-                    }
-                    : product
+            prev.map((product, idx) =>
+                idx === index ? { ...product, quantity: newValue } : product
             )
         );
     };

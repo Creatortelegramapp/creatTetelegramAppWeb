@@ -3,7 +3,7 @@ import PageTitle from "../Helpers/PageTitle";
 import Layout from "../Partials/Layout";
 import {getContacts} from "../../Services/HttpServices/ContactsHttpServices.js";
 import {useEffect, useState} from "react";
-import {environment} from "../../environment.dev.js";
+import {environment} from "../../../../clothersShop/src/environment.dev.js";
 
 
 export default function Contact() {

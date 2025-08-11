@@ -1,5 +1,5 @@
 import axios from "axios";
-import {environment} from "../environment.dev.js";
+import {environment} from "../../../clothersShop/src/environment.dev.js";
 import {handlerFor404Error} from "../inteceptors/Interceptors.js";
 
 

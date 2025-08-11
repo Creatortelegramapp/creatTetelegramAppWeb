@@ -13,7 +13,6 @@ import Contact from "./components/Contact";
 import Faq from "./components/Faq";
 import FlashSale from "./components/FlashSale";
 import FourZeroFour from "./components/FourZeroFour";
-import Home from "./components/Home";
 import HomeTwo from "./components/HomeTwo";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import ProductsCompaire from "./components/ProductsCompaire/index";
@@ -28,7 +27,7 @@ import HomeFour from "./components/HomeFour";
 import HomeFive from "./components/HomeFive";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Home /> },
+  { path: "/", element: <HomeTwo /> },
   { path: "/home-two", element: <HomeTwo /> },
   { path: "/home-three", element: <HomeThree /> },
   { path: "/home-four", element: <HomeFour /> },

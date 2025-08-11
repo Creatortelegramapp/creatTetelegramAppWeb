@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PageTitle from "../Helpers/PageTitle";
 import Layout from "../Partials/Layout";
 import {getAboutPages} from "../../Services/HttpServices/AboutHttpServices.js";
-import {environment} from "../../environment.dev.js";
+import {environment} from "../../../../clothersShop/src/environment.dev.js";
 
 export default function About() {
 
